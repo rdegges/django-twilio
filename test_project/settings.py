@@ -148,3 +148,9 @@ LOGGING = {
 # API (initiate outbound calls and SMS messages).
 TWILIO_ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 TWILIO_AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+
+# The default callerid will be used for all outgoing phone calls and SMS
+# messages if not explicitly specified. This number must be previously
+# validated with twilio in order to work. See
+# https://www.twilio.com/user/account/phone-numbers#
+TWILIO_DEFAULT_CALLERID = 'NNNNNNNNNN'
