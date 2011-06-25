@@ -143,3 +143,8 @@ LOGGING = {
         },
     }
 }
+
+# django-twilio account credentials. These fields are required to use the REST
+# API (initiate outbound calls and SMS messages).
+TWILIO_ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+TWILIO_AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
