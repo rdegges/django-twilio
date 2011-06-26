@@ -42,7 +42,8 @@ class TwilioViewTestCase(TestCase):
 
 	def test_is_csrf_exempt(self):
 		"""Ensure a wrapped view is exempt from CSRF checks."""
-		pass
+		response = twilio_view(self.str_view)(self.request_post)
+		self.assertTrue(response.csrf_exempt)
 
 	def test_allows_post(self):
 		"""Ensure a wrapped view accepts POST requests."""
