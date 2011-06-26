@@ -2,7 +2,9 @@
 
 
 from django.test import TestCase
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
+
+from .decorators import twilio_view
 
 
 class TwilioViewTestCase(TestCase):
