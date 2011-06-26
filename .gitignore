@@ -10,3 +10,6 @@
 
 # Sphinx docs:
 _build
+
+# SQLite3 database files:
+*.db
