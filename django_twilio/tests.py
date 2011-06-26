@@ -54,3 +54,17 @@ class TwilioViewTestCase(TestCase):
 		"""Ensure a wrapped view requires POST requests."""
 		response = twilio_view(self.str_view)(self.request_get)
 		self.assertEquals(response.status_code, 405)
+
+	def test_httpresponse_pass_through(self):
+		"""Ensure that if a wrapped view returns a HttpResponse object then we
+		don't modify the response.
+		"""
+		response = twilio_view(self.response_view)(self.request_post)
+		self.assertTrue(isinstance(response, HttpResponse))
+
+	def test_str_is_modified(self):
+		"""Ensure that we create a HttpResponse object for the developer if the
+		wrapped view returns a string.
+		"""
+		response = twilio_view(self.str_view)(self.request_post)
+		self.assertTrue(isinstance(response, HttpResponse))
