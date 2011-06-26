@@ -27,8 +27,8 @@ django-twilio.
 Django Integration
 ------------------
 
-After django-twilio is installed, add it to your `INSTALLED_APPS` tuple in your
-settings module::
+After django-twilio is installed, add it to your ``INSTALLED_APPS`` tuple in
+your settings module::
 
     INSTALLED_APPS = (
         'django.contrib.auth',
@@ -51,12 +51,12 @@ And optionally::
 
     TWILIO_DEFAULT_CALLERID = 'NNNNNNNNNN'
 
-The `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables can be found by
+The ``TWILIO_ACCOUNT_SID`` and ``TWILIO_AUTH_TOKEN`` variables can be found by
 logging into your `twilio account dashboard
 <https://www.twilio.com/user/account>`_. These tokens are used to communicate
 with the twilio API, be sure to keep these credentials safe!
 
-If you specify a value for `TWILIO_DEFAULT_CALLERID`, than all SMS and voice
+If you specify a value for ``TWILIO_DEFAULT_CALLERID``, than all SMS and voice
 messages sent through django-twilio's functions will use the default caller id
 as a convenience.
 
@@ -69,8 +69,8 @@ To sync (and update) django-twilio's database models.
 .. note::
     We recommend using `South <http://south.aeracode.org/docs/>`_ for database
     migrations. Initial migrations have already been created for django-twilio
-    in django_twilio/migrations/, so you only need to run `python manage.py
-    migrate django_twilio` instead of `syncdb`.
+    in django_twilio/migrations/, so you only need to run ``python manage.py
+    migrate django_twilio`` instead of ``syncdb``.
 
 
 Upgrading
