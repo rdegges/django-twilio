@@ -27,6 +27,8 @@ API / Reference Docs
 .. toctree::
     :maxdepth: 2
 
+    contribute
+
 
 Indices and tables
 ==================
