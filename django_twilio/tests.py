@@ -24,6 +24,14 @@ class TwilioViewTestCase(TestCase):
 					mimetype='text/xml')
 		self.response_view = test_view_that_returns_httpresponse
 
+		# These are fake HttpRequest objects that we'll use to mimick twilio
+		# responses.
+		self.request_get = HttpRequest()
+		self.request_get.method = 'GET'
+		self.request_post = HttpRequest()
+		self.request_post.method = 'POST'
+
+
 	def test_forgery_returns_forbidden(self):
 		"""Ensure that forged twilio requests are dealt with properly."""
 		pass
