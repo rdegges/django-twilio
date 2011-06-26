@@ -12,7 +12,7 @@ The most useful decorator that ships with django-twilio is `twilio_view`, which
 will, in most cases, provide enough functionality to make your life much
 easier.
 
-The `twilio_view` decorator:
+The :func:`django_twilio.decorators.twilio_view` decorator:
 
 1. Protects your views against forgery, and ensures that the request which hits
    your view originated from twilio's servers. This way, you don't have to
@@ -21,7 +21,7 @@ The `twilio_view` decorator:
 
 2. Ensures your view is CSRF exempt. Since twilio will always POST data to your
    views, you'd normally have to explicitly declare your view CSRF exempt.
-   `twilio_view` does this automatically.
+   :func:`django_twilio.decorators.twilio_view` does this automatically.
 
 3. Allows you to (optionally) return raw TwiML responses without building an
    `HttpResponse` object. This can save a lot of redundant typing.
@@ -41,7 +41,8 @@ In the example above, we built a view that twilio can POST data to, and that
 will instruct twilio to send a SMS message back to the person who messaged us
 saying "Thanks for the SMS message!".
 
-Now let's take a look at the same view written *without* `twilio_view`::
+Now let's take a look at the same view written *without*
+:func:`django_twilio.decorators.twilio_view`::
 
     from twilio import Response, Sms
     from django.views.decorators.csrf import csrf_exempt
@@ -56,4 +57,5 @@ Now let's take a look at the same view written *without* `twilio_view`::
         return HttpResponse(r, mimetype='text/xml')
 
 And that doesn't even include the forgery protection! As you can see, it's
-a lot simpler to just wrap your twilio views with the `twilio_view` decorator.
+a lot simpler to just wrap your twilio views with the
+:func:`django_twilio.decorators.twilio_view` decorator.
