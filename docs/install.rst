@@ -66,7 +66,7 @@ Finally, run::
 
 To install all django-twilio data models. As a convenience for future releases
 and upgrades--django-twilio will use `South data migrations
-http://south.aeracode.org/docs/`_ , so if you're using South, you can simply
+<http://south.aeracode.org/docs/>`_ , so if you're using South, you can simply
 run::
 
     python manage.py migrate django_twilio
