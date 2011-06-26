@@ -31,7 +31,6 @@ class TwilioViewTestCase(TestCase):
 		self.request_post = HttpRequest()
 		self.request_post.method = 'POST'
 
-
 	def test_forgery_returns_forbidden(self):
 		"""Ensure that forged twilio requests are dealt with properly."""
 		pass
