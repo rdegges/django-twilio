@@ -8,9 +8,9 @@ your project, and avoid nasty boilerplate code. Let's take a look!
 All-In-One Decorator
 --------------------
 
-The most useful decorator that ships with django-twilio is `twilio_view`, which
-will, in most cases, provide enough functionality to make your life much
-easier.
+The most useful decorator that ships with django-twilio is
+:func:`django_twilio.decorators.twilio_view`, which will, in most cases,
+provide enough functionality to make your life much easier.
 
 The :func:`django_twilio.decorators.twilio_view` decorator:
 
