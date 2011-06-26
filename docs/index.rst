@@ -30,6 +30,7 @@ API / Reference Docs
     :maxdepth: 2
 
     decorators_module
+    models_module
 
 
 Indices and tables
