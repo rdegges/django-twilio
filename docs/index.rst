@@ -28,6 +28,7 @@ API / Reference Docs
 .. toctree::
     :maxdepth: 2
 
+    decorators_module
     contribute
 
 
