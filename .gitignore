@@ -1,0 +1,9 @@
+# Python bytecode:
+*.py[co]
+
+# Packaging files:
+*.egg-info
+
+# Editor temp files:
+*.swp
+*~
