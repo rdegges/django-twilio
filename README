@@ -10,3 +10,10 @@ Status
 
 This library is currently in development. Have ideas? Fork the project and send
 a pull request.
+
+
+Docs
+----
+
+The documentation is hosted at ReadTheDocs. You can check out the docs here:
+http://django-twilio.rtfd.org/
