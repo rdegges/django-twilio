@@ -59,7 +59,7 @@ write them or get involved, fork the project and send a pull request.
 
 * Data models for tracking SMS messages and Voice messages.
 * Optional `log` keyword argument for the `twilio_view` decorator. This will
-force django-twilio to log all requests from twilio to the database.
+  force django-twilio to log all requests from twilio to the database.
 * Blacklist capabilities and related admin panel hooks. The blacklist
-functionality will allow admins to blacklist certain numbers that may be
-abusing services (people who place repeated calls, etc.).
+  functionality will allow admins to blacklist certain numbers that may be
+  abusing services (people who place repeated calls, etc.).
