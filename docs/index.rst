@@ -19,6 +19,7 @@ User's Guide
     :maxdepth: 2
 
     install
+    decorators
 
 
 API / Reference Docs
