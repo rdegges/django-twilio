@@ -64,11 +64,10 @@ Finally, run::
 
     python manage.py syncdb
 
-To install all django-twilio data models. As a convenience for future releases
-and upgrades--django-twilio will use `South data migrations
-<http://south.aeracode.org/docs/>`_ , so if you're using South, you can simply
-run::
-
-    python manage.py migrate django_twilio
+.. note::
+    We recommend using `South <http://south.aeracode.org/docs/>`_ for database
+    migrations. Initial migrations have already been created for django-twilio
+    in django_twilio/migrations/, so you only need to run `python manage.py
+    migrate django_twilio` instead of `syncdb`.
 
 To sync (and update) django-twilio's database models.
