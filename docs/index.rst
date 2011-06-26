@@ -12,10 +12,19 @@ building telephony applications as simple as humanly possible with twilio.
     this point.
 
 
-Contents:
+User's Guide
+------------
 
 .. toctree::
     :maxdepth: 2
+
+
+API / Reference Docs
+--------------------
+
+.. toctree::
+    :maxdepth: 2
+
 
 Indices and tables
 ==================
