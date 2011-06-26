@@ -71,3 +71,12 @@ Finally, run::
     migrate django_twilio` instead of `syncdb`.
 
 To sync (and update) django-twilio's database models.
+
+
+Upgrading
+---------
+
+Upgrading django-twilio gracefully is easy using South. If you aren't using
+South, you're out of luck!::
+
+    python manage.py migrate django_twilio
