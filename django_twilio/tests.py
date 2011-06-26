@@ -68,3 +68,11 @@ class TwilioViewTestCase(TestCase):
 		"""
 		response = twilio_view(self.str_view)(self.request_post)
 		self.assertTrue(isinstance(response, HttpResponse))
+
+	def test_blacklist_works(self):
+		"""Ensure that blacklisted callers can't use services."""
+		pass
+
+	def test_blacklist_pass_through(self):
+		"""Ensure that non-blacklisted callers can use services."""
+		pass
