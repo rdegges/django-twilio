@@ -20,6 +20,7 @@ User's Guide
 
     install
     decorators
+    contribute
 
 
 API / Reference Docs
@@ -29,7 +30,6 @@ API / Reference Docs
     :maxdepth: 2
 
     decorators_module
-    contribute
 
 
 Indices and tables
