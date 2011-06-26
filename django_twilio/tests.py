@@ -52,4 +52,5 @@ class TwilioViewTestCase(TestCase):
 
 	def test_requires_post(self):
 		"""Ensure a wrapped view requires POST requests."""
-		pass
+		response = twilio_view(self.str_view)(self.request_get)
+		self.assertEquals(response.status_code, 405)
