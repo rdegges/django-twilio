@@ -33,7 +33,8 @@ class TwilioViewTestCase(TestCase):
 
 	def test_forgery_returns_forbidden(self):
 		"""Ensure that forged twilio requests are dealt with properly."""
-		pass
+		response = twilio_view(self.str_view)(self.request_post)
+		self.assertEquals(response.status_code, 403)
 
 	def test_forgery_check_allows_real_requests(self):
 		"""Ensure that real twilio requests are allowed through."""
