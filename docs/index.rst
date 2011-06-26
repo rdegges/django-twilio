@@ -29,6 +29,7 @@ API / Reference Docs
 .. toctree::
     :maxdepth: 2
 
+    admin_module
     decorators_module
     models_module
 
