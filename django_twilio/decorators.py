@@ -25,9 +25,11 @@ def twilio_view(f):
 		- It allows your view to (optionally) return TwiML to pass back to
 		  twilio's servers instead of building a HttpResponse object manually.
 
-		  NOTE: At this time this ONLY supports XML TwiML since the twilio
-		  library only supports XML rendering at the moment. In future releases
-		  this may be changed to support JSON (and other formats) as well.
+		  .. note::
+			At this time this ONLY supports XML TwiML since the twilio
+			library only supports XML rendering at the moment. In future
+			releases this may be changed to support JSON (and other formats) as
+			well.
 
 	Usage::
 
