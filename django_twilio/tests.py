@@ -22,7 +22,6 @@ class TwilioViewTestCase(TestCase):
 					mimetype='text/xml')
 		self.response_view = test_view_that_returns_httpresponse
 
-
 	def test_forgery_returns_forbidden(self):
 		"""Ensure that forged twilio requests are dealt with properly."""
 		pass
