@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseForbidden
 
-from twilio import Utils
+from twilio import Utils, Verb
 
 
 def twilio_view(f):
@@ -67,7 +67,7 @@ def twilio_view(f):
 		# data because that would be too time consuming for every request.
 		# Instead, we'll let the errors pass through to be dealt with by the
 		# developer.
-		if isinstance(response, str):
+		if isinstance(response, Verb):
 			return HttpResponse(response, mimetype='text/xml')
 		else:
 			return response
