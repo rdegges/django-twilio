@@ -67,7 +67,7 @@ def twilio_view(f):
 		# data because that would be too time consuming for every request.
 		# Instead, we'll let the errors pass through to be dealt with by the
 		# developer.
-		if isinstance(response, str):
+		if isinstance(response, basestring):
 			return HttpResponse(response, mimetype='text/xml')
 		else:
 			return response
