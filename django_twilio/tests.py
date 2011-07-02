@@ -39,6 +39,10 @@ class TwilioViewTestCase(TestCase):
 		response = twilio_view(str_view)(self.request_get)
 		self.assertEquals(response.status_code, 405)
 
+	def test_decorator_preserves_metadata(self):
+		view = twilio_view(str_view)
+		self.assertEqual(view.__name__, 'str_view')
+
 	def test_forged_requests_return_forbidden(self):
 		response = twilio_view(str_view)(self.request_post)
 		self.assertEquals(response.status_code, 403)
