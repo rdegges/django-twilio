@@ -12,24 +12,6 @@ class TwilioViewTestCase(TestCase):
 
 	def setUp(self):
 
-		def test_view_that_returns_str(request):
-			"""A simple test view that returns a string."""
-			return '<Response><Sms>Hi!</Sms></Response>'
-		self.str_view = test_view_that_returns_str
-
-		def test_view_that_returns_httpresponse(request):
-			"""A simple test view that returns a HttpResponse object."""
-			return HttpResponse('<Response><Sms>Hi!</Sms></Response>',
-					mimetype='text/xml')
-		self.response_view = test_view_that_returns_httpresponse
-
-		# These are fake HttpRequest objects that we'll use to mimick twilio
-		# responses.
-		self.request_get = HttpRequest()
-		self.request_get.method = 'GET'
-		self.request_post = HttpRequest()
-		self.request_post.method = 'POST'
-
 	def test_is_csrf_exempt(self):
 		response = twilio_view(str_view)(self.request_post)
 		self.assertTrue(response.csrf_exempt)
