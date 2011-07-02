@@ -2,7 +2,6 @@
 
 
 from django.test import TestCase
-from django.http import HttpRequest, HttpResponse
 from django.contrib.sites.models import get_current_site
 
 from .decorators import twilio_view
