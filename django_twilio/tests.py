@@ -31,6 +31,14 @@ class TwilioViewTestCase(TestCase):
 		self.request_post = HttpRequest()
 		self.request_post.method = 'POST'
 
+	def test_is_csrf_exempt(self):
+		response = twilio_view(str_view)(self.request_post)
+		self.assertTrue(response.csrf_exempt)
+
+	def test_requires_post(self):
+		response = twilio_view(str_view)(self.request_get)
+		self.assertEquals(response.status_code, 405)
+
 	def test_forgery_returns_forbidden(self):
 		"""Ensure that forged twilio requests are dealt with properly."""
 		response = twilio_view(self.str_view)(self.request_post)
@@ -40,20 +48,8 @@ class TwilioViewTestCase(TestCase):
 		"""Ensure that real twilio requests are allowed through."""
 		pass
 
-	def test_is_csrf_exempt(self):
-		"""Ensure a wrapped view is exempt from CSRF checks."""
-		response = twilio_view(self.str_view)(self.request_post)
-		self.assertTrue(response.csrf_exempt)
-
 	def test_allows_post(self):
 		"""Ensure a wrapped view accepts POST requests."""
-		response = twilio_view(self.str_view)(self.request_post)
-		self.assertTrue(response.status_code != 405)
-
-	def test_requires_post(self):
-		"""Ensure a wrapped view requires POST requests."""
-		response = twilio_view(self.str_view)(self.request_get)
-		self.assertEquals(response.status_code, 405)
 
 	def test_httpresponse_pass_through(self):
 		"""Ensure that if a wrapped view returns a HttpResponse object then we
