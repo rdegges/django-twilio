@@ -3,6 +3,7 @@
 
 from django.test import TestCase
 from django.http import HttpRequest, HttpResponse
+from django.contrib.sites.models import get_current_site
 
 from .decorators import twilio_view
 
@@ -11,6 +12,8 @@ class TwilioViewTestCase(TestCase):
 	"""Run tests against the ``twilio_view`` decorator."""
 
 	def setUp(self):
+		# Store our test domain for mocking twilio forgery protection.
+		self.domain = get_current_site(self.request_post).domain
 
 	def test_is_csrf_exempt(self):
 		response = twilio_view(str_view)(self.request_post)
