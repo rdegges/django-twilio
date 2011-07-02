@@ -66,6 +66,8 @@ def twilio_view(f):
 		except (AttributeError, KeyError):
 			return HttpResponseForbidden()
 
+		# Now that we have all the required information to perform forgery
+		# checks, we'll actually do the forgery check.
 		if not utils.validateRequest(url, request.POST, signature):
 			return HttpResponseForbidden()
 
