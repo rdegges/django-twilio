@@ -39,9 +39,8 @@ class TwilioViewTestCase(TestCase):
 		response = twilio_view(str_view)(self.request_get)
 		self.assertEquals(response.status_code, 405)
 
-	def test_forgery_returns_forbidden(self):
-		"""Ensure that forged twilio requests are dealt with properly."""
-		response = twilio_view(self.str_view)(self.request_post)
+	def test_forged_requests_return_forbidden(self):
+		response = twilio_view(str_view)(self.request_post)
 		self.assertEquals(response.status_code, 403)
 
 	def test_forgery_check_allows_real_requests(self):
