@@ -8,7 +8,7 @@ from .decorators import twilio_view
 
 
 class TwilioViewTestCase(TestCase):
-	"""Run tests against the twilio_view decorator."""
+	"""Run tests against the ``twilio_view`` decorator."""
 
 	def setUp(self):
 		"""Create some test helpers."""
