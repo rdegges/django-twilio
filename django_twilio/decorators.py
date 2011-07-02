@@ -18,7 +18,7 @@ def twilio_view(f):
 		- It ensures that only requests from twilio are passed through. This
 		  helps protect you from forged requests.
 
-		- It ensures  your view is exempt from CSRF checks via Django's
+		- It ensures your view is exempt from CSRF checks via Django's
 		  @csrf_exempt decorator. This is necessary for any view that accepts
 		  POST requests from outside the local domain (eg: twilio's servers).
 
