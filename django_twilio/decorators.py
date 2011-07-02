@@ -45,10 +45,20 @@ def twilio_view(f):
 	@require_POST
 	@wraps(f)
 	def decorator(request, *args, **kwargs):
-		# Here we'll use the twilio library's request validation code to ensure
-		# that the current request actually came from twilio, and isn't a
-		# forgery. If it is a forgery, then we'll return a HTTP 403 error
-		# (forbidden).
+		# Attempt to gather all required information to allow us to check the
+		# incoming HTTP request for forgery. If any of this information is not
+		# available, then we'll throw a HTTP 403 error (forbidden).
+		#
+		# The required fields to check for forged requests are:
+		#
+		# 	1. ``TWILIO_ACCOUNT_SID`` (set in the site's settings module).
+		# 	2. ``TWILIO_AUTH_TOKEN`` (set in the site's settings module).
+		# 	3. The full URI of the request, eg: 'http://mysite.com/test/view/'.
+		# 	   This may not necessarily be available if this view is being
+		# 	   called via a unit testing library, or in certain localized
+		# 	   environments.
+		# 	4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
+		# 	   contains a hash that we'll use to check for forged requests.
 		try:
 			utils = Utils(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 			url = request.build_absolute_uri()
