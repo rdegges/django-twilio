@@ -11,7 +11,6 @@ class TwilioViewTestCase(TestCase):
 	"""Run tests against the ``twilio_view`` decorator."""
 
 	def setUp(self):
-		"""Create some test helpers."""
 
 		def test_view_that_returns_str(request):
 			"""A simple test view that returns a string."""
