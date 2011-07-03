@@ -16,6 +16,11 @@ building telephony applications as simple as humanly possible with twilio.
 User's Guide
 ------------
 
+This part of the documentation contains an extensive walk through of
+django-twilio. It begins with some background information about django-twilio,
+then focuses on step-by-step integration of django-twilio into your existing
+Django web applications.
+
 .. toctree::
     :maxdepth: 2
 
