@@ -13,7 +13,7 @@ class TwilioViewTestCase(TestCase):
 	def test_is_csrf_exempt(self):
 		response = self.client.post('/test/str_view/')
 		self.assertTrue(response.csrf_exempt)
-#
+
 #	def test_requires_post(self):
 #		response = self.client.get('/test/str_view/')
 #		self.assertEquals(response.status_code, 405)
