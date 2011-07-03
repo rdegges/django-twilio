@@ -1,3 +1,4 @@
+from django.test import Client
 from django.test import TestCase
 from django.contrib.sites.models import get_current_site
 
@@ -8,8 +9,7 @@ class TwilioViewTestCase(TestCase):
 	urls = 'django_twilio.test_urls'
 
 	def setUp(self):
-		# Store our test domain for mocking twilio forgery protection.
-		self.domain = get_current_site(self.request_post).domain
+		self.client = Client(enforce_csrf_checks=True)
 
 #	def test_is_csrf_exempt(self):
 #		response = twilio_view(str_view)(self.request_post)
