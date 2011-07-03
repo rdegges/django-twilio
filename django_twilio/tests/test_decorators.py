@@ -71,6 +71,22 @@ class TwilioViewTestCase(TestCase):
 				HTTP_X_TWILIO_SIGNATURE='fakesignature')
 		self.assertEquals(str_view(request).status_code, 403)
 
+	def test_no_from_field(self):
+		request = self.factory.post('/test/str_view/',
+				HTTP_X_TWILIO_SIGNATURE=self.str_signature)
+		self.assertEquals(str_view(request).status_code, 200)
+
+	def test_from_field_no_caller(self):
+		request = self.factory.post('/test/str_view/', {'From': '+12222222222'},
+				HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_normal_caller)
+		self.assertEquals(str_view(request).status_code, 200)
+
+	def test_blacklist_works(self):
+		request = self.factory.post('/test/str_view/', {'From': '+13333333333'},
+				HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_blacklisted_caller)
+		response = str_view(request)
+		self.assertEquals(response.content, '<Response><Reject/></Response>')
+
 	def test_decorator_modifies_str(self):
 		request = self.factory.post('/test/str_view/',
 				HTTP_X_TWILIO_SIGNATURE=self.str_signature)
