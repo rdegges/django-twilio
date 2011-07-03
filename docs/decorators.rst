@@ -23,8 +23,17 @@ The :func:`django_twilio.decorators.twilio_view` decorator:
    views, you'd normally have to explicitly declare your view CSRF exempt.
    :func:`django_twilio.decorators.twilio_view` does this automatically.
 
-3. Allows you to (optionally) return raw TwiML responses without building an
-   `HttpResponse` object. This can save a lot of redundant typing.
+3. Enforces a blacklist. If you've got any
+   :class:`django_twilio.models.Caller` objects who are blacklisted, any
+   service requests from them will be rejected.
+
+   .. note::
+      You can manage your blacklist via the Django admin panel (if you have it
+      enabled). django-twilio provides a ``Caller`` admin hook that allows you
+      to create new callers, and blacklist them if you wish.
+
+4. Allows you to (optionally) return raw TwiML responses without building an
+   ``HttpResponse`` object. This can save a lot of redundant typing.
 
 Let's take a look at a few examples::
 
