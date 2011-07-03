@@ -28,6 +28,14 @@ class TwilioViewTestCase(TestCase):
 				'http://testserver/test/response_view/', sha1).digest()).strip()
 		self.str_signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
 				'http://testserver/test/str_view/', sha1).digest()).strip()
+		self.str_signature_with_from_field_normal_caller = encodestring(new(
+				settings.TWILIO_AUTH_TOKEN,
+				'http://testserver/test/str_view/From+12222222222',
+				sha1).digest()).strip()
+		self.str_signature_with_from_field_blacklisted_caller = encodestring(
+				new(settings.TWILIO_AUTH_TOKEN,
+				'http://testserver/test/str_view/From+13333333333',
+				sha1).digest()).strip()
 		self.verb_signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
 				'http://testserver/test/verb_view/', sha1).digest()).strip()
 
