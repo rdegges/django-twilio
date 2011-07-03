@@ -12,7 +12,8 @@ Purpose
 Building telephony applications has always been something of a complex and time
 consuming task for developers. With `twilio <http://www.twilio.com/>`_'s entry
 into the telephony world, developers were able to build large scale telephony
-applications for the first time, without the massive learning curve.
+applications for the first time, without the massive learning curve associated
+with traditional telephony development.
 
 While twilio's APIs allow you to build powerful voice & sms apps in your
 favorite programming language, it can still be quite difficult and time
