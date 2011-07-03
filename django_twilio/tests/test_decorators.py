@@ -18,6 +18,18 @@ class TwilioViewTestCase(TestCase):
 		response = self.client.get('/test/str_view/')
 		self.assertEquals(response.status_code, 405)
 
+		response = self.client.head('/test/str_view/')
+		self.assertEquals(response.status_code, 405)
+
+		response = self.client.options('/test/str_view/')
+		self.assertEquals(response.status_code, 405)
+
+		response = self.client.put('/test/str_view/')
+		self.assertEquals(response.status_code, 405)
+
+		response = self.client.delete('/test/str_view/')
+		self.assertEquals(response.status_code, 405)
+
 #	def test_decorator_preserves_metadata(self):
 #		view = twilio_view(str_view)
 #		self.assertEqual(view.__name__, 'str_view')
