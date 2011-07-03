@@ -24,6 +24,7 @@ Django web applications.
 .. toctree::
     :maxdepth: 2
 
+    foreword
     install
     decorators
     contribute
