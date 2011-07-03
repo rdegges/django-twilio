@@ -29,7 +29,11 @@ def twilio_view(f):
 		  requests from them will be rejected.
 
 		- It allows your view to (optionally) return TwiML to pass back to
-		  twilio's servers instead of building a HttpResponse object manually.
+		  twilio's servers instead of building a ``HttpResponse`` object
+		  manually.
+
+		- It allows your view to (optionally) return any ``twilio.Verb`` object
+		  instead of building a ``HttpResponse`` object manually.
 
 		  .. note::
 			At this time this ONLY supports XML TwiML since the twilio
