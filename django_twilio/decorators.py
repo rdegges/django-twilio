@@ -43,12 +43,12 @@ def twilio_view(f):
 
 	Usage::
 
-		from twilio import Response, Sms
+		from twilio import Response
 
 		@twilio_view
 		def my_view(request):
 			r = Response()
-			r.append(Sms('Thanks for the SMS message!'))
+			r.addSms('Thanks for the SMS message!')
 			return r
 	"""
 	@csrf_exempt
