@@ -23,3 +23,24 @@ django-twilio's core purpose is to abstract away as much telephony knowledge as
 possible, so that you can focus on the functionality and logic of your
 telephony app, and have it seamlessly integrate into your website without
 confusion.
+
+Use Case
+========
+
+django-twilio is a complete solution for anyone who wants to integrate voice or
+SMS functionality into their website without requiring any additional
+infrastructure.
+
+Here are some common use cases:
+
+* You want to build one or more telephone conference rooms for talking with
+  co-workers or clients.
+* You want be able to accept SMS messages from your clients, and respond to
+  them pragmatically.
+* You want to record import phone calls (incoming or outgoing) and store the
+  call recordings for analysis.
+* You want to track telephone marketing campaigns, and review detailed data.
+* You want to build rich, interactive telephone systems. (EG: "Press 1 to talk
+  with a sales agent, press 2 to schedule a reservation, press 3 to purchase a
+  hat.")
+* And many more.
