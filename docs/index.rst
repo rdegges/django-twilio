@@ -1,7 +1,8 @@
 django-twilio
 =============
 
-django-twilio is a simple library for building twilio-powered Django webapps.
+django-twilio is a simple library for building twilio-powered `Django
+<https://www.djangoproject.com/>`_ webapps.
 
 `Twilio <http://www.twilio.com/>`_ is a powerful HTTP API that allows you to
 build powerful voice & SMS apps. The goal of this library is to help make
