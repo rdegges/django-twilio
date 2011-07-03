@@ -77,6 +77,17 @@ def twilio_view(f):
 		if not utils.validateRequest(url, request.POST, signature):
 			return HttpResponseForbidden()
 
+		# If the caller requesting service is blacklisted, reject their
+		# request.
+		try:
+			caller = Caller.objects.get(phone_number=request.POST['From'])
+			if caller.blacklisted:
+				r = Response()
+				r.addReject()
+				return HttpResponse(r.__repr__(), mimetype='application/xml')
+		except (KeyError, Caller.DoesNotExist):
+			pass
+
 		# Run the wrapped view, and capture the data returned.
 		response = f(request, *args, **kwargs)
 
