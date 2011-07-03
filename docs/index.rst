@@ -13,7 +13,6 @@ building telephony applications as simple as humanly possible with twilio.
     This library is still under development. Production use is discouraged at
     this point.
 
-
 User's Guide
 ============
 
@@ -30,7 +29,6 @@ Django web applications.
     decorators
     contribute
 
-
 API Reference
 =============
 
@@ -43,7 +41,6 @@ django-twilio's public facing APIs.
     admin_module
     decorators_module
     models_module
-
 
 Indices and Tables
 ==================
