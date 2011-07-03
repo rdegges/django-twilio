@@ -26,6 +26,9 @@ User's Guide
 API Reference
 -------------
 
+This section of the documentation provides detailed information on all of
+django-twilio's public facing APIs.
+
 .. toctree::
     :maxdepth: 2
 
