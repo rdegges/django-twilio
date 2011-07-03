@@ -74,12 +74,12 @@ def twilio_view(f):
 		# Run the wrapped view, and capture the data returned.
 		response = f(request, *args, **kwargs)
 
-		# If the view returns a string, we'll assume it is XML TwilML data and
-		# pass it back with the appropriate mimetype. We won't check the XML
-		# data because that would be too time consuming for every request.
-		# Instead, we'll let the errors pass through to be dealt with by the
-		# developer.
-		if isinstance(response, Verb):
+		# If the view returns a string (or a ``twilio.Verb`` object), we'll
+		# assume it is XML TwilML data and pass it back with the appropriate
+		# mimetype. We won't check the XML data because that would be too time
+		# consuming for every request. Instead, we'll let the errors pass
+		# through to be dealt with by the developer.
+		if isinstance(response, str) or isinstance(response, Verb):
 			return HttpResponse(response, mimetype='text/xml')
 		else:
 			return response
