@@ -65,6 +65,6 @@ Now let's take a look at the same view written *without*
         r.addSms('Thanks for the SMS message!')
         return HttpResponse(r.__repr__(), mimetype='application/xml')
 
-And that doesn't even include the forgery protection! As you can see, it's
-a lot simpler to just wrap your twilio views with the
-:func:`django_twilio.decorators.twilio_view` decorator.
+And that doesn't even include forgery protection or blacklist management! As
+you can see, using the :func:`django_twilio.decorators.twilio_view` decorator
+can save you a lot of time.
