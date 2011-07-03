@@ -10,9 +10,9 @@ class TwilioViewTestCase(TestCase):
 	def setUp(self):
 		self.client = Client(enforce_csrf_checks=True)
 
-#	def test_is_csrf_exempt(self):
-#		response = twilio_view(str_view)(self.request_post)
-#		self.assertTrue(response.csrf_exempt)
+	def test_is_csrf_exempt(self):
+		response = self.client.post('/test/str_view/')
+		self.assertTrue(response.csrf_exempt)
 #
 #	def test_requires_post(self):
 #		response = self.client.get('/test/str_view/')
