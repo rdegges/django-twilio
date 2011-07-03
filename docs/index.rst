@@ -1,3 +1,4 @@
+=============
 django-twilio
 =============
 
@@ -14,7 +15,7 @@ building telephony applications as simple as humanly possible with twilio.
 
 
 User's Guide
-------------
+============
 
 This part of the documentation contains an extensive walk through of
 django-twilio. It begins with some background information about django-twilio,
@@ -31,7 +32,7 @@ Django web applications.
 
 
 API Reference
--------------
+=============
 
 This section of the documentation provides detailed information on all of
 django-twilio's public facing APIs.
@@ -44,10 +45,9 @@ django-twilio's public facing APIs.
     models_module
 
 
-Indices and tables
+Indices and Tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
