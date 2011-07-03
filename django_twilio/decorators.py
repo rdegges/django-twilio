@@ -96,8 +96,10 @@ def twilio_view(f):
 		# mimetype. We won't check the XML data because that would be too time
 		# consuming for every request. Instead, we'll let the errors pass
 		# through to be dealt with by the developer.
-		if isinstance(response, str) or isinstance(response, Verb):
-			return HttpResponse(response, mimetype='text/xml')
+		if isinstance(response, str):
+			return HttpResponse(response, mimetype='application/xml')
+		elif isinstance(response, Verb):
+			return HttpResponse(response.__repr__(), mimetype='application/xml')
 		else:
 			return response
 	return decorator
