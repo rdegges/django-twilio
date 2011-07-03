@@ -23,8 +23,8 @@ User's Guide
     contribute
 
 
-API / Reference Docs
---------------------
+API Reference
+-------------
 
 .. toctree::
     :maxdepth: 2
