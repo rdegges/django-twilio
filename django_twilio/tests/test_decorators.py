@@ -1,6 +1,5 @@
 from django.test import Client
 from django.test import TestCase
-from django.contrib.sites.models import get_current_site
 
 
 class TwilioViewTestCase(TestCase):
