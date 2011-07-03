@@ -14,10 +14,10 @@ class TwilioViewTestCase(TestCase):
 		response = self.client.post('/test/str_view/')
 		self.assertTrue(response.csrf_exempt)
 
-#	def test_requires_post(self):
-#		response = self.client.get('/test/str_view/')
-#		self.assertEquals(response.status_code, 405)
-#
+	def test_requires_post(self):
+		response = self.client.get('/test/str_view/')
+		self.assertEquals(response.status_code, 405)
+
 #	def test_decorator_preserves_metadata(self):
 #		view = twilio_view(str_view)
 #		self.assertEqual(view.__name__, 'str_view')
