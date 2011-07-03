@@ -1,6 +1,9 @@
 from django.test import Client
 from django.test import TestCase
 
+from django_twilio.tests.views import str_view
+from django_twilio.decorators import twilio_view
+
 
 class TwilioViewTestCase(TestCase):
 	"""Run tests against the ``twilio_view`` decorator."""
@@ -30,10 +33,10 @@ class TwilioViewTestCase(TestCase):
 		response = self.client.delete('/test/str_view/')
 		self.assertEquals(response.status_code, 405)
 
-#	def test_decorator_preserves_metadata(self):
-#		view = twilio_view(str_view)
-#		self.assertEqual(view.__name__, 'str_view')
-#
+	def test_decorator_preserves_metadata(self):
+		view = twilio_view(str_view)
+		self.assertEqual(view.__name__, 'str_view')
+
 #	def test_forged_requests_return_forbidden(self):
 #		response = twilio_view(str_view)(self.request_post)
 #		self.assertEquals(response.status_code, 403)
