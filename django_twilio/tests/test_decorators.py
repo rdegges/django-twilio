@@ -5,7 +5,7 @@ from django.test import TestCase
 class TwilioViewTestCase(TestCase):
 	"""Run tests against the ``twilio_view`` decorator."""
 	fixtures = ['caller_blacklist.json']
-	urls = 'django_twilio.test_urls'
+	urls = 'django_twilio.tests.urls'
 
 	def setUp(self):
 		self.client = Client(enforce_csrf_checks=True)
