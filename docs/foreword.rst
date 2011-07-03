@@ -44,3 +44,17 @@ Here are some common use cases:
   with a sales agent, press 2 to schedule a reservation, press 3 to purchase a
   hat.")
 * And many more.
+
+Prerequisite Knowledge
+======================
+
+Before getting started with django-twilio, it will serve you best to read the
+`How it Works <http://www.twilio.com/api/>`_ page on twilio's website. That
+describes the architecture and API flow that all of your applications will be
+using, and that django-twilio will help to abstract.
+
+django-twilio also depends on the official `twilio python library
+<https://github.com/twilio/twilio-python>`_, so you might want to look at their
+``README`` to get a decent idea of how things work.
+
+Other then that, you're good to go!
