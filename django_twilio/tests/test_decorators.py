@@ -1,6 +1,6 @@
-from base64 import encodestring
 from hmac import new
 from hashlib import sha1
+from base64 import encodestring
 
 from django.conf import settings
 from django.http import HttpResponse
