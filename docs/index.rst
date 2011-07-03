@@ -48,6 +48,9 @@ django-twilio's public facing APIs.
 Indices and Tables
 ==================
 
+The following is auto-generated documentation that can be used to quickly find
+relevant parts of this documentation.
+
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
