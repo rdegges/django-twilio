@@ -18,6 +18,9 @@ class TwilioViewTestCase(TestCase):
 		self.client = Client(enforce_csrf_checks=True)
 		self.factory = RequestFactory(enforce_csrf_checks=True)
 
+		# Test URI.
+		self.uri = 'http://testserver'
+
 		# Guarantee a value for the required configuration settings after each
 		# test case.
 		settings.TWILIO_ACCOUNT_SID = 'xxx'
