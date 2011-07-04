@@ -19,7 +19,7 @@ class TwilioViewTestCase(TestCase):
 		self.factory = RequestFactory(enforce_csrf_checks=True)
 
 		# Test URI.
-		self.uri = 'http://testserver'
+		self.uri = 'http://testserver/test'
 
 		# Guarantee a value for the required configuration settings after each
 		# test case.
@@ -28,19 +28,19 @@ class TwilioViewTestCase(TestCase):
 
 		# Pre-calculate twilio signatures for our two test views.
 		self.response_signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
-				'http://testserver/test/response_view/', sha1).digest()).strip()
+				'%s/response_view/' % self.uri, sha1).digest()).strip()
 		self.str_signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
-				'http://testserver/test/str_view/', sha1).digest()).strip()
+				'%s/str_view/' % self.uri, sha1).digest()).strip()
 		self.str_signature_with_from_field_normal_caller = encodestring(new(
 				settings.TWILIO_AUTH_TOKEN,
-				'http://testserver/test/str_view/From+12222222222',
+				'%s/str_view/From+12222222222' % self.uri,
 				sha1).digest()).strip()
 		self.str_signature_with_from_field_blacklisted_caller = encodestring(
 				new(settings.TWILIO_AUTH_TOKEN,
-				'http://testserver/test/str_view/From+13333333333',
+				'%s/str_view/From+13333333333' % self.uri,
 				sha1).digest()).strip()
 		self.verb_signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
-				'http://testserver/test/verb_view/', sha1).digest()).strip()
+				'%s/verb_view/' % self.uri, sha1).digest()).strip()
 
 	def test_is_csrf_exempt(self):
 		self.assertTrue(self.client.post('/test/str_view/').csrf_exempt)
