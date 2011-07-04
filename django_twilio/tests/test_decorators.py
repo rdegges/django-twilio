@@ -19,9 +19,9 @@ class TwilioViewTestCase(TestCase):
 		self.factory = RequestFactory(enforce_csrf_checks=True)
 
 		# Test URIs.
-		self.uri = 'http://testserver/tests'
-		self.str_uri = '/tests/str_view/'
-		self.response_uri = '/tests/response_view/'
+		self.uri = 'http://testserver/tests/decorators'
+		self.str_uri = '/tests/decorators/str_view/'
+		self.response_uri = '/tests/decorators/response_view/'
 
 		# Guarantee a value for the required configuration settings after each
 		# test case.
