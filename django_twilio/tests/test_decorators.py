@@ -18,8 +18,10 @@ class TwilioViewTestCase(TestCase):
 		self.client = Client(enforce_csrf_checks=True)
 		self.factory = RequestFactory(enforce_csrf_checks=True)
 
-		# Test URI.
+		# Test URIs.
 		self.uri = 'http://testserver/tests'
+		self.str_uri = '/tests/str_view/'
+		self.response_uri = '/tests/response_view/'
 
 		# Guarantee a value for the required configuration settings after each
 		# test case.
@@ -43,18 +45,17 @@ class TwilioViewTestCase(TestCase):
 				'%s/verb_view/' % self.uri, sha1).digest()).strip()
 
 	def test_is_csrf_exempt(self):
-		self.assertTrue(self.client.post('/test/str_view/').csrf_exempt)
+		self.assertTrue(self.client.post(self.str_uri).csrf_exempt)
 
 	def test_requires_post(self):
-		self.assertEquals(self.client.get('/test/str_view/').status_code, 405)
-		self.assertEquals(self.client.head('/test/str_view/').status_code, 405)
-		self.assertEquals(self.client.options('/test/str_view/').status_code, 405)
-		self.assertEquals(self.client.put('/test/str_view/').status_code, 405)
-		self.assertEquals(self.client.delete('/test/str_view/').status_code, 405)
+		self.assertEquals(self.client.get(self.str_uri).status_code, 405)
+		self.assertEquals(self.client.head(self.str_uri).status_code, 405)
+		self.assertEquals(self.client.options(self.str_uri).status_code, 405)
+		self.assertEquals(self.client.put(self.str_uri).status_code, 405)
+		self.assertEquals(self.client.delete(self.str_uri).status_code, 405)
 
 	def test_allows_post(self):
-		request = self.factory.post('/test/str_view/',
-				HTTP_X_TWILIO_SIGNATURE=self.str_signature)
+		request = self.factory.post(self.str_uri, HTTP_X_TWILIO_SIGNATURE=self.str_signature)
 		self.assertEquals(str_view(request).status_code, 200)
 
 	def test_decorator_preserves_metadata(self):
@@ -64,45 +65,42 @@ class TwilioViewTestCase(TestCase):
 		del settings.TWILIO_ACCOUNT_SID
 		del settings.TWILIO_AUTH_TOKEN
 
-		self.assertEquals(self.client.post('/test/str_view/').status_code, 403)
+		self.assertEquals(self.client.post(self.str_uri).status_code, 403)
 
 	def test_missing_signature_returns_forbidden(self):
-		self.assertEquals(self.client.post('/test/str_view/').status_code, 403)
+		self.assertEquals(self.client.post(self.str_uri).status_code, 403)
 
 	def test_incorrect_signature_returns_forbidden(self):
-		request = self.factory.post('/test/str_view/',
-				HTTP_X_TWILIO_SIGNATURE='fakesignature')
+		request = self.factory.post(self.str_uri, HTTP_X_TWILIO_SIGNATURE='fakesignature')
 		self.assertEquals(str_view(request).status_code, 403)
 
 	def test_no_from_field(self):
-		request = self.factory.post('/test/str_view/',
+		request = self.factory.post(self.str_uri,
 				HTTP_X_TWILIO_SIGNATURE=self.str_signature)
 		self.assertEquals(str_view(request).status_code, 200)
 
 	def test_from_field_no_caller(self):
-		request = self.factory.post('/test/str_view/', {'From': '+12222222222'},
+		request = self.factory.post(self.str_uri, {'From': '+12222222222'},
 				HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_normal_caller)
 		self.assertEquals(str_view(request).status_code, 200)
 
 	def test_blacklist_works(self):
-		request = self.factory.post('/test/str_view/', {'From': '+13333333333'},
+		request = self.factory.post(self.str_uri, {'From': '+13333333333'},
 				HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_blacklisted_caller)
 		response = str_view(request)
 		self.assertEquals(response.content, '<Response><Reject/></Response>')
 
 	def test_decorator_modifies_str(self):
-		request = self.factory.post('/test/str_view/',
+		request = self.factory.post(self.str_uri,
 				HTTP_X_TWILIO_SIGNATURE=self.str_signature)
 		self.assertTrue(isinstance(str_view(request), HttpResponse))
 
 	def test_decorator_modifies_verb(self):
-		request = self.factory.post('/test/verb_view/',
-				HTTP_X_TWILIO_SIGNATURE=self.verb_signature)
+		request = self.factory.post(self.str_uri, HTTP_X_TWILIO_SIGNATURE=self.verb_signature)
 		self.assertTrue(isinstance(verb_view(request), HttpResponse))
 
 	def test_decorator_preserves_httpresponse(self):
-		request = self.factory.post('/test/response_view/',
-				HTTP_X_TWILIO_SIGNATURE=self.response_signature)
+		request = self.factory.post(self.response_uri, HTTP_X_TWILIO_SIGNATURE=self.response_signature)
 		self.assertTrue(isinstance(response_view(request), HttpResponse))
 
 #	def test_blacklist_works(self):
