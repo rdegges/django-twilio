@@ -43,7 +43,12 @@ def conference(request, name, muted=None, beep=None,
 		startConferenceOnEnter = start_conference_on_enter,
 		endConferenceOnExit = end_conference_on_exit,
 		waitUrl = wait_url,
-		waitMethod = wait_method
+		waitMethod = wait_method,
+
+		# TODO: Add in the max_participants attribute. Currently, the twilio
+		# library doesn't support this attribute. I've sent them a pull request
+		# to add it, but until that happens and they make a new PyPI release,
+		# we'll have to do without it!
 	))
 	r.append(d)
 	return r
