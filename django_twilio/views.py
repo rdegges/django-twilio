@@ -40,7 +40,7 @@ def conference(request, name, muted=None, beep=None,
 		process ``<Play>``, ``<Say>``, and ``<Redirect>`` verbs. ``<Record>``,
 		``<Dial>``, and ``<Gather>`` verbs are not allowed. If you do not wish
 		anything to play while waiting for the conference to start, specify the
-		empty string (set ``wait_url`` to '').
+		empty string (set ``wait_url`` to ``''``).
 
 		If no ``wait_url`` is specified, Twilio will use it's own `HoldMusic
 		Twimlet <http://labs.twilio.com/twimlets/holdmusic>`_ that reads a
