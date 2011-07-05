@@ -32,7 +32,7 @@ simple conference room:
 
     urlpatterns = patterns('',
         # ...
-        url(r'^/conference/(?P<name>\w+)/$', 'django_twilio.views.conference'),
+        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference'),
         # ...
     )
 
@@ -45,3 +45,32 @@ simple conference room:
    dumped into your new *business* conference room!
 
 Pretty easy eh? No coding even required!
+
+Simple Conference Room with Rock Music
+======================================
+
+Let's face it, the simple conference you just built was pretty cool, but the
+music that twilio plays by default is pretty boring. While you're waiting for
+other participants to join the conference, you probably want to listen to some
+rock music, right?
+
+Luckily, that's a quick fix!
+
+Open up your ``urls.py`` once more, and add the following::
+
+    urlpatterns = patterns('',
+        # ...
+        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference', {
+            'wait_url': 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.rock',
+            'wait_method': 'GET',
+        })
+
+:func:`django_twilio.views.conference` allows you to specify optional
+parameters easily in your urlconf. Here, we're using the ``wait_url`` parameter
+to instruct twilio to play the rock music while the participant is waiting for
+other callers to enter the conference. The ``wait_method`` parameter is simply
+for efficiency's sake--telling twilio to use the HTTP GET method (instead of
+POST, which is the default), allows twilio to properly cache the sound files.
+
+Now may be a good time to check out the API docs for
+:func:`django_twilio.views.conference` to see all the other goodies available.
