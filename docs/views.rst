@@ -42,6 +42,6 @@ simple conference room:
 
 3. Call your new application's phone number. twilio will send a HTTP POST
    request to your web server at ``/conference/business/``, and you should be
-   dumped into your new conference room!
+   dumped into your new *business* conference room!
 
 Pretty easy eh? No coding even required!
