@@ -27,6 +27,7 @@ Django web applications.
     foreword
     install
     decorators
+    views
     contribute
 
 API Reference
