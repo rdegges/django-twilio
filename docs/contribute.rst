@@ -61,6 +61,3 @@ write them or get involved, fork the project and send a pull request.
 * Optional `log` keyword argument for the
   :func:`django_twilio.decorators.twilio_view` decorator. This will force
   django-twilio to log all requests from twilio to the database.
-* Blacklist capabilities and related admin panel hooks. The blacklist
-  functionality will allow admins to blacklist certain numbers that may be
-  abusing services (people who place repeated calls, etc.).
