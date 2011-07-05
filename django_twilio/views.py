@@ -6,7 +6,7 @@ from django_twilio.decorators import twilio_view
 def conference(request, name, muted=None, beep=None,
 		start_conference_on_enter=None, end_conference_on_exit=None,
 		wait_url=None, wait_method=None, max_participants=None):
-	"""Create or join a conference room.
+	"""A fully featured conference room.
 
 	:param str name: Account-wide unique conference name. Callers who enter
 		conference rooms with the same name will be placed into the same
