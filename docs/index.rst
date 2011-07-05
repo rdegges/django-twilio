@@ -41,6 +41,7 @@ django-twilio's public facing APIs.
     admin_module
     decorators_module
     models_module
+    views_module
 
 Indices and Tables
 ==================
