@@ -11,13 +11,16 @@ def conference(request, name, muted=None, beep=None,
 	:param str name: Account-wide unique conference name. Callers who enter
 		conference rooms with the same name will be placed into the same
 		conference room.
+
 	:param bool muted: The ``muted`` attribute lets you specify whether a
 		participant can speak on the conference. If this attribute is set to
 		``True``, the participant will only be able to listen to people on the
 		conference. This attribute defaults to ``False``.
+
 	:param bool beep: The ``beep`` attribute lets you specify whether a
 		notification beep is played to the conference when a participant joins
 		or leaves the conference. This defaults to ``True``.
+
 	:param bool start_conference_on_enter: This attribute tells a conference to
 		start when this participant joins the conference, if it is not already
 		started. This is ``True`` by default. If this is ``False`` and the
@@ -25,12 +28,14 @@ def conference(request, name, muted=None, beep=None,
 		hear background music until a participant joins where
 		``start_conference_on_enter`` is ``True``. This is useful for
 		implementing moderated conferences.
+
 	:param bool end_conference_on_exit: If a participant has this attribute set
 		to ``True``, then when that participant leaves, the conference ends and
 		all other participants drop out. This defaults to ``False``. This is
 		useful for implementing moderated conferences that bridge two calls and
 		allow either call leg to continue executing TwiML if the other hangs
 		up.
+
 	:param str wait_url: The ``wait_url`` attribute lets you specify a URL for
 		music that plays before the conference has started. The URL may be an
 		MP3, a WAV or a TwiML document that uses ``<Play>`` or ``<Say>`` for
@@ -71,10 +76,12 @@ def conference(request, name, muted=None, beep=None,
 		+-----------------------------------------------------------------------------------------+-------------------------------------------------------------------+
 		| `com.twilio.music.soft-rock <http://com.twilio.music.soft-rock.s3.amazonaws.com/>`_     | http://twimlets.com/holdmusic?Bucket=com.twilio.music.soft-rock   |
 		+-----------------------------------------------------------------------------------------+-------------------------------------------------------------------+
+
 	:param str wait_method: This attribute indicates which HTTP method to use
 		when requesting ``wait_url``. It defaults to ``POST``. Be sure to use
 		``GET`` if you are directly requesting static audio files such as WAV
 		or MP3 files so that Twilio properly caches the files.
+
 	:param int max_participants: This attribute indicates the maximum number of
 		participants you want to allow within a named conference room. The
 		default maximum number of participants is ``40``. The value must be a
