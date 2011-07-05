@@ -33,6 +33,16 @@ def conference(request, name, muted=None, beep=None,
 		participants you want to allow within a named conference room. The
 		default maximum number of participants is 40. The value must be a
 		positive integer less than or equal to 40.
+
+	Usage::
+
+		# urls.py
+		urlpatterns = patterns('',
+			# ...
+			url(r'^conference/?(P<name>\w+)/$', 'django_twilio.views.conference',
+					{'max_participants': 10}),
+			# ...
+		)
 	"""
 	r = Response()
 	d = Dial()
