@@ -64,6 +64,8 @@ Open up your ``urls.py`` once more, and add the following::
             'wait_url': 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.rock',
             'wait_method': 'GET',
         })
+        # ...
+    )
 
 :func:`django_twilio.views.conference` allows you to specify optional
 parameters easily in your urlconf. Here, we're using the ``wait_url`` parameter
