@@ -83,7 +83,7 @@ build a conference room that greets each user before putting them into the
 conference.
 
 This example shows off how flexible our views can be, and how much we can do
-with just the build in :func:`django_twilio.views.conference` view.::
+with just the build in :func:`django_twilio.views.conference` view::
 
     # urls.py
     urlpatterns = patterns('',
