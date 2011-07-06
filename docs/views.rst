@@ -74,5 +74,8 @@ other callers to enter the conference. The ``wait_method`` parameter is simply
 for efficiency's sake--telling twilio to use the HTTP GET method (instead of
 POST, which is the default), allows twilio to properly cache the sound files.
 
+Other Conferencing Goodies
+==========================
+
 Now may be a good time to check out the API docs for
 :func:`django_twilio.views.conference` to see all the other goodies available.
