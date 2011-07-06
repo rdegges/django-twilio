@@ -74,6 +74,45 @@ other callers to enter the conference. The ``wait_method`` parameter is simply
 for efficiency's sake--telling twilio to use the HTTP GET method (instead of
 POST, which is the default), allows twilio to properly cache the sound files.
 
+Conference Room with Custom Greeting
+====================================
+
+Messing around with hold music is fine and dandy, but it's highly likely that
+you'll need to do more than that! In the example below, we'll outline how to
+build a conference room that greets each user before putting them into the
+conference.
+
+This example shows off how flexible our views can be, and how much we can do
+with just the build in :func:`django_twilio.views.conference` view.::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^say_hi/$', 'mysite.views.say_hi'),
+        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference', {
+            'wait_url': 'http://yoursite.com/say_hi/',
+        })
+        # ...
+    )
+
+    # views.py
+    from twilio import Response
+    from django_twilio.decorators import twilio_view
+
+    @twilio_view
+    def say_hi(request):
+        r = Response()
+        r.addSay('Thanks for joining the conference! Django and twilio rock!')
+        return r
+
+If you run this example code, you'll notice that when you call your
+application, twilio first says "Thanks for joining the conference..." before
+joining you--pretty neat, eh?
+
+As you can see, this is a great way to build custom logic into your conference
+room call flow. One pattern that is commonly requested is to play an estimated
+wait time--a simple project using :func:`django_twilio.views.conference`.
+
 Other Conferencing Goodies
 ==========================
 
