@@ -28,6 +28,7 @@ Django web applications.
     install
     decorators
     views
+    howto
     contribute
 
 API Reference
