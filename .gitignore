@@ -13,3 +13,6 @@ _build
 
 # SQLite3 database files:
 *.db
+
+# Coverage reports:
+.coverage
