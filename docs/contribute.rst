@@ -14,8 +14,7 @@ Style
 When contributing code, please try to keep the style matching that of the
 codebase. Right now, that means:
 
-* Tabs instead of spaces.
-* 4 spaces = 1 tab.
+* 100% `PEP-8 compliance <http://www.python.org/dev/peps/pep-0008/>`_.
 * Proper spelling / punctuation in the source code.
 
 
