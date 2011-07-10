@@ -3,13 +3,13 @@
 
 from functools import wraps
 
-from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseForbidden
 
 from twilio import Response, Utils, Verb
 
+from django_twilio import conf
 from django_twilio.models import Caller
 
 
@@ -70,7 +70,7 @@ def twilio_view(f):
         #   4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
         #      contains a hash that we'll use to check for forged requests.
         try:
-            utils = Utils(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+            utils = Utils(conf.TWILIO_ACCOUNT_SID, conf.TWILIO_AUTH_TOKEN)
             url = request.build_absolute_uri()
             signature = request.META['HTTP_X_TWILIO_SIGNATURE']
         except (AttributeError, KeyError):
