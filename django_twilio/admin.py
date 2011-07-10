@@ -8,10 +8,10 @@ from .models import Caller
 
 
 class CallerAdmin(admin.ModelAdmin):
-	"""This class provides admin panel integration for our
-	:class:`django_twilio.models.Caller` model.
-	"""
-	list_display = ('__unicode__', 'blacklisted')
+    """This class provides admin panel integration for our
+    :class:`django_twilio.models.Caller` model.
+    """
+    list_display = ('__unicode__', 'blacklisted')
 
 
 admin.site.register(Caller, CallerAdmin)
