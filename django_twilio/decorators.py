@@ -15,6 +15,40 @@ from django_twilio.models import Caller
 
 def twilio_view(f):
     """This decorator provides several helpful shortcuts for writing twilio
+    views.
+
+        - It ensures that only requests from twilio are passed through. This
+          helps protect you from forged requests.
+
+        - It ensures your view is exempt from CSRF checks via Django's
+          @csrf_exempt decorator. This is necessary for any view that accepts
+          POST requests from outside the local domain (eg: twilio's servers).
+
+        - It enforces the blacklist. If you've got any ``Caller``s who are
+          blacklisted, any requests from them will be rejected.
+
+        - It allows your view to (optionally) return TwiML to pass back to
+          twilio's servers instead of building a ``HttpResponse`` object
+          manually.
+
+        - It allows your view to (optionally) return any ``twilio.Verb`` object
+          instead of building a ``HttpResponse`` object manually.
+
+          .. note::
+            At this time this ONLY supports XML TwiML since the twilio
+            library only supports XML rendering at the moment. In future
+            releases this may be changed to support JSON (and other formats) as
+            well.
+
+    Usage::
+
+        from twilio import Response
+
+        @twilio_view
+        def my_view(request):
+            r = Response()
+            r.addSms('Thanks for the SMS message!')
+            return r
     """
     @csrf_exempt
     @require_POST
