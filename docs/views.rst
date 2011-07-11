@@ -118,6 +118,20 @@ Other Conferencing Goodies
 Now may be a good time to check out the API docs for
 :func:`django_twilio.views.conference` to see all the other goodies available.
 
+Grabbing Caller Input
+*********************
+
+As you begin to build more and more complicated telephony applications, you'll
+need a way to accept caller input via their telephone touch pad. For this
+purpose, django-twilio ships with the :func:`django_twilio.views.gather` view.
+
+Below we'll look at a few examples displaying proper usage.
+
+Coming Soon
+===========
+
+TODO: Fill this up!
+
 Playing Audio
 *************
 
