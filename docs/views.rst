@@ -174,6 +174,41 @@ even tell twilio to send the data in GET format instead of POST::
 If you test out this application, you'll see that the caller's input is sent
 (via HTTP GET) to the ``process`` view once the input has been collected.
 
+Controlling Input Patterns
+==========================
+
+Lastly, the :func:`django_twilio.views.gather` view allows you to control
+various aspects of the input collection process.
+
+Our example below:
+
+* Limits the amount of seconds that twilio will wait for the caller to press
+  another digit to 5. If no input is entered after 5 seconds, then twilio will
+  automatically pass the data along to the URL specified in the ``action``
+  parameter.
+* Automatically end the input collection process if the caller hits the '#' key.
+  This way, if the caller enters '12345#', regardless of what the ``timeout``
+  parameter is set to, twilio will pass the data along to the URL specified in
+  the ``action`` parameter.
+* Limit the total amount of digits collected to 10. Once 10 digits has been
+  reached, twilio will pass the data along to the URL specified in the
+  ``action`` parameter.
+
+::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^gather/$', 'django_twilio.views.gather', {
+            'action': '/process_input/',
+            'method': 'GET',
+            'timeout': 5,
+            'finish_on_key': '#',
+            'num_digits': 10,
+        }),
+        # ...
+    )
+
 Playing Audio
 *************
 
