@@ -24,7 +24,7 @@ def twilio_view(f):
           @csrf_exempt decorator. This is necessary for any view that accepts
           POST requests from outside the local domain (eg: twilio's servers).
 
-        - It enforces the blacklist. If you've got any callers who are
+        - It enforces the blacklist. If you've got any ``Caller``s who are
           blacklisted, any requests from them will be rejected.
 
         - It allows your view to (optionally) return TwiML to pass back to
