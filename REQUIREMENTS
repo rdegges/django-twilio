@@ -1,2 +1,4 @@
+coverage
+django_nose
 twilio>=2.0.10
 Django>=1.3
