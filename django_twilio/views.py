@@ -227,7 +227,7 @@ def gather(request, action=None, method=None, num_digits=None, timeout=None,
             # ...
         )
     """
-    r = Response
+    r = Response()
     r.addGather(action=action, method=method, numDigits=num_digits,
             timeout=timeout, finishOnKey=finish_on_key)
     return r
