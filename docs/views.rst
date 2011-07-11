@@ -118,3 +118,11 @@ Other Conferencing Goodies
 
 Now may be a good time to check out the API docs for
 :func:`django_twilio.views.conference` to see all the other goodies available.
+
+
+Saying Stuff
+************
+
+In a majority of telephony apps--you'll want to say something. It can be tedious
+to record your own voice prompts for every bit of call flow, which is why you'll
+want to use django-twilio's :func:`django_twilio.views.say` view.
