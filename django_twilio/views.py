@@ -139,4 +139,6 @@ def say(request, text, voice=None, language=None, loop=None):
         the text repeated. The default is once. Specifying 0 will cause the the
         ``<Say>`` verb to loop until the call is hung up.
     """
-    pass
+    r = Response()
+    r.addSay(text, voice=voice, language=language, loop=loop)
+    return r
