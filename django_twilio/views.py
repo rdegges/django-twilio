@@ -142,6 +142,14 @@ def conference(request, name, muted=None, beep=None,
 
 
 @twilio_view
+def gather(request, action=None, method=None, num_digits=None, timeout=None,
+        finish_on_key=None):
+    """
+    """
+    pass
+
+
+@twilio_view
 def play(request, url, loop=None):
     """The <Play> verb plays an audio file back to the caller. Twilio retrieves
     the file from a URL that you provide.
