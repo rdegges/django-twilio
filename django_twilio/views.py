@@ -6,7 +6,27 @@ from django_twilio.decorators import twilio_view
 def conference(request, name, muted=None, beep=None,
         start_conference_on_enter=None, end_conference_on_exit=None,
         wait_url=None, wait_method=None, max_participants=None):
-    """A fully featured conference room.
+    """The ``<Dial>`` verb's ``<Conference>`` noun allows you to connect to a
+    conference room. Much like how the ``<Number>`` noun allows you to connect
+    to another phone number, the ``<Conference>`` noun allows you to connect to
+    a named conference room and talk with the other callers who have also
+    connected to that room.
+
+    The name of the room is up to you and is namespaced to your account. This
+    means that any caller who joins 'room1234' via your account will end up in
+    the same conference room, but callers connecting through different accounts
+    would not. The maximum number of participants in a single Twilio conference
+    room is 40.
+
+    By default, Twilio conference rooms enable a number of useful features used
+    by business conference bridges:
+
+        - Conferences do not start until at least two participants join.
+        - While waiting, customizable background music is played.
+        - When participants join and leave, notification sounds are played to
+        - inform the other participants.
+        - You can configure or disable each of these features based on your
+          particular needs.
 
     :param str name: Account-wide unique conference name. Callers who enter
         conference rooms with the same name will be placed into the same
