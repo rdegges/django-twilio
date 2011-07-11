@@ -152,3 +152,4 @@ def say(request, text, voice=None, language=None, loop=None):
     """
     r = Response()
     r.addSay(text, voice=voice, language=language, loop=loop)
+    return r
