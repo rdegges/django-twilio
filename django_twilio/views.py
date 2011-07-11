@@ -127,6 +127,8 @@ def say(request, text, voice=None, language=None, loop=None):
     caller. ``<Say>`` is useful for development or saying dynamic text that is
     difficult to pre-record.
 
+    :param str text: The text Twilio will read to the caller. Limited to 4KB.
+
     :param str voice: The ``voice`` attribute allows you to choose a male or
         female voice to read text back. The default value is 'man'.
 
@@ -141,4 +143,3 @@ def say(request, text, voice=None, language=None, loop=None):
     """
     r = Response()
     r.addSay(text, voice=voice, language=language, loop=loop)
-    return r
