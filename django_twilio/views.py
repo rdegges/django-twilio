@@ -146,7 +146,10 @@ def gather(request, action=None, method=None, num_digits=None, timeout=None,
         finish_on_key=None):
     """
     """
-    pass
+    r = Response
+    r.addGather(action=action, method=method, numDigits=num_digits,
+            timeout=timeout, finishOnKey=finish_on_key)
+    return r
 
 
 @twilio_view
