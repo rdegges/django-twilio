@@ -118,6 +118,55 @@ Other Conferencing Goodies
 Now may be a good time to check out the API docs for
 :func:`django_twilio.views.conference` to see all the other goodies available.
 
+Playing Audio
+*************
+
+django-twilio makes it easy to play audio files to callers. Below, we'll look
+at two examples which demonstrate how to do so using the excellent
+:func:`django_twilio.views.play` view.
+
+Playing a WAV File
+==================
+
+In this example, we'll play a simple WAV file to a caller. For simplicity's
+sake, just assume that this WAV file actually exists::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^play/$', 'django_twilio.views.play', {
+            'url': 'http://mysite.com/greeting.wav',
+        })
+        # ...
+    )
+
+Assuming the url http://mysite.com/greeting.wav exists, and is a legitimate
+WAV file, when you call your twilio application, you should hear the audio
+file play.
+
+.. note::
+    You can play lots of different types of audio files. For a full list of the
+    formats twilio accepts, look at the API reference material for the
+    :func:`django_twilio.views.play` view.
+
+Looping Audio
+=============
+
+In this example, we'll play the same greeting audio clip as we did above, but
+this time--we'll loop it 3 times::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^play/$', 'django_twilio.views.play', {
+            'url': 'http://mysite.com/greeting.wav',
+            'loop': 3,
+        })
+        # ...
+    )
+
+Not too bad (for no code)!
+
 Saying Stuff
 ************
 
