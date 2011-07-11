@@ -1,14 +1,13 @@
 from os.path import abspath, dirname, join, normpath
 
 from setuptools import find_packages, setup
-from django_twilio import __version__ as version
 
 
 setup(
 
     # Basic package information:
     name = 'django-twilio',
-    version = version,
+    version = '0.1',
     packages = find_packages(),
 
     # Packaging options:
