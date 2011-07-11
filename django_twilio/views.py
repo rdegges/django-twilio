@@ -146,8 +146,8 @@ def gather(request, action=None, method=None, num_digits=None, timeout=None,
         finish_on_key=None):
     """The ``<Gather>`` verb collects digits that a caller enters into his or
     her telephone keypad. When the caller is done entering data, Twilio submits
-    that data to the provided 'action' URL in an HTTP GET or POST request, just
-    like a web browser submits data from an HTML form.
+    that data to the provided ``action`` URL in an HTTP GET or POST request,
+    just like a web browser submits data from an HTML form.
 
     If no input is received before timeout, ``<Gather>`` falls through to the
     next verb in the TwiML document.
