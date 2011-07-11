@@ -144,7 +144,88 @@ def conference(request, name, muted=None, beep=None,
 @twilio_view
 def gather(request, action=None, method=None, num_digits=None, timeout=None,
         finish_on_key=None):
-    """
+    """The ``<Gather>`` verb collects digits that a caller enters into his or
+    her telephone keypad. When the caller is done entering data, Twilio submits
+    that data to the provided 'action' URL in an HTTP GET or POST request, just
+    like a web browser submits data from an HTML form.
+
+    If no input is received before timeout, ``<Gather>`` falls through to the
+    next verb in the TwiML document.
+
+    You may optionally nest ``<Say>`` and ``<Play>`` verbs within a
+    ``<Gather>`` verb while waiting for input. This allows you to read menu
+    options to the caller while letting her enter a menu selection at any time.
+    After the first digit is received the audio will stop playing.
+
+    :param str action: The ``action`` attribute takes an absolute or relative
+        URL as a value. When the caller has finished entering digits Twilio
+        will make a GET or POST request to this URL including the parameters
+        below. If no ``action`` is provided, Twilio will by default make a POST
+        request to the current document's URL.
+
+        After making this request, Twilio will continue the current call using
+        the TwiML received in your response. Keep in mind that by default
+        Twilio will re-request the current document's URL, which can lead to
+        unwanted looping behavior if you're not careful. Any TwiML verbs
+        occuring after a ``<Gather>`` are unreachable, unless the caller enters
+        no digits.
+
+        If the ``timeout`` is reached before the caller enters any digits, or
+        if the caller enters the ``finish_on_key`` value before entering any
+        other digits, Twilio will not make a request to the ``action`` URL but
+        instead continue processing the current TwiML document with the verb
+        immediately following the ``<Gather>``.
+
+        Twilio will pass the following parameters in addition to the standard
+        TwiML Voice request parameters with its request to the ``action`` URL:
+
+        +===========+===========================================================================+
+        | Parameter | Description                                                               |
+        +===========+===========================================================================+
+        | Digits    | The digits the caller pressed, excluding the finish_on_key digit if used. |
+        +-----------+---------------------------------------------------------------------------+
+
+    :param str method: The ``method`` attribute takes the value 'GET' or
+        'POST'. This tells Twilio whether to request the ``action`` URL via
+        HTTP GET or POST. This attribute is modeled after the HTML form
+        ``method`` attribute. 'POST' is the default value.
+
+    :param int timeout: The ``timeout`` attribute sets the limit in seconds
+        that Twilio will wait for the caller to press another digit before
+        moving on and making a request to the ``action`` URL. For example, if
+        ``timeout`` is 10, Twilio will wait ten seconds for the caller to press
+        another key before submitting the previously entered digits to the
+        ``action`` URL. Twilio waits until completing the execution of all
+        nested verbs before beginning the timeout period.
+
+    :param str finish_on_key: The ``finish_on_key`` attribute lets you choose
+        one value that submits the received data when entered. For example, if
+        you set ``finish_on_key`` to '#' and the user enters '1234#', Twilio
+        will immediately stop waiting for more input when the '#' is received
+        and will submit "Digits=1234" to the ``action`` URL. Note that the
+        ``finish_on_key`` value is not sent. The allowed values are the digits
+        0-9, '#' , '*' and the empty string (set ``finish_on_key`` to ''). If
+        the empty string is used, ``<Gather>`` captures all input and no key
+        will end the ``<Gather>`` when pressed. In this case Twilio will submit
+        the entered digits to the ``action`` URL only after the timeout has
+        been reached. The default ``finish_on_key`` value is '#'. The value can
+        only be a single character.
+
+    :param int num_digits: The ``num_digits`` attribute lets you set the number
+        of digits you are expecting, and submits the data to the ``action`` URL
+        once the caller enters that number of digits. For example, one might
+        set ``num_digits`` to 5 and ask the caller to enter a 5 digit zip code.
+        When the caller enters the fifth digit of '94117', Twilio will
+        immediately submit the data to the ``action`` URL.
+
+    Usage::
+
+        # urls.py
+        urlpatterns = patterns('',
+            # ...
+            url(r'^gather/$', 'django_twilio.views.gather'),
+            # ...
+        )
     """
     r = Response
     r.addGather(action=action, method=method, numDigits=num_digits,
