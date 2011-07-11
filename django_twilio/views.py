@@ -119,3 +119,24 @@ def conference(request, name, muted=None, beep=None,
     ))
     r.append(d)
     return r
+
+
+@twilio_view
+def say(request, text, voice=None, language=None, loop=None):
+    """The ``<Say>`` verb converts text to speech that is read back to the
+    caller. ``<Say>`` is useful for development or saying dynamic text that is
+    difficult to pre-record.
+
+    :param str voice: The ``voice`` attribute allows you to choose a male or
+        female voice to read text back. The default value is 'man'.
+
+    :param str language: The ``language`` attribute allows you pick a voice
+        with a specific language's accent and pronunciations. Twilio currently
+        supports languages 'en' (English), 'es' (Spanish), 'fr' (French), and
+        'de' (German). The default is 'en'.
+
+    :param int loop: The ``loop`` attribute specifies how many times you'd like
+        the text repeated. The default is once. Specifying 0 will cause the the
+        ``<Say>`` verb to loop until the call is hung up.
+    """
+    pass
