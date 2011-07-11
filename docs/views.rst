@@ -146,6 +146,34 @@ HTTP POST request to the same URL. So in our example above, if a caller enters
 '666#', then twilio would send a POST request to our ``/gather/`` URL with a
 ``Digits`` parameter that contains the value '666#'.
 
+Redirect After Collecting Input
+===============================
+
+Let's say that instead of POST'ing the caller's input to the same URL, you want
+to instead POST the data to another URL (or view). No problem! In fact, we'll
+even tell twilio to send the data in GET format instead of POST::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^gather/$', 'django_twilio.views.gather', {
+            'action': '/process_input/',
+            'method': 'GET',
+        }),
+        url(r'^process_input/$', 'mysite.myapp.views.process'),
+        # ...
+    )
+
+    # mysite.myapp.views.py
+    from django.http import HttpResponse
+
+    def process(request):
+        print request.GET   # Output GET data to terminal (for debug).
+        return HttpResponse()
+
+If you test out this application, you'll see that the caller's input is sent
+(via HTTP GET) to the ``process`` view once the input has been collected.
+
 Playing Audio
 *************
 
