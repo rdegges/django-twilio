@@ -5,7 +5,5 @@ Views
    :members:
 
 .. autofunction:: django_twilio.views.conference
-    :members:
 
 .. autofunction:: django_twilio.views.say
-    :members:
