@@ -127,10 +127,24 @@ purpose, django-twilio ships with the :func:`django_twilio.views.gather` view.
 
 Below we'll look at a few examples displaying proper usage.
 
-Coming Soon
-===========
+Collect Touchtone Input
+=======================
 
-TODO: Fill this up!
+The simplest thing we can do using the :func:`django_twilio.views.gather` view
+is to collect caller touchtone input until the caller stops hitting keys. To do
+this, we can write our URLconf as follows::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^gather/$', 'django_twilio.views.gather'),
+        # ...
+    )
+
+By default--once the caller finishes entering their input, twilio will send a
+HTTP POST request to the same URL. So in our example above, if a caller enters
+'666#', then twilio would send a POST request to our ``/gather/`` URL with a
+``Digits`` parameter that contains the value '666#'.
 
 Playing Audio
 *************
