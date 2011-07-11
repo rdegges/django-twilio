@@ -142,6 +142,60 @@ def conference(request, name, muted=None, beep=None,
 
 
 @twilio_view
+def play(request, url, loop=None):
+    """The <Play> verb plays an audio file back to the caller. Twilio retrieves
+    the file from a URL that you provide.
+
+    :param str url: The URL of an audio file that Twilio will retrieve and play
+        to the caller.
+
+    :param int loop: The ``loop`` attribute specifies how many times the audio
+        file is played. The default behavior is to play the audio once.
+        Specifying 0 will cause the the ``<Play>`` verb to loop until the call
+        is hung up.
+
+    Twilio supports the following audio MIME types for audio files retrieved by
+    the ``<Play>`` verb:
+
+    +--------------+-------------------------------+
+    | MIME Type    | Description                   |
+    +==============+===============================+
+    | audio/mpeg   | mpeg layer 3 audio            |
+    +--------------+-------------------------------+
+    | audio/wav    | wav format audio              |
+    +--------------+-------------------------------+
+    | audio/wave   | wav format audio              |
+    +--------------+-------------------------------+
+    | audio/x-wav  | wav format audio              |
+    +--------------+-------------------------------+
+    | audio/aiff   | audio interchange file format |
+    +--------------+-------------------------------+
+    | audio/x-aifc | audio interchange file format |
+    +--------------+-------------------------------+
+    | audio/x-aiff | audio interchange file format |
+    +--------------+-------------------------------+
+    | audio/x-gsm  | GSM audio format              |
+    +--------------+-------------------------------+
+    | audio/gsm    | GSM audio format              |
+    +--------------+-------------------------------+
+    | audio/ulaw   | u-law audio format            |
+    +--------------+-------------------------------+
+
+    Usage::
+
+        # urls.py
+        urlpatterns = patterns('',
+            # ...
+            url(r'^play/$', 'django_twilio.views.play', {
+                    'url': 'http://blah.com/blah.wav',
+            }),
+            # ...
+        )
+    """
+    pass
+
+
+@twilio_view
 def say(request, text, voice=None, language=None, loop=None):
     """The ``<Say>`` verb converts text to speech that is read back to the
     caller. ``<Say>`` is useful for development or saying dynamic text that is
