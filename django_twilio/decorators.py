@@ -25,7 +25,7 @@ def twilio_view(f):
           POST requests from outside the local domain (eg: twilio's servers).
 
         - It enforces the blacklist. If you've got any
-          :class:`django_twilio.models.Caller`s who are blacklisted, any
+          :class:`django_twilio.models.Caller` who are blacklisted, any
           requests from them will be rejected.
 
         - It allows your view to (optionally) return TwiML to pass back to
