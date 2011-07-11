@@ -179,7 +179,7 @@ def gather(request, action=None, method=None, num_digits=None, timeout=None,
         Twilio will pass the following parameters in addition to the standard
         TwiML Voice request parameters with its request to the ``action`` URL:
 
-        +===========+===========================================================================+
+        +-----------+---------------------------------------------------------------------------+
         | Parameter | Description                                                               |
         +===========+===========================================================================+
         | Digits    | The digits the caller pressed, excluding the finish_on_key digit if used. |
