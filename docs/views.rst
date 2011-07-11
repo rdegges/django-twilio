@@ -127,8 +127,8 @@ purpose, django-twilio ships with the :func:`django_twilio.views.gather` view.
 
 Below we'll look at a few examples displaying proper usage.
 
-Collect Touchtone Input
-=======================
+Collecting Touchtone Input
+==========================
 
 The simplest thing we can do using the :func:`django_twilio.views.gather` view
 is to collect caller touchtone input until the caller stops hitting keys. To do
