@@ -183,3 +183,6 @@ situation, you can simply specify an optional ``loop`` parameter::
 
 In this example, we'll just keep repeating "lol" to the caller until they hang
 up.
+
+For more information, be sure to read the API docs on
+:func:`django_twilio.views.say`.
