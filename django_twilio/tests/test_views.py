@@ -5,7 +5,7 @@ from base64 import encodestring
 from django.conf import settings
 from django.test import Client, RequestFactory, TestCase
 
-from django_twilio.views import conference, say
+from django_twilio.views import conference, play, say
 
 
 class ConferenceTestCase(TestCase):
@@ -63,3 +63,31 @@ class SayTestCase(TestCase):
     def test_say_with_text(self):
         request = self.factory.post(self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
 	self.assertEquals(say(request, text='hi').status_code, 200)
+
+
+class PlayTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.factory = RequestFactory()
+
+        # Test URIs.
+        self.uri = 'http://testserver/tests/views'
+        self.play_uri = '/tests/views/play/'
+
+        # Guarantee a value for the required configuration settings after each
+        # test case.
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
+
+        # Pre-calculate twilio signatures for our test views.
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+                '%s/play/' % self.uri, sha1).digest()).strip()
+
+    def test_play_no_url(self):
+        request = self.factory.post(self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+	self.assertRaises(TypeError, play, request)
+
+    def test_play_with_url(self):
+        request = self.factory.post(self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+	self.assertEquals(play(request, url='http://b.com/b.wav').status_code, 200)
