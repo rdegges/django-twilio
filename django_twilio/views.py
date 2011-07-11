@@ -140,6 +140,15 @@ def say(request, text, voice=None, language=None, loop=None):
     :param int loop: The ``loop`` attribute specifies how many times you'd like
         the text repeated. The default is once. Specifying 0 will cause the the
         ``<Say>`` verb to loop until the call is hung up.
+
+    Usage::
+
+        # urls.py
+        urlpatterns = patterns('',
+            # ...
+            url(r'^say/$', 'django_twilio.views.say', {'text': 'hello, world!'})
+            # ...
+        )
     """
     r = Response()
     r.addSay(text, voice=voice, language=language, loop=loop)
