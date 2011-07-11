@@ -101,7 +101,7 @@ def conference(request, name, muted=None, beep=None,
         # urls.py
         urlpatterns = patterns('',
             # ...
-            url(r'^conference/?(P<name>\w+)/$', 'django_twilio.views.conference',
+            url(r'^conference/?(P<name>\\w+)/$', 'django_twilio.views.conference',
                     {'max_participants': 10}),
             # ...
         )
