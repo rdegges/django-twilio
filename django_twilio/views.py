@@ -192,7 +192,9 @@ def play(request, url, loop=None):
             # ...
         )
     """
-    pass
+    r = Response()
+    r.addPlay(url, loop=loop)
+    return r
 
 
 @twilio_view
