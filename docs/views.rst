@@ -314,6 +314,41 @@ planning on recording calls that may include hold times or other things, then
 you should probably bump this number up to avoid ending the recording if you get
 put on hold.
 
+Transcribe Your Call Recording
+==============================
+
+On occasion, you may want to transcribe your call recordings. Maybe you're
+making a call to your secretary to describe your TODO list, and want to ensure
+you get it in text format--or maybe you're just talking with colleagues about
+how to best destroy the earth. Whatever the situation may be, twilio's got you
+covered!
+
+In this example, we'll record our call, and force twilio to transcribe it after
+we hang up. We'll also give twilio a URL to POST to once it's finished
+transcribing, so that we can do some stuff with our transcribed text (maybe
+we'll email it to ourselves, or something).
+
+.. note::
+    Transcribing is a **paid** feature. See twilio's `pricing page
+    <http://www.twilio.com/pricing-signup>`_ for the current rates. Also--twilio
+    limits transcription time to 2 minutes or less. If you set the
+    ``max_length`` attribute to > 120 (seconds), then twilio will **not**
+    transcribe your call, and will instead write an error to your debug log (in
+    the twilio web panel).
+
+::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^record/$', 'django_twilio.views.record', {
+            'action': '/call_john/',
+            'play_beep': True,
+            'transcribe': True,
+            'transcribe_callback': '/email_call_transcription/',
+        })
+        # ...
+
 Saying Stuff
 ************
 
