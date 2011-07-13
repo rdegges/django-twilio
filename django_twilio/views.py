@@ -419,7 +419,12 @@ def record(request, action=None, method=None, timeout=None, finish_on_key=None,
             # ...
         )
     """
-    pass
+    r = Response()
+    r.addRecord(action=action, method=method, timeout=timeout,
+            finishOnKey=finish_on_key, maxLength=max_length,
+            transcribe=transcribe, transcribeCallback=transcribe_callback,
+            playBeep=play_beep)
+    return r
 
 
 @twilio_view
