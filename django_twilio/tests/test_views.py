@@ -5,7 +5,7 @@ from base64 import encodestring
 from django.conf import settings
 from django.test import Client, RequestFactory, TestCase
 
-from django_twilio.views import conference, gather, play, say
+from django_twilio.views import conference, gather, play, record, say
 
 
 class ConferenceTestCase(TestCase):
@@ -59,6 +59,30 @@ class GatherTestCase(TestCase):
     def test_gather(self):
         request = self.factory.post(self.gather_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
 	self.assertEquals(gather(request).status_code, 200)
+
+
+class RecordTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.factory = RequestFactory()
+
+        # Test URIs.
+        self.uri = 'http://testserver/tests/views'
+        self.record_uri = '/tests/views/record/'
+
+        # Guarantee a value for the required configuration settings after each
+        # test case.
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
+
+        # Pre-calculate twilio signatures for our test views.
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+                '%s/record/' % self.uri, sha1).digest()).strip()
+
+    def test_record(self):
+        request = self.factory.post(self.record_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+	self.assertEquals(record(request).status_code, 200)
 
 
 class SayTestCase(TestCase):
