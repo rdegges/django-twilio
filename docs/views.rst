@@ -258,6 +258,36 @@ this time--we'll loop it 3 times::
 
 Not too bad (for no code)!
 
+Recording Calls
+***************
+
+django-twilio also comes with a built-in call recording view:
+:func:`django_twilio.views.record`. In the examples below, we'll walk through
+plugging the :func:`django_twilio.views.record` view into our fictional Django
+website in a variety of situations.
+
+Record a Call
+=============
+
+Let's start simple. In this example, we'll setup our URLconf to record our call,
+then hit another URL in our application to provide TwiML instructions for
+twilio::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^record/$', 'django_twilio.views.record', {
+            'action': '/call_john/',
+            'play_beep': True,
+        })
+        # ...
+    )
+
+If we call our application, twilio will start recording our call (after playing
+a beep), then send a POST request to our ``/call_john/`` URL and continue
+executing call logic. This allows us to start recording, then continue on
+passing instructions to twilio (maybe we'll call our lawyer :)).
+
 Saying Stuff
 ************
 
