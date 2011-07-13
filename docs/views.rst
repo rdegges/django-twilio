@@ -288,6 +288,32 @@ a beep), then send a POST request to our ``/call_john/`` URL and continue
 executing call logic. This allows us to start recording, then continue on
 passing instructions to twilio (maybe we'll call our lawyer :)).
 
+Stop Recording on Silence
+=========================
+
+In most cases, you'll only want to record calls that actually have talking in
+them. It's pointless to record silence. That's why twilio provides a ``timeout``
+parameter that we can use with django-twilio's
+:func:`django_twilio.views.record` view::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^record/$', 'django_twilio.views.record', {
+            'action': '/call_john/',
+            'play_beep': True,
+            'timeout': 5,   # Stop recording after 5 seconds of silence
+                            # (default).
+        })
+        # ...
+    )
+
+By default, twilio will stop the recording after 5 seconds of silence have been
+detected--but you can easily adjust this number as you see fit. If you're
+planning on recording calls that may include hold times or other things, then
+you should probably bump this number up to avoid ending the recording if you get
+put on hold.
+
 Saying Stuff
 ************
 
