@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 
-from twilio import Response
+from twilio.twiml import Response
 
 from django_twilio.decorators import twilio_view
 
@@ -23,5 +23,5 @@ def str_view(request):
 def verb_view(request):
     """A simple test view that returns a ``twilio.Verb`` object."""
     r = Response()
-    r.addReject()
+    r.reject()
     return r
