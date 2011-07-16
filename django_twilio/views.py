@@ -1,4 +1,4 @@
-from twilio import Conference, Dial, Response
+from twilio.twiml import Response
 from django_twilio.decorators import twilio_view
 
 
@@ -127,8 +127,7 @@ def conference(request, name, muted=None, beep=None,
         )
     """
     r = Response()
-    d = Dial()
-    d.append(Conference(
+    d = r.dial().conference(
         name = name,
         muted = muted,
         beep = beep,
@@ -136,8 +135,7 @@ def conference(request, name, muted=None, beep=None,
         endConferenceOnExit = end_conference_on_exit,
         waitUrl = wait_url,
         waitMethod = wait_method,
-    ))
-    r.append(d)
+    )
     return r
 
 
@@ -228,8 +226,8 @@ def gather(request, action=None, method=None, num_digits=None, timeout=None,
         )
     """
     r = Response()
-    r.addGather(action=action, method=method, numDigits=num_digits,
-            timeout=timeout, finishOnKey=finish_on_key)
+    r.gather(action=action, method=method, numDigits=num_digits,
+        timeout=timeout, finishOnKey=finish_on_key)
     return r
 
 
@@ -285,7 +283,7 @@ def play(request, url, loop=None):
         )
     """
     r = Response()
-    r.addPlay(url, loop=loop)
+    r.play(url, loop=loop)
     return r
 
 
@@ -420,10 +418,10 @@ def record(request, action=None, method=None, timeout=None, finish_on_key=None,
         )
     """
     r = Response()
-    r.addRecord(action=action, method=method, timeout=timeout,
-            finishOnKey=finish_on_key, maxLength=max_length,
-            transcribe=transcribe, transcribeCallback=transcribe_callback,
-            playBeep=play_beep)
+    r.record(action=action, method=method, timeout=timeout,
+        finishOnKey=finish_on_key, maxLength=max_length,
+        transcribe=transcribe, transcribeCallback=transcribe_callback,
+        playBeep=play_beep)
     return r
 
 
@@ -457,5 +455,5 @@ def say(request, text, voice=None, language=None, loop=None):
         )
     """
     r = Response()
-    r.addSay(text, voice=voice, language=language, loop=loop)
+    r.say(text, voice=voice, language=language, loop=loop)
     return r
