@@ -35,6 +35,62 @@ extensive test suite. All test suite patches and additions are welcome, and
 encouraged for new developers! The tests are well documented, and can be
 a great way to introduce yourself to the codebase!
 
+To run the tests, you'll need to do the following:
+
+1. Check out the latest version of django-twilio's source code using git:
+   ``git clone git://github.com/rdegges/django-twilio.git``.
+
+2. Switch to the develop branch: ``cd django-twilio; git fetch origin
+   develop:develop``.
+
+3. Install the required packages for testing: ``pip install -r REQUIREMENTS``.
+
+4. Install django-twilio in development mode: ``cd django_twilio; python
+   setup.py install``.
+
+5. Run the test suite using the test project that ships with django-twilio: ``cd
+   ../test_project; python manage.py test django_twilio``.
+
+You'll see output that looks something like::
+
+    rdegges@lap:~/Code/rdegges/django-twilio/test_project$ workon django-twilio
+    (django-twilio)rdegges@lap:~/Code/rdegges/django-twilio/test_project$ python manage.py test django_twilio
+    nosetests --verbosity 1 django_twilio --with-coverage --cover-package=django_twilio
+    Creating test database for alias 'default'...
+    ......................
+    Name                       Stmts   Miss  Cover   Missing
+    --------------------------------------------------------
+    django_twilio                  0      0   100%
+    django_twilio.conf             3      0   100%
+    django_twilio.decorators      34      0   100%
+    django_twilio.models           6      0   100%
+    django_twilio.views           29      0   100%
+    --------------------------------------------------------
+    TOTAL                         72      0   100%
+    ----------------------------------------------------------------------
+    Ran 22 tests in 1.184s
+
+    OK
+    Destroying test database for alias 'default'...
+
+That's it! As you can see, when you run the test suite, django-twilio should
+output not only failing test results, but also the coverage reports.
+
+.. note::
+
+    If you'd like to see more details about the tests that are ran, you can
+    optionally specify the ``--verbosity=2`` flag on the command line, eg::
+
+        python manage.py test django_twilio --verbosity=2
+
+    This will increase the output level, and show detailed test run
+    information.
+
+.. note::
+    I try to maintain 100% test coverage for django-twilio.
+
+When you submit patches or add functionality to django-twilio, be sure to run
+the test suite to ensure that no functionality is broken.
 
 Bugs / Feature Requests / Comments
 ----------------------------------
