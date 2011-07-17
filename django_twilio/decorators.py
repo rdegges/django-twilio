@@ -7,7 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseForbidden
 
-from twilio import Response, Utils, Verb
+from twilio.twiml import Response, Verb
+from twilio.util import RequestValidator
 
 from django_twilio import conf
 from django_twilio.models import Caller
@@ -47,7 +48,7 @@ def twilio_view(f):
         @twilio_view
         def my_view(request):
             r = Response()
-            r.addSms('Thanks for the SMS message!')
+            r.sms('Thanks for the SMS message!')
             return r
     """
     @csrf_exempt
@@ -69,7 +70,7 @@ def twilio_view(f):
         #   4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
         #      contains a hash that we'll use to check for forged requests.
         try:
-            utils = Utils(conf.TWILIO_ACCOUNT_SID, conf.TWILIO_AUTH_TOKEN)
+            validator = RequestValidator(conf.TWILIO_AUTH_TOKEN)
             url = request.build_absolute_uri()
             signature = request.META['HTTP_X_TWILIO_SIGNATURE']
         except (AttributeError, KeyError):
@@ -77,7 +78,7 @@ def twilio_view(f):
 
         # Now that we have all the required information to perform forgery
         # checks, we'll actually do the forgery check.
-        if not utils.validateRequest(url, request.POST, signature):
+        if not validator.validate(url, request.POST, signature):
             return HttpResponseForbidden()
 
         # If the caller requesting service is blacklisted, reject their
@@ -86,8 +87,8 @@ def twilio_view(f):
             caller = Caller.objects.get(phone_number=request.POST['From'])
             if caller.blacklisted:
                 r = Response()
-                r.addReject()
-                return HttpResponse(r.__repr__(), mimetype='application/xml')
+                r.reject()
+                return HttpResponse(str(r), mimetype='application/xml')
         except (KeyError, Caller.DoesNotExist):
             pass
 
@@ -102,7 +103,7 @@ def twilio_view(f):
         if isinstance(response, str):
             return HttpResponse(response, mimetype='application/xml')
         elif isinstance(response, Verb):
-            return HttpResponse(response.__repr__(), mimetype='application/xml')
+            return HttpResponse(str(response), mimetype='application/xml')
         else:
             return response
     return decorator
