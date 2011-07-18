@@ -95,13 +95,13 @@ with just the build in :func:`django_twilio.views.conference` view::
     )
 
     # views.py
-    from twilio import Response
+    from twilio.twiml import Response
     from django_twilio.decorators import twilio_view
 
     @twilio_view
     def say_hi(request):
         r = Response()
-        r.addSay('Thanks for joining the conference! Django and twilio rock!')
+        r.say('Thanks for joining the conference! Django and twilio rock!')
         return r
 
 If you run this example code, you'll notice that when you call your

@@ -37,13 +37,13 @@ The :func:`django_twilio.decorators.twilio_view` decorator:
 
 Let's take a look at a few examples::
 
-    from twilio import Response
+    from twilio.twiml import Response
     from django_twilio.decorators import twilio_view
 
     @twilio_view
     def reply_to_sms_messages(request):
         r = Response()
-        r.addSms('Thanks for the SMS message!')
+        r.sms('Thanks for the SMS message!')
         return r
 
 In the example above, we built a view that twilio can POST data to, and that
@@ -53,7 +53,7 @@ saying "Thanks for the SMS message!".
 Now let's take a look at the same view written *without*
 :func:`django_twilio.decorators.twilio_view`::
 
-    from twilio import Response
+    from twilio.twiml import Response
     from django.views.decorators.csrf import csrf_exempt
     from django.views.decorators.http import require_POST
     from django.http import HttpResponse
@@ -62,7 +62,7 @@ Now let's take a look at the same view written *without*
     @require_POST
     def reply_to_sms_messages(request):
         r = Response()
-        r.addSms('Thanks for the SMS message!')
+        r.sms('Thanks for the SMS message!')
         return HttpResponse(r.__repr__(), mimetype='application/xml')
 
 And that doesn't even include forgery protection or blacklist management! As
