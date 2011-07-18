@@ -43,7 +43,7 @@ def twilio_view(f):
 
     Usage::
 
-        from twilio import Response
+        from twilio.twiml import Response
 
         @twilio_view
         def my_view(request):
