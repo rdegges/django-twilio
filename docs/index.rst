@@ -28,6 +28,7 @@ Django web applications.
     install
     decorators
     views
+    gotchas
     howto
     contribute
 
