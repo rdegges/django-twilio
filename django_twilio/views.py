@@ -127,7 +127,7 @@ def conference(request, name, muted=None, beep=None,
         )
     """
     r = Response()
-    d = r.dial().conference(
+    r.dial().conference(
         name = name,
         muted = muted,
         beep = beep,
