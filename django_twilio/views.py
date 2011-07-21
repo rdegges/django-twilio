@@ -323,6 +323,117 @@ def record(request, action=None, method=None, timeout=None, finish_on_key=None,
 
 
 @twilio_view
+def sms(request, message, to=None, sender=None, action=None, method=None,
+        status_callback=None):
+    """The ``<Sms>`` verb sends an SMS message to a phone number during a phone
+    call.
+
+    :param str message: The message to SMS. Must be less than 140 characters in
+        length. If it is greater than 140 characters, it will not be sent.
+
+    :param str to: The ``to`` attribute takes a valid phone number as a value.
+        Twilio will send an SMS message to this number. When sending an SMS
+        during an incoming call, ``to`` defaults to the caller. When sending an
+        SMS during an outgoing call, ``to`` defaults to the called party. The
+        value of ``to`` must be a valid phone number.
+
+        .. note::
+            Sending to short codes is not currently supported.
+
+        .. note::
+            Note that if your account is a Free Trial account, the provided
+            ``to`` phone number must be validated with Twilio as a valid
+            outgoing caller ID. But of course you don't have to specify the
+            ``to`` attribute to just send an SMS to the current caller.
+
+    :param str sender: The ``sender`` attribute takes a valid phone number as
+        an argument. This number must be a phone number that you've purchased
+        from or ported to Twilio. When sending an SMS during an incoming call,
+        ``sender`` defaults to the called party. When sending an SMS during an
+        outgoing call, ``sender`` defaults to the calling party. This number
+        must be an SMS-capable local phone number assigned to your account. If
+        the phone number isn't SMS-capable, then the ``<Sms>`` verb will not
+        send an SMS message.
+
+    :param str action: The ``action`` attribute takes a URL as an argument.
+        After processing the ``<Sms>`` verb, Twilio will make a GET or POST
+        request to this URL with the form parameters ``SmsStatus`` and
+        ``SmsSid``. Using an ``action`` URL, your application can receive
+        synchronous notification that the message was successfully enqueued.
+
+        If you provide an ``action`` URL, Twilio will use the TwiML received in
+        your response to the ``action`` URL request to continue the current
+        call. Any TwiML verbs occuring after an ``<Sms>`` which specifies an
+        ``action`` attribute are unreachable.
+
+        If no ``action`` is provided, ``<Sms>`` will finish and Twilio will
+        move on to the next TwiML verb in the document. If there is no next
+        verb, Twilio will end the phone call. Note that this is different from
+        the behavior of ``<Record>`` and ``<Gather>``. ``<Sms>`` does not make
+        a request to the current document's URL by default if no ``action`` URL
+        is provided.
+
+        Request Parameters
+        ==================
+
+        Twilio will pass the following parameters in addition to the standard
+        TwiML Voice request parameters with its request to the ``action`` URL:
+
+        +-----------+----------------------------------------------------------+
+        | Parameter | Description                                              |
+        +===========+==========================================================+
+        | SmsSid    | The Sid Twilio has assigned for the SMS message.         |
+        +-----------+----------------------------------------------------------+
+        | SmsStatus | The current status of the SMS message. This is usually   |
+        |           | 'sending'. But if you provide an invalid number, this is |
+        |           | 'invalid'.                                               |
+        +-----------+----------------------------------------------------------+
+
+    :param str method: The ``method`` attribute takes the value 'GET' or
+        'POST'. This tells Twilio whether to request the ``action`` URL via
+        HTTP GET or POST. This attribute is modeled after the HTML form
+        ``method`` attribute. 'POST' is the default value.
+
+    :param str status_callback: The ``status_callback`` attribute takes a URL
+        as an argument. When the SMS message is actually sent, or if sending
+        fails, Twilio will make an asynchronous POST request to this URL with
+        the parameters 'SmsStatus' and 'SmsSid'. Note, ``status_callback``
+        always uses HTTP POST to request the given url.
+
+        Request Parameters
+        ==================
+
+        Twilio will pass the following parameters in addition to the standard
+        TwiML Voice request parameters with its request to the
+        ``status_callback`` URL:
+
+        +-----------+---------------------------------------------------------+
+        | Parameter | Description                                             |
+        +===========+=========================================================+
+        | SmsSid    | The Sid for the Sms message.                            |
+        +-----------+---------------------------------------------------------+
+        | SmsStatus | The current status of the Sms message. Either 'sent' or |
+        |           | 'failed'.                                               |
+        +-----------+---------------------------------------------------------+
+
+    Usage::
+
+        # urls.py
+        urlpatterns = patterns('',
+            # ...
+            url(r'^sms/$', 'django_twilio.views.sms', {
+                'message': 'Hello, world!'
+            }),
+            # ...
+        )
+    """
+    r = Response()
+    r.sms(msg=message, to=to, sender=sender, method=method, action=action,
+            statusCallback=status_callback)
+    return r
+
+
+@twilio_view
 def conference(request, name, muted=None, beep=None,
         start_conference_on_enter=None, end_conference_on_exit=None,
         wait_url=None, wait_method=None, max_participants=None):
