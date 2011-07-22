@@ -307,6 +307,53 @@ we'll email it to ourselves, or something).
         # ...
     )
 
+Sending SMS Messages
+********************
+
+In addition to building plug-n-play voice applications, we can also build
+plug-n-play SMS applications using the :func:`django_twilio.views.sms` view.
+This view allows us to send off arbitrary SMS messages based on incoming twilio
+requests.
+
+Reply With a SMS
+================
+
+This example demonstrates a simple SMS reply. Whenever twilio sends us an
+incoming request, we'll simply send back a SMS message to the sender::
+
+    urlpatterns = patterns('',
+        # ...
+        url(r'^sms/$', 'django_twilio.views.sms', {
+            'message': 'Thanks for the SMS. Talk to you soon!',
+        }),
+        # ...
+    )
+
+Sending SMS Messages (with Additional Options)
+==============================================
+
+Like most of our other views, the :func:`django_twilio.views.sms` view also
+allows us to specify some other parameters to change our view's behavior::
+
+    urlpatterns = patterns('',
+        # ...
+        url(r'^sms/$', 'django_twilio.views.sms', {
+            'message': 'Yo!',
+            'to': '+12223334444',
+            'sender': '+18882223333',
+            'status_callback': '/sms/completed/',
+        }),
+        # ...
+    )
+
+Here, we instruct django-twilio to send a SMS message to the caller
+'+1-222-333-4444' from the sender '+1-888-222-3333'. As you can see,
+django-twilio allows you to fully customize the SMS sending.
+
+Furthermore, the ``status_callback`` parameter that we specified will be POST'ed
+to by twilio once it attempts to send this SMS message. twilio will send us some
+metadata about the SMS message that we can use in our application as desired.
+
 Teleconferencing
 ****************
 
