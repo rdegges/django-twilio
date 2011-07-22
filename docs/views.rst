@@ -6,6 +6,75 @@ In order to help speed up development of your telephony application,
 django-twilio ships with a few useful views that you can plug straight into
 your project's urlconf, and immediately use!
 
+Saying Stuff
+************
+
+In a majority of telephony apps--you'll want to say something. It can be tedious
+to record your own voice prompts for every bit of call flow, which is why you'll
+want to use django-twilio's :func:`django_twilio.views.say` view.
+
+The :func:`django_twilio.views.say` view allows you to simply "say stuff" in a
+variety of languages (in either a male or female voice).
+
+Hello, World!
+=============
+
+Let's take a look at a *classic* example::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^hello_world/$', 'django_twilio.views.say', {
+            'text': 'Hello, world!'
+        }),
+        # ...
+    )
+
+Hook a twilio number up to that URL, and you'll hear a man say "Hello, world!"
+when called. Nice!
+
+Changing the Voice (and Language)
+=================================
+
+By default, twilio reads off all text in the English language in a man's voice.
+By it's easy to change that. In the example below, we'll say "goodbye" in
+Spanish, with a female voice::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^goodbye/$', 'django_twilio.views.say', {
+            'text': 'Adios!',
+            'voice': 'woman',
+            'language': 'es',
+        }),
+        # ...
+    )
+
+Simple, right?
+
+Repeating Text
+==============
+
+On occasion, you'll also want to repeat some text, without copy+paste. In this
+situation, you can simply specify an optional ``loop`` parameter::
+
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^lol/$', 'django_twilio.views.say', {
+            'text': 'lol',
+            'loop': 0,  # 0 = Repeat forever, until hangup :)
+        }),
+        # ...
+    )
+
+In this example, we'll just keep repeating "lol" to the caller until they hang
+up.
+
+For more information, be sure to read the API docs on
+:func:`django_twilio.views.say`.
+
 Teleconferencing
 ****************
 
@@ -348,72 +417,3 @@ we'll email it to ourselves, or something).
             'transcribe_callback': '/email_call_transcription/',
         })
         # ...
-
-Saying Stuff
-************
-
-In a majority of telephony apps--you'll want to say something. It can be tedious
-to record your own voice prompts for every bit of call flow, which is why you'll
-want to use django-twilio's :func:`django_twilio.views.say` view.
-
-The :func:`django_twilio.views.say` view allows you to simply "say stuff" in a
-variety of languages (in either a male or female voice).
-
-Hello, World!
-=============
-
-Let's take a look at a *classic* example::
-
-    # urls.py
-    urlpatterns = patterns('',
-        # ...
-        url(r'^hello_world/$', 'django_twilio.views.say', {
-            'text': 'Hello, world!'
-        }),
-        # ...
-    )
-
-Hook a twilio number up to that URL, and you'll hear a man say "Hello, world!"
-when called. Nice!
-
-Changing the Voice (and Language)
-=================================
-
-By default, twilio reads off all text in the English language in a man's voice.
-By it's easy to change that. In the example below, we'll say "goodbye" in
-Spanish, with a female voice::
-
-    # urls.py
-    urlpatterns = patterns('',
-        # ...
-        url(r'^goodbye/$', 'django_twilio.views.say', {
-            'text': 'Adios!',
-            'voice': 'woman',
-            'language': 'es',
-        }),
-        # ...
-    )
-
-Simple, right?
-
-Repeating Text
-==============
-
-On occasion, you'll also want to repeat some text, without copy+paste. In this
-situation, you can simply specify an optional ``loop`` parameter::
-
-    # urls.py
-    urlpatterns = patterns('',
-        # ...
-        url(r'^lol/$', 'django_twilio.views.say', {
-            'text': 'lol',
-            'loop': 0,  # 0 = Repeat forever, until hangup :)
-        }),
-        # ...
-    )
-
-In this example, we'll just keep repeating "lol" to the caller until they hang
-up.
-
-For more information, be sure to read the API docs on
-:func:`django_twilio.views.say`.
