@@ -557,7 +557,11 @@ def dial(request, number=None, action=None, method=None, timeout=None,
           outgoing caller ID.
 
     """
-    pass
+    r = Response()
+    r.dial(number=number, action=action, method=method, timeout=timeout,
+            hangupOnStar=hangup_on_star, timeLimit=time_limit,
+            callerId=caller_id)
+    return r
 
 
 @twilio_view
