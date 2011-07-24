@@ -5,7 +5,8 @@ from base64 import encodestring
 from django.conf import settings
 from django.test import Client, RequestFactory, TestCase
 
-from django_twilio.views import conference, gather, play, record, say, sms
+from django_twilio.views import conference, dial, gather, play, record, say, \
+        sms
 
 
 class SayTestCase(TestCase):
@@ -138,6 +139,34 @@ class SmsTestCase(TestCase):
     def test_sms_with_message(self):
         request = self.factory.post(self.sms_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(sms(request, message='test').status_code, 200)
+
+
+class DialTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.factory = RequestFactory()
+
+        # Test URIs.
+        self.uri = 'http://testserver/tests/views'
+        self.dial_uri = '/tests/views/dial/'
+
+        # Guarantee a value for the required configuration settings after each
+        # test case.
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
+
+        # Pre-calculate twilio signatures for our test views.
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+                '%s/dial/' % self.uri, sha1).digest()).strip()
+
+    def test_dial_no_number(self):
+        request = self.factory.post(self.dial_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        self.assertRaises(TypeError, dial, request)
+
+    def test_dial_with_number(self):
+        request = self.factory.post(self.dial_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        self.assertEquals(dial(request, number='+18182223333').status_code, 200)
 
 
 class ConferenceTestCase(TestCase):
