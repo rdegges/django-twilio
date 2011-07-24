@@ -434,7 +434,7 @@ def sms(request, message, to=None, sender=None, action=None, method=None,
 
 
 @twilio_view
-def dial(request, number=None, action=None, method=None, timeout=None,
+def dial(request, number, action=None, method=None, timeout=None,
         hangup_on_star=None, time_limit=None, caller_id=None):
     """The ``<Dial>`` verb connects the current caller to an another phone. If
     the called party picks up, the two parties are connected and can
