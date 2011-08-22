@@ -4,21 +4,7 @@ from django_twilio.decorators import twilio_view
 
 @twilio_view
 def say(request, text, voice=None, language=None, loop=None):
-    """Use twilio's text-to-speech engine to read off a message to the caller.
-    Full documentation available on twilio's website:
-    http://www.twilio.com/docs/api/twiml/say.
-
-    :param str text: The text to read to the caller. Limited to 4KB.
-
-    :param str voice: Which voice should Twilio use when reading the text?
-        Available options are 'man' or 'woman'. Defaults to 'man'.
-
-    :param str language: Twilio currently supports languages 'en' (English),
-        'es' (Spanish), 'fr' (French), and 'de' (German). Defaults to 'en'.
-
-    :param int loop: How many times should Twilio repeat the text? Defaults to
-        1. Specifying 0 will make Twilio repeat the text until the caller hangs
-        up.
+    """See: http://www.twilio.com/docs/api/twiml/say.
 
     Usage::
 
