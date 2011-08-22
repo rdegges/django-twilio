@@ -114,7 +114,7 @@ def gather(request, action=None, method=None, num_digits=None, timeout=None,
         |           | ``finish_on_key`` digit if used.                        |
         +-----------+---------------------------------------------------------+
 
-    :param str method: Either 'GET' or 'POST. This tells Twilio whether to
+    :param str method: Either 'GET' or 'POST'. This tells Twilio whether to
         request the ``action`` URL via HTTP GET or POST. Defaults to 'POST'.
 
     :param int timeout: Time limit in seconds that Twilio will wait for the
@@ -162,26 +162,17 @@ def gather(request, action=None, method=None, num_digits=None, timeout=None,
 def record(request, action=None, method=None, timeout=None, finish_on_key=None,
         max_length=None, transcribe=None, transcribe_callback=None,
         play_beep=None):
-    """The ``<Record>`` verb records the caller's voice and returns to you the
-    URL of a file containing the audio recording. You can optionally generate
-    text transcriptions of recorded calls by setting the ``transcribe``
-    attribute of the ``<Record>`` verb to 'true'.
+    """Record a portion of a call, and optionally transcribe the recording.
+    Full documentation available on twilio's website:
+    http://www.twilio.com/docs/api/twiml/record.
 
-    :param str action: The ``action`` attribute takes an absolute or relative
-        URL as a value. When recording is finished Twilio will make a GET or
-        POST request to this URL including the parameters below. If no
-        ``action`` is provided, ``<Record>`` will default to requesting the
-        current document's URL.
+    :param str action: URL that Twilio will GET or POST to after the recording
+        has finished. If no action is provided, Twilio will by default make a
+        POST to the current document's URL.
 
-        After making this request, Twilio will continue the current call using
-        the TwiML received in your response. Keep in mind that by default
-        Twilio will re-request the current document's URL, which can lead to
-        unwanted looping behavior if you're not careful. Any TwiML verbs
-        occuring after a ``<Record>`` are unreachable.
-
-        There is one exception: if Twilio receives an empty recording, it will
-        not make a request to the ``action`` URL. The current call flow will
-        continue with the next verb in the current TwiML document.
+        .. note::
+            If Twilio receives an empty recording, it will not make a request
+            to the ``action`` URL.
 
         Request Parameters
         ==================
@@ -189,55 +180,49 @@ def record(request, action=None, method=None, timeout=None, finish_on_key=None,
         Twilio will pass the following parameters in addition to the standard
         TwiML Voice request parameters with its request to the ``action`` URL:
 
-        +-------------------+---------------------------------------------------------------------------------+
-        | Parameter         | Description                                                                     |
-        +===================+=================================================================================+
-        | RecordingUrl      | the URL of the recorded audio                                                   |
-        +-------------------+---------------------------------------------------------------------------------+
-        | RecordingDuration | the time duration of the recorded audio                                         |
-        +-------------------+---------------------------------------------------------------------------------+
-        | Digits            | the key (if any) pressed to end the recording or 'hangup' if the caller hung up |
-        +-------------------+---------------------------------------------------------------------------------+
+        +-------------------+-------------------------------------------------+
+        | Parameter         | Description                                     |
+        +===================+=================================================+
+        | RecordingUrl      | The URL of the recorded audio.                  |
+        +-------------------+-------------------------------------------------+
+        | RecordingDuration | The time duration of the recorded audio.        |
+        +-------------------+-------------------------------------------------+
+        | Digits            | The key (if any) pressed to end the recording   |
+        |                   | or 'hangup' if the caller hung up.              |
+        +-------------------+-------------------------------------------------+
+    :param int timeout: Time limit in seconds that Twilio will wait for the
+        caller to press another digit before moving on and making a request to
+        the ``action`` URL.
 
-    :param str method: The ``method`` attribute takes the value 'GET' or
-        'POST'. This tells Twilio whether to request the ``action`` URL via
-        HTTP GET or POST. This attribute is modeled after the HTML form
-        ``method`` attribute. 'POST' is the default value.
+    :param str method: Either 'GET' or 'POST'. This tells Twilio whether to
+        request the ``action`` URL via HTTP GET or POST. Defaults to 'POST'.
 
-    :param int timeout: The ``timeout`` attribute tells Twilio to end the
-        recording after a number of seconds of silence has passed. The default
-        is 5 seconds.
+    :param int timeout: The amount of silence (in seconds) after which Twilio
+        will automatically end the recording. Defaults to 5.
 
-    :param str finish_on_key: The ``finish_on_key`` attribute lets you choose a
-        set of digits that end the recording when entered. For example, if you
-        set ``finish_on_key`` to '#' and the caller presses '#', Twilio will
-        immediately stop recording and submit 'RecordingUrl',
-        'RecordingDuration', and the '#' as parameters in a request to the
-        ``action`` URL. The allowed values are the digits 0-9, '#' and '*'. The
-        default is '1234567890*#' (i.e. any key will end the recording). Unlike
-        ``<Gather>``, you may specify more than one character as a
-        ``finish_on_key`` value.
+    :param str finish_on_key: A Set of digits that end the recording when
+        entered. For example, if you set ``finish_on_key`` to '#' and the
+        caller presses '#', Twilio will immediately stop recording and submit
+        'RecordingUrl', 'RecordingDuration', and the '#' as parameters in a
+        request to the ``action`` URL. The allowed values are the digits 0-9,
+        '#' and '*'. The default is '1234567890*#' (i.e. any key will end the
+        recording). Unlike :func:`django_twilio.views.gather`, you may specify
+        more than one character as a ``finish_on_key`` value.
 
-    :param int max_length: The ``max_length`` attribute lets you set the
-        maximum length for the recording in seconds. If you set ``max_length``
-        to 30, the recording will automatically end after 30 seconds of
-        recorded time has elapsed. This defaults to 3600 seconds (one hour) for
-        a normal recording and 120 seconds (two minutes) for a transcribed
-        recording.
+    :param int max_length: The maximum length of the recording (in seconds).
+        After this time limit has been reached, the recording will automatically
+        end. Defaults to 3600 seconds (one hour) for normal recordings, and 120
+        seconds (two minutes) for transcribed recordings.
 
-    :param bool transcribe: The ``transcribe`` attribute tells Twilio that you
-        would like a text representation of the audio of the recording. Twilio
-        will pass this recording to our speech-to-text engine and attempt to
-        convert the audio to human readable text. The ``transcribe`` option is
-        off by default. If you do not wish to perform transcription, simply do
-        not include the transcribe attribute.
+    :param bool transcribe: Enable call transcription of the recording. If
+        enabled, Twilio will attempt to convert the audio to human readable
+        text. Defaults to False.
 
         .. note::
             Transcription is a pay feature. If you include a ``transcribe`` or
             ``transcribe_callback`` attribute on your verb your account will be
             charged. See the `pricing page
-            <http://www.twilio.com/pricing-signup>`_ for our transcription
-            prices.
+            <http://www.twilio.com/pricing-signup>`_ for current pricing.
 
             Additionally, transcription is currently limited to recordings with
             a duration of two minutes or less. If you enable transcription and
@@ -253,7 +238,7 @@ def record(request, action=None, method=None, timeout=None, finish_on_key=None,
         'TranscriptionText', 'TranscriptionUrl' and 'RecordingUrl'. If
         ``transcribe_callback`` is not specified, the completed transcription
         will be stored for you to retrieve later (see the REST API
-        Transcriptions section), but Twilio will not asynchronously notify your
+        Transcriptions section), and Twilio will not asynchronously notify your
         application.
 
         Request Parameters
@@ -263,21 +248,23 @@ def record(request, action=None, method=None, timeout=None, finish_on_key=None,
         TwiML Voice request parameters with its request to the
         ``transcribe_callback`` URL:
 
-        +---------------------+--------------------------------------------------------------------------+
-        | Parameter           | Description                                                              |
-        +=====================+==========================================================================+
-        | TranscriptionText   | Contains the text of the transcription.                                  |
-        +---------------------+--------------------------------------------------------------------------+
-        | TranscriptionStatus | The status of the transcription attempt: either 'completed' or 'failed'. |
-        +---------------------+--------------------------------------------------------------------------+
-        | TranscriptionUrl    | The URL for the transcription's REST API resource.                       |
-        +---------------------+--------------------------------------------------------------------------+
-        | RecordingUrl        | The URL for the transcription's source recording resource.               |
-        +---------------------+--------------------------------------------------------------------------+
+        +---------------------+-----------------------------------------------+
+        | Parameter           | Description                                   |
+        +=====================+===============================================+
+        | TranscriptionText   | Contains the text of the transcription.       |
+        +---------------------+-----------------------------------------------+
+        | TranscriptionStatus | The status of the transcription attempt:      |
+        |                     |  either 'completed' or 'failed'.              |
+        +---------------------+-----------------------------------------------+
+        | TranscriptionUrl    | The URL for the transcription's REST API      |
+        |                     |  resource.                                    |
+        +---------------------+-----------------------------------------------+
+        | RecordingUrl        | The URL for the transcription's source        |
+        |                     | recording resource.                           |
+        +---------------------+-----------------------------------------------+
 
-    :param bool play_beep: The ``play_beep`` attribute allows you to toggle
-        between playing a sound before the start of a recording. If you set the
-        value to ``False``, no beep sound will be played.
+    :param bool play_beep: Play a beep before starting the recording. If you set
+        this to False, no beep will be played.
 
     Usage::
 
