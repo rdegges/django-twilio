@@ -286,77 +286,7 @@ def record(request, action=None, method=None, timeout=None, finish_on_key=None,
 @twilio_view
 def sms(request, message, to=None, sender=None, action=None, method=None,
         status_callback=None):
-    """Sends a SMS message to a phone number. Full documentation available on
-    twilio's website: http://www.twilio.com/docs/api/twiml/sms.
-
-    :param str message: The message to SMS. Must be less than 140 characters in
-        length. If greater than 140 characters, it will not be sent.
-
-    :param str to: Phone number to SMS. Must be in valid `E.164 format
-        <http://en.wikipedia.org/wiki/E.164>`_. Defaults to the phone number of
-        the caller.
-
-        .. note::
-            Sending to short codes is not currently supported.
-
-        .. note::
-            Note that if your account is a Free Trial account, the provided
-            ``to`` phone number must be validated with Twilio as a valid
-            outgoing caller ID. But of course you don't have to specify the
-            ``to`` attribute to just send an SMS to the current caller.
-
-    :param str sender: Who to send this message as. Must be a phone number
-        you've purchased or ported to Twilio. Defaults to the called party.
-
-    :param str action: URL that Twilio will GET or POST to after sending the SMS
-        message with the following parameters: ``SmsStatus`` and ``SmsSid``.
-        This is useful if you want notification that the SMS was sent.
-
-        .. note::
-            If no ``action`` is specified, then Twilio will simply carry on
-            **without** POSTing to the current URL, unlike the other views.
-
-        Request Parameters
-        ==================
-
-        Twilio will pass the following parameters in addition to the standard
-        TwiML Voice request parameters with its request to the ``action`` URL:
-
-        +-----------+---------------------------------------------------------+
-        | Parameter | Description                                             |
-        +===========+=========================================================+
-        | SmsSid    | The Sid Twilio has assigned for the SMS message.        |
-        +-----------+---------------------------------------------------------+
-        | SmsStatus | The current status of the SMS message. This is usually  |
-        |           | 'sending'. But if you provide an invalid number, this   |
-        |           | is 'invalid'.                                           |
-        +-----------+---------------------------------------------------------+
-
-    :param str method: Either 'GET' or 'POST'. This tells Twilio whether to
-        request the ``action`` URL via HTTP GET or POST. Defaults to 'POST'.
-
-    :param str status_callback: URL for Twilio to post completed SMS status
-        information to. This lets you know whether an SMS was successful, or
-        failed.
-
-        .. note::
-            Twilio always uses POST for this action.
-
-        Request Parameters
-        ==================
-
-        Twilio will pass the following parameters in addition to the standard
-        TwiML Voice request parameters with its request to the
-        ``status_callback`` URL:
-
-        +-----------+---------------------------------------------------------+
-        | Parameter | Description                                             |
-        +===========+=========================================================+
-        | SmsSid    | The Sid for the Sms message.                            |
-        +-----------+---------------------------------------------------------+
-        | SmsStatus | The current status of the Sms message. Either 'sent' or |
-        |           | 'failed'.                                               |
-        +-----------+---------------------------------------------------------+
+    """See: http://www.twilio.com/docs/api/twiml/sms.
 
     Usage::
 
