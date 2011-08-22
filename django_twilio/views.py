@@ -378,34 +378,25 @@ def sms(request, message, to=None, sender=None, action=None, method=None,
 @twilio_view
 def dial(request, number, action=None, method=None, timeout=None,
         hangup_on_star=None, time_limit=None, caller_id=None):
-    """The ``<Dial>`` verb connects the current caller to an another phone. If
-    the called party picks up, the two parties are connected and can
-    communicate until one hangs up. If the called party does not pick up, if a
-    busy signal is received, or if the number doesn't exist, the dial verb will
-    finish.
+    """Make an outgoing call, then connect the current caller to the new call.
 
     When the dialed call ends, Twilio makes a GET or POST request to the
     ``action`` URL if provided. Call flow will continue using the TwiML
     received in response to that request.
 
-    :param str number: Phone number to forward the call to.
+    :param str number: Phone number to call.
 
-    :param str action: The ``action`` attribute takes a URL as an argument.
-        When the dialed call ends, Twilio will make a GET or POST request to
-        this URL including the parameters below.
+    :param str action: URL taht Twilio will GET or POST to after the connected
+        call has been hungup.
 
         If you provide an ``action`` URL, Twilio will continue the current call
         after the dialed party has hung up, using the TwiML received in your
         response to the ``action`` URL request. Any TwiML verbs occuring after
-        a ``<Dial>`` which specifies an ``action`` attribute are unreachable.
+        a dial which specifies an ``action`` attribute are unreachable.
 
-        If no ``action`` is provided, ``<Dial>`` will finish and Twilio will
-        move on to the next TwiML verb in the document. If there is no next
-        verb, Twilio will end the phone call. Note that this is different from
-        the behavior of ``<Record>`` and ``<Gather>``. ``<Dial>`` does not make
-        a request to the current document's URL by default if no ``action`` URL
-        is provided. Instead the call flow falls through to the next TwiML
-        verb.
+        If no ``action`` is provided, dial will finish and Twilio will move on
+        to the next TwiML verb in the document. If there is no next verb,
+        Twilio will end the phone call.
 
         Request Parameters
         ==================
@@ -413,18 +404,19 @@ def dial(request, number, action=None, method=None, timeout=None,
         Twilio will pass the following parameters in addition to the standard
         TwiML Voice request parameters with its request to the ``action`` URL:
 
-        +------------------+---------------------------------------------------+
-        | Parameter        | Description                                       |
-        +==================+===================================================+
-        | DialCallStatus   | The outcome of the ``<Dial>`` attempt. See the    |
-        |                  | ``DialCallStatus`` section below for details.     |
-        +------------------+---------------------------------------------------+
-        | DialCallSid      | The call sid of the new call leg. This parameter  |
-        |                  | is not sent after dialing a conference.           |
-        +------------------+---------------------------------------------------+
-        | DialCallDuration | The duration in seconds of the dialed call. This  |
-        |                  | parameter is not sent after dialing a conference. |
-        +------------------+---------------------------------------------------+
+        +------------------+--------------------------------------------------+
+        | Parameter        | Description                                      |
+        +==================+==================================================+
+        | DialCallStatus   | The outcome of the ``<Dial>`` attempt. See the   |
+        |                  | ``DialCallStatus`` section below for details.    |
+        +------------------+--------------------------------------------------+
+        | DialCallSid      | The call sid of the new call leg. This parameter |
+        |                  | is not sent after dialing a conference.          |
+        +------------------+--------------------------------------------------+
+        | DialCallDuration | The duration in seconds of the dialed call. This |
+        |                  | parameter is not sent after dialing a            |
+        |                  | conference.                                      |
+        +------------------+--------------------------------------------------+
 
         DialCallStatus Values
         =====================
@@ -449,39 +441,27 @@ def dial(request, number, action=None, method=None, timeout=None,
         |           | answered.                                               |
         +-----------+---------------------------------------------------------+
 
-    :param str method: The ``method`` attribute takes the value 'GET' or
-        'POST'. This tells Twilio whether to request the ``action`` URL via
-        HTTP GET or POST. This attribute is modeled after the HTML form
-        ``method`` attribute. 'POST' is the default value.
+    :param str method: Either 'GET' or 'POST'. This tells Twilio whether to
+        request the ``action`` URL via HTTP GET or POST. Defaults to 'POST'.
 
-    :param int timeout: The ``timeout`` attribute sets the limit in seconds
-        that ``<Dial>`` waits for the called party to answer the call.
-        Basically, how long should Twilio let the call ring before giving up
-        and reporting 'no-answer' as the 'DialCallStatus'.
+    :param int timeout: Time limit in seconds that Twilio will wait for the
+        called party to answer the call.
 
-    :param bool hangup_on_star: The ``hangup_on_star`` attribute lets the
-        calling party hang up on the called party by pressing the '*' key on
-        his phone. When two parties are connected using ``<Dial>``, Twilio
-        blocks execution of further verbs until the caller or called party
-        hangs up. This feature allows the calling party to hang up on the
-        called party without having to hang up her phone and ending her TwiML
-        processing session. When the caller presses '*' Twilio will hang up on
-        the called party. If an ``action`` URL was provided, Twilio submits
-        'completed' as the 'DialCallStatus' to the URL and processes the
-        response. If no ``action`` was provided Twilio will continue on to the
-        next verb in the current TwiML document.
+    :param bool hangup_on_star: Lets the calling party hang up on the called
+        party by pressing the '*' key on his phone. When two parties are
+        connected using dial, Twilio blocks execution of further verbs until the
+        caller or called party hangs up. This feature allows the calling party
+        to hang up on the called party without having to hang up his and end his
+        TwiML processing session. If an ``action`` URL was provided, Twilio
+        submits 'completed' as the 'DialCallStatus' attribute to the URL and
+        processes the response.
 
-    :param int time_limit: The ``time_limit`` attribute sets the maximum
-        duration of the ``<Dial>`` in seconds. For example, by setting a time
-        limit of 120 seconds ``<Dial>`` will hang up on the called party
-        automatically two minutes into the phone call. By default, there is a
-        four hour time limit set on calls.
+    :param int time_limit: Maximum duration of the call (in seconds). Defaults
+        to four hours.
 
-    :param str caller_id: The ``caller_id`` attribute lets you specify the
-        caller ID that will appear to the called party when Twilio calls. By
-        default, when you put a ``<Dial>`` in your TwiML response to Twilio's
-        inbound call request, the caller ID that the dialed party sees is the
-        inbound caller's caller ID.
+    :param str caller_id: Caller ID that will appear ot the called party when
+        Twilio makes the call. By default, the caller ID displayed is that of
+        the calling party.
 
         For example, an inbound caller to your Twilio number has the caller ID
         1-415-123-4567. You tell Twilio to execute a ``<Dial>`` verb to
