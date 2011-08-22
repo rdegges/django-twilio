@@ -36,40 +36,7 @@ def say(request, text, voice=None, language=None, loop=None):
 
 @twilio_view
 def play(request, url, loop=None):
-    """Play an audio file to the caller. Full documentation available on
-    twilio's website: http://www.twilio.com/docs/api/twiml/play.
-
-    :param str url: The URL of an audio file for Twilio to play to the caller.
-
-    :param int loop: How many times should Twilio play the file? Deafults to 1.
-        Speciying 0 will make Twilio repeat the recording until the caller hangs
-        up.
-
-    Twilio supports the following audio MIME types for audio files:
-
-    +--------------+-------------------------------+
-    | MIME Type    | Description                   |
-    +==============+===============================+
-    | audio/mpeg   | mpeg layer 3 audio            |
-    +--------------+-------------------------------+
-    | audio/wav    | wav format audio              |
-    +--------------+-------------------------------+
-    | audio/wave   | wav format audio              |
-    +--------------+-------------------------------+
-    | audio/x-wav  | wav format audio              |
-    +--------------+-------------------------------+
-    | audio/aiff   | audio interchange file format |
-    +--------------+-------------------------------+
-    | audio/x-aifc | audio interchange file format |
-    +--------------+-------------------------------+
-    | audio/x-aiff | audio interchange file format |
-    +--------------+-------------------------------+
-    | audio/x-gsm  | GSM audio format              |
-    +--------------+-------------------------------+
-    | audio/gsm    | GSM audio format              |
-    +--------------+-------------------------------+
-    | audio/ulaw   | u-law audio format            |
-    +--------------+-------------------------------+
+    """See: twilio's website: http://www.twilio.com/docs/api/twiml/play.
 
     Usage::
 
