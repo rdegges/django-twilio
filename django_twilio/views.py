@@ -90,58 +90,7 @@ def play(request, url, loop=None):
 @twilio_view
 def gather(request, action=None, method=None, num_digits=None, timeout=None,
         finish_on_key=None):
-    """Gather touchtone input from a caller. Once the input has been gathered,
-    Twilio will (optionally) submit the data to the URL specified in the
-    ``action`` parameter via HTTP GET or POST, just like a web browser submits
-    data from an HTML form. Full documentation available on twilio's website:
-    http://www.twilio.com/docs/api/twiml/gather.
-
-    :param str action: URL that Twilio will GET or POST to after the caller has
-        finished entering input. If no action is provided, Twilio will by
-        default make a POST request to the current document's URL.
-
-        If ``timeout`` is reached before the caller enters any digits, or if
-        the caller enters the ``finish_on_key`` value before entering other
-        digits, Twilio will not make a request to the action URL.
-
-        Twilio will pass the following parameters in addition to the standard
-        TwiML Voice request parameters with its request to the ``action`` URL:
-
-        +-----------+---------------------------------------------------------+
-        | Parameter | Description                                             |
-        +===========+=========================================================+
-        | Digits    | The digits the caller pressed, excluding the            |
-        |           | ``finish_on_key`` digit if used.                        |
-        +-----------+---------------------------------------------------------+
-
-    :param str method: Either 'GET' or 'POST'. This tells Twilio whether to
-        request the ``action`` URL via HTTP GET or POST. Defaults to 'POST'.
-
-    :param int timeout: Time limit in seconds that Twilio will wait for the
-        caller to press another digit before moving on and making a request to
-        the ``action`` URL.
-
-    :param str finish_on_key: One value that submits the received data when
-        entered. For example, if you set ``finish_on_key`` to '#' and the user
-        enters '1234#', Twilio will immediately stop waiting for more input
-        when the '#' is received and will submit "Digits=1234" to the
-        ``action`` URL. Note that the ``finish_on_key`` value is not sent. The
-        allowed values are the digits 0-9, '#' , '*' and the empty string (set
-        ``finish_on_key`` to ''). If the empty string is used, Twilio captures
-        all input and no key will end input collection. In this case Twilio
-        will submit the entered digits to the ``action`` URL only after the
-        timeout has been reached. Defaults to '#'.
-
-        .. note::
-            The ``finish_on_key`` value **must** be a single character. Multiple
-            characters are not allowed.
-
-    :param int num_digits: Maximum number of digits the caller is allowed to
-        enter. Once this number of digits is reached, Twilio will automatically
-        submit the data to the ``action`` URL. For example, one might set
-        ``num_digits`` to 5 and ask the caller to enter a 5 digit zip code.
-        When the caller enters the fifth digit of '94117', Twilio will
-        immediately submit the data to the ``action`` URL.
+    """See: http://www.twilio.com/docs/api/twiml/gather.
 
     Usage::
 
