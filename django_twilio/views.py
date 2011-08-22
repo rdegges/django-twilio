@@ -36,19 +36,16 @@ def say(request, text, voice=None, language=None, loop=None):
 
 @twilio_view
 def play(request, url, loop=None):
-    """The <Play> verb plays an audio file back to the caller. Twilio retrieves
-    the file from a URL that you provide.
+    """Play an audio file to the caller. Full documentation available on
+    twilio's website: http://www.twilio.com/docs/api/twiml/play.
 
-    :param str url: The URL of an audio file that Twilio will retrieve and play
-        to the caller.
+    :param str url: The URL of an audio file for Twilio to play to the caller.
 
-    :param int loop: The ``loop`` attribute specifies how many times the audio
-        file is played. The default behavior is to play the audio once.
-        Specifying 0 will cause the the ``<Play>`` verb to loop until the call
-        is hung up.
+    :param int loop: How many times should Twilio play the file? Deafults to 1.
+        Speciying 0 will make Twilio repeat the recording until the caller hangs
+        up.
 
-    Twilio supports the following audio MIME types for audio files retrieved by
-    the ``<Play>`` verb:
+    Twilio supports the following audio MIME types for audio files:
 
     +--------------+-------------------------------+
     | MIME Type    | Description                   |
