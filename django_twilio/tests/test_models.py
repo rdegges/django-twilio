@@ -1,3 +1,5 @@
+from types import MethodType
+
 from django.test import TestCase
 
 from django_twilio.models import Caller
@@ -10,6 +12,7 @@ class CallerTestCase(TestCase):
         self.caller = Caller.objects.create(phone_number='+12223334444')
 
     def test_has_unicode(self):
+        self.assertTrue(isinstance(self.caller.__unicode__, MethodType))
         self.assertTrue(isinstance(self.caller.__unicode__(), str))
 
     def tearDown(self):
