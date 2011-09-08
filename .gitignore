@@ -2,7 +2,7 @@
 *.py[co]
 
 # Packaging files:
-*.egg-info
+*.egg*
 
 # Editor temp files:
 *.swp
