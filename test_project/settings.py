@@ -118,10 +118,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
+    # Manage database migrations with south:
     'south',
 
-    'django_twilio',
+    # Use django-nose for running our tests:
     'django_nose',
+
+    # django-twilio, of course!
+    'django_twilio',
 )
 
 # Nose test settings.
