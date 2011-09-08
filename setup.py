@@ -16,7 +16,7 @@ setup(
 
     # Package dependencies:
     install_requires = ['twilio==3.2.3', 'Django>=1.1'],
-    tests_require = ['django-nose>=0.1.3', 'coverage>=3.5'],
+    tests_require = ['django-nose==0.1.3', 'coverage==3.5.1b1'],
 
     # Metadata for PyPI:
     author = 'Randall Degges',
