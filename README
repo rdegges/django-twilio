@@ -16,6 +16,17 @@ email: rdegges@gmail.com
 status: maintained, in development
 
 
+Purpose
+=======
+
+Building telephony applications with Twilio is easy, but not simple.
+
+django-twilio is my attempt at reducing some of the complexities of telephony
+development with Twilio--namely, implementing common patterns, helpers, etc., so
+that you can truly focus on the core application logic and leave out all the
+rest.
+
+
 Docs
 ====
 
