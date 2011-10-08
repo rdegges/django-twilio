@@ -1,8 +1,11 @@
-django-twilio
-=============
+     _  _                               _            _ _ _
+  __| |(_) __ _ _ __   __ _  ___       | |___      _(_) (_) ___
+ / _` || |/ _` | '_ \ / _` |/ _ \ _____| __\ \ /\ / / | | |/ _ \
+| (_| || | (_| | | | | (_| | (_) |_____| |_ \ V  V /| | | | (_) |
+ \__,_|/ |\__,_|_| |_|\__, |\___/       \__| \_/\_/ |_|_|_|\___/
+     |__/             |___/
 
-A simple library for building twilio-powered Django webapps. If you've never
-used twilio, check out their website: http://www.twilio.com/
+A simple library for building twilio-powered Django webapps.
 
 
 Status
