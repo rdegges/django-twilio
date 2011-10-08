@@ -8,6 +8,14 @@
 A simple library for building twilio-powered Django webapps.
 
 
+Meta
+====
+
+author: Randall Degges
+email: rdegges@gmail.com
+status: maintained, in development
+
+
 Status
 ======
 
