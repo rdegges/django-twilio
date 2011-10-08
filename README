@@ -5,7 +5,7 @@
  \__,_|/ |\__,_|_| |_|\__, |\___/       \__| \_/\_/ |_|_|_|\___/
      |__/             |___/
 
-A simple library for building twilio-powered Django webapps.
+A simple library for building Twilio-powered Django webapps.
 
 
 Meta
