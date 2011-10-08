@@ -9,7 +9,7 @@
 *~
 
 # Sphinx docs:
-_build
+build
 
 # SQLite3 database files:
 *.db
