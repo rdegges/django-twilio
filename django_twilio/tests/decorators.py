@@ -28,7 +28,7 @@ class TwilioViewTestCase(TestCase):
         conf.TWILIO_ACCOUNT_SID = 'xxx'
         conf.TWILIO_AUTH_TOKEN = 'xxx'
 
-        # Pre-calculate twilio signatures for our test views.
+        # Pre-calculate Twilio signatures for our test views.
         self.response_signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
                 '%s/response_view/' % self.uri, sha1).digest()).strip()
         self.str_signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
