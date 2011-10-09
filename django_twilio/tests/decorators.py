@@ -106,20 +106,3 @@ class TwilioViewTestCase(TestCase):
     def test_decorator_preserves_httpresponse(self):
         request = self.factory.post(self.response_uri, HTTP_X_TWILIO_SIGNATURE=self.response_signature)
         self.assertTrue(isinstance(response_view(request), HttpResponse))
-
-#   def test_blacklist_works(self):
-#       """Ensure that blacklisted callers can't use services."""
-#       c = Caller.objects.get(phone_number='+16666666666')
-#       self.assertTrue(c.blacklisted)
-#
-#       response = twilio_view(str_view)(self.request_blacklisted_caller)
-#       self.assertEquals(response.status_code, 200)
-#       self.assertEquals(response.content, '<Response><Reject/></Response>')
-#
-#   def test_blacklist_pass_through(self):
-#       """Ensure that non-blacklisted callers can use services."""
-#       c = Caller.objects.get(phone_number='+15555555555')
-#       self.assertFalse(c.blacklisted)
-#
-#       response = twilio_view(str_view)(self.request_caller)
-#       self.assertTrue(response.content != '<Response><Reject/></Response>')
