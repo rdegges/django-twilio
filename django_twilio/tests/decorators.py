@@ -88,7 +88,7 @@ class TwilioViewTestCase(TestCase):
         request = self.factory.post(self.str_uri, {'From': '+13333333333'},
                 HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_blacklisted_caller)
         response = str_view(request)
-        self.assertEquals(response.content, 
+        self.assertEquals(response.content,
             '<?xml version="1.0" encoding="utf-8"?><Response><Reject /></Response>')
 
     def test_decorator_modifies_str(self):
