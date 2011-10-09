@@ -92,6 +92,45 @@ output not only failing test results, but also the coverage reports.
 When you submit patches or add functionality to django-twilio, be sure to run
 the test suite to ensure that no functionality is broken.
 
+Workflow
+--------
+
+When contributing to django-twilio, here's a typical developer workflow::
+
+    # Preparing the environment:
+
+    $ mkvirtualenv --no-site-packages djtw
+    $ cd ~/django_twilio
+    $ git checkout develop
+    $ pip install -r REQUIREMENTS
+    $ python setup.py develop
+
+    # Hacking:
+
+    $ cd ~/django_twilio/django_twilio
+    $ git checkout develop
+    $ vim ...
+    <<< hack >>>
+
+    # Writing tests:
+
+    $ cd ~/django_twilio/django_twilio/tests
+    $ vim ...
+    <<< hack >>>
+
+    # Running tests:
+
+    $ cd ~/django_twilio/test_project
+    $ workon djtw
+    $ python manage.py test django_twilio
+    <<< check test output >>>
+
+.. note::
+    Please be sure that if you fork the project, you work on the ``develop``
+    branch. When submitting pull requests, please do so only if they're for the
+    ``develop`` branch.
+
+
 Bugs / Feature Requests / Comments
 ----------------------------------
 
