@@ -1,2 +1,2 @@
-coverage
-django_nose
+coverage==3.5.1
+django-nose==0.1.3
