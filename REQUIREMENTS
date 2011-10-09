@@ -1,4 +1,2 @@
 coverage
 django_nose
-twilio>=3.0.0
-Django>=1.3
