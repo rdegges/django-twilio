@@ -10,12 +10,12 @@ Purpose
 =======
 
 Building telephony applications has always been something of a complex and time
-consuming task for developers. With `twilio <http://www.twilio.com/>`_'s entry
+consuming task for developers. With `Twilio <http://www.twilio.com/>`_'s entry
 into the telephony world, developers were able to build large scale telephony
 applications for the first time, without the massive learning curve associated
 with traditional telephony development.
 
-While twilio's APIs allow you to build powerful voice & sms apps in your
+While Twilio's APIs allow you to build powerful voice & sms apps in your
 favorite programming language, it can still be quite difficult and time
 consuming to roll out your own telephony apps for your Django-powered website.
 
@@ -49,11 +49,11 @@ Prerequisite Knowledge
 ======================
 
 Before getting started with django-twilio, it will serve you best to read the
-`How it Works <http://www.twilio.com/api/>`_ page on twilio's website. That
+`How it Works <http://www.twilio.com/api/>`_ page on Twilio's website. That
 describes the architecture and API flow that all of your applications will be
 using, and that django-twilio will help to abstract.
 
-django-twilio also depends on the official `twilio python library
+django-twilio also depends on the official `Twilio python library
 <https://github.com/twilio/twilio-python>`_, so you might want to look at their
 ``README`` to get a decent idea of how things work.
 
