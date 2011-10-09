@@ -8,8 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseForbidden
 
-from twilio import Utils, Verb
-
+from twilio.twiml import Verb
+from twilio.util import RequestValidator
 
 def twilio_view(f):
 	"""This decorator provides several helpful shortcuts for writing twilio
@@ -50,13 +50,13 @@ def twilio_view(f):
 		# forgery. If it is a forgery, then we'll return a HTTP 403 error
 		# (forbidden).
 		try:
-			utils = Utils(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 			url = request.build_absolute_uri()
 			signature = request.META['HTTP_X_TWILIO_SIGNATURE']
 		except (AttributeError, KeyError):
 			return HttpResponseForbidden()
 
-		if not utils.validateRequest(url, request.POST, signature):
+		validator = RequestValidator(settings.TWILIO_AUTH_TOKEN)
+		if not validator.validate(url, request.POST, signature):
 			return HttpResponseForbidden()
 
 		# Run the wrapped view, and capture the data returned.
