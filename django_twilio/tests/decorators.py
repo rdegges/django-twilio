@@ -22,6 +22,7 @@ class TwilioViewTestCase(TestCase):
         # Test URIs.
         self.uri = 'http://testserver/tests/decorators'
         self.str_uri = '/tests/decorators/str_view/'
+        self.verb_uri = '/tests/decorators/verb_view/'
         self.response_uri = '/tests/decorators/response_view/'
 
         # Guarantee a value for the required configuration settings after each
@@ -100,7 +101,7 @@ class TwilioViewTestCase(TestCase):
         self.assertTrue(isinstance(str_view(request), HttpResponse))
 
     def test_decorator_modifies_verb(self):
-        request = self.factory.post(self.str_uri, HTTP_X_TWILIO_SIGNATURE=self.verb_signature)
+        request = self.factory.post(self.verb_uri, HTTP_X_TWILIO_SIGNATURE=self.verb_signature)
         self.assertTrue(isinstance(verb_view(request), HttpResponse))
 
     def test_decorator_preserves_httpresponse(self):
