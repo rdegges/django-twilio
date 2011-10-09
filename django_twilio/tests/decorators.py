@@ -63,7 +63,6 @@ class TwilioViewTestCase(TestCase):
     def test_missing_settings_return_forbidden(self):
         del conf.TWILIO_ACCOUNT_SID
         del conf.TWILIO_AUTH_TOKEN
-
         self.assertEquals(self.client.post(self.str_uri).status_code, 403)
 
     def test_missing_signature_returns_forbidden(self):
