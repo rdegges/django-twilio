@@ -99,20 +99,3 @@ If you've got any concerns about django-twilio, make your voice heard by
 posting an issue on our `GitHub issue tracker
 <https://github.com/rdegges/django-twilio/issues>`_. All bugs / feature
 requests / comments are welcome.
-
-
-TODO
-----
-
-Below is the current list of features that are planned. If you'd like to help
-write them or get involved, fork the project and send a pull request.
-
-.. note::
-    django-twilio aims to be really well-tested. So when submitting features
-    / patches for code, including tests will help patches be implemented
-    quicker.
-
-* Data models for tracking SMS messages and Voice messages.
-* Optional `log` keyword argument for the
-  :func:`django_twilio.decorators.twilio_view` decorator. This will force
-  django-twilio to log all requests from twilio to the database.
