@@ -10,7 +10,6 @@ from django_twilio.tests.views import response_view, str_view, verb_view
 
 
 class TwilioViewTestCase(TestCase):
-    """Run tests against the ``twilio_view`` decorator."""
     fixtures = ['django_twilio.json']
     urls = 'django_twilio.tests.urls'
 
