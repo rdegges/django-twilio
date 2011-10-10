@@ -48,7 +48,7 @@ class SayTestCase(TestCase):
         settings.TWILIO_ACCOUNT_SID = 'xxx'
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
-        # Pre-calculate twilio signatures for our test views.
+        # Pre-calculate Twilio signatures for our test views.
         self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/say/' % self.uri, sha1).digest()).strip()
 
