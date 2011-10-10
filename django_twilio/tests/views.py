@@ -54,11 +54,11 @@ class SayTestCase(TestCase):
 
     def test_say_no_text(self):
         request = self.factory.post(self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-	self.assertRaises(TypeError, say, request)
+        self.assertRaises(TypeError, say, request)
 
     def test_say_with_text(self):
         request = self.factory.post(self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-	self.assertEquals(say(request, text='hi').status_code, 200)
+        self.assertEquals(say(request, text='hi').status_code, 200)
 
 
 class PlayTestCase(TestCase):
@@ -82,11 +82,11 @@ class PlayTestCase(TestCase):
 
     def test_play_no_url(self):
         request = self.factory.post(self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-	self.assertRaises(TypeError, play, request)
+        self.assertRaises(TypeError, play, request)
 
     def test_play_with_url(self):
         request = self.factory.post(self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-	self.assertEquals(play(request, url='http://b.com/b.wav').status_code, 200)
+        self.assertEquals(play(request, url='http://b.com/b.wav').status_code, 200)
 
 
 class GatherTestCase(TestCase):
@@ -110,7 +110,7 @@ class GatherTestCase(TestCase):
 
     def test_gather(self):
         request = self.factory.post(self.gather_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-	self.assertEquals(gather(request).status_code, 200)
+        self.assertEquals(gather(request).status_code, 200)
 
 
 class RecordTestCase(TestCase):
@@ -134,7 +134,7 @@ class RecordTestCase(TestCase):
 
     def test_record(self):
         request = self.factory.post(self.record_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-	self.assertEquals(record(request).status_code, 200)
+        self.assertEquals(record(request).status_code, 200)
 
 
 class SmsTestCase(TestCase):
