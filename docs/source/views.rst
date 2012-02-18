@@ -1,4 +1,3 @@
-=====
 Views
 =====
 
@@ -7,7 +6,7 @@ django-twilio ships with a few useful views that you can plug straight into
 your project's urlconf, and immediately use!
 
 Saying Stuff
-************
+------------
 
 In a majority of telephony apps--you'll want to say something. It can be tedious
 to record your own voice prompts for every bit of call flow, which is why you'll
@@ -17,7 +16,7 @@ The :func:`django_twilio.views.say` view allows you to simply "say stuff" in a
 variety of languages (in either a male or female voice).
 
 Hello, World!
-=============
+*************
 
 Let's take a look at a *classic* example::
 
@@ -34,7 +33,7 @@ Hook a twilio number up to that URL, and you'll hear a man say "Hello, world!"
 when called. Nice!
 
 Changing the Voice (and Language)
-=================================
+*********************************
 
 By default, twilio reads off all text in the English language in a man's voice.
 By it's easy to change that. In the example below, we'll say "goodbye" in
@@ -54,7 +53,7 @@ Spanish, with a female voice::
 Simple, right?
 
 Repeating Text
-==============
+**************
 
 On occasion, you'll also want to repeat some text, without copy+paste. In this
 situation, you can simply specify an optional ``loop`` parameter::
@@ -76,14 +75,14 @@ For more information, be sure to read the API docs on
 :func:`django_twilio.views.say`.
 
 Playing Audio
-*************
+-------------
 
 django-twilio makes it easy to play audio files to callers. Below, we'll look
 at two examples which demonstrate how to do so using the excellent
 :func:`django_twilio.views.play` view.
 
 Playing a WAV File
-==================
+******************
 
 In this example, we'll play a simple WAV file to a caller. For simplicity's
 sake, just assume that this WAV file actually exists::
@@ -107,7 +106,7 @@ file play.
     :func:`django_twilio.views.play` view.
 
 Looping Audio
-=============
+*************
 
 In this example, we'll play the same greeting audio clip as we did above, but
 this time--we'll loop it 3 times::
@@ -125,7 +124,7 @@ this time--we'll loop it 3 times::
 Not too bad (for no code)!
 
 Grabbing Caller Input
-*********************
+---------------------
 
 As you begin to build more and more complicated telephony applications, you'll
 need a way to accept caller input via their telephone touch pad. For this
@@ -134,7 +133,7 @@ purpose, django-twilio ships with the :func:`django_twilio.views.gather` view.
 Below we'll look at a few examples displaying proper usage.
 
 Collecting Touchtone Input
-==========================
+**************************
 
 The simplest thing we can do using the :func:`django_twilio.views.gather` view
 is to collect caller touchtone input until the caller stops hitting keys. To do
@@ -153,7 +152,7 @@ HTTP POST request to the same URL. So in our example above, if a caller enters
 ``Digits`` parameter that contains the value '666#'.
 
 Redirect After Collecting Input
-===============================
+*******************************
 
 Let's say that instead of POST'ing the caller's input to the same URL, you want
 to instead POST the data to another URL (or view). No problem! In fact, we'll
@@ -181,7 +180,7 @@ If you test out this application, you'll see that the caller's input is sent
 (via HTTP GET) to the ``process`` view once the input has been collected.
 
 Controlling Input Patterns
-==========================
+**************************
 
 Lastly, the :func:`django_twilio.views.gather` view allows you to control
 various aspects of the input collection process.
@@ -216,7 +215,7 @@ Our example below:
     )
 
 Recording Calls
-***************
+---------------
 
 django-twilio also comes with a built-in call recording view:
 :func:`django_twilio.views.record`. In the examples below, we'll walk through
@@ -224,7 +223,7 @@ plugging the :func:`django_twilio.views.record` view into our fictional Django
 website in a variety of situations.
 
 Record a Call
-=============
+*************
 
 Let's start simple. In this example, we'll setup our URLconf to record our call,
 then hit another URL in our application to provide TwiML instructions for
@@ -246,7 +245,7 @@ executing call logic. This allows us to start recording, then continue on
 passing instructions to twilio (maybe we'll call our lawyer :)).
 
 Stop Recording on Silence
-=========================
+*************************
 
 In most cases, you'll only want to record calls that actually have talking in
 them. It's pointless to record silence. That's why twilio provides a ``timeout``
@@ -272,7 +271,7 @@ you should probably bump this number up to avoid ending the recording if you get
 put on hold.
 
 Transcribe Your Call Recording
-==============================
+******************************
 
 On occasion, you may want to transcribe your call recordings. Maybe you're
 making a call to your secretary to describe your TODO list, and want to ensure
@@ -308,7 +307,7 @@ we'll email it to ourselves, or something).
     )
 
 Sending SMS Messages
-********************
+--------------------
 
 In addition to building plug-n-play voice applications, we can also build
 plug-n-play SMS applications using the :func:`django_twilio.views.sms` view.
@@ -316,7 +315,7 @@ This view allows us to send off arbitrary SMS messages based on incoming twilio
 requests.
 
 Reply With a SMS
-================
+****************
 
 This example demonstrates a simple SMS reply. Whenever twilio sends us an
 incoming request, we'll simply send back a SMS message to the sender::
@@ -330,7 +329,7 @@ incoming request, we'll simply send back a SMS message to the sender::
     )
 
 Sending SMS Messages (with Additional Options)
-==============================================
+**********************************************
 
 Like most of our other views, the :func:`django_twilio.views.sms` view also
 allows us to specify some other parameters to change our view's behavior::
@@ -355,7 +354,7 @@ to by twilio once it attempts to send this SMS message. twilio will send us some
 metadata about the SMS message that we can use in our application as desired.
 
 Teleconferencing
-****************
+----------------
 
 A common development problem for telephony developers has traditionally been
 conference rooms--until now. django-twilio provides the simplest possible
@@ -366,7 +365,7 @@ Let's take a look at a few conference patterns, and see how we can easily
 implement them into our webapp.
 
 Simple Conference Room
-======================
+**********************
 
 Let's say you want to build the world's simplest conference room. It would
 consist of nothing more than a phone number that, when called, dumps the
@@ -394,7 +393,7 @@ simple conference room:
 Pretty easy eh? No coding even required!
 
 Simple Conference Room with Rock Music
-======================================
+**************************************
 
 Let's face it, the simple conference you just built was pretty cool, but the
 music that twilio plays by default is pretty boring. While you're waiting for
@@ -422,7 +421,7 @@ for efficiency's sake--telling twilio to use the HTTP GET method (instead of
 POST, which is the default), allows twilio to properly cache the sound files.
 
 Conference Room with Custom Greeting
-====================================
+************************************
 
 Messing around with hold music is fine and dandy, but it's highly likely that
 you'll need to do more than that! In the example below, we'll outline how to
@@ -461,7 +460,7 @@ room call flow. One pattern that is commonly requested is to play an estimated
 wait time--a simple project using :func:`django_twilio.views.conference`.
 
 Other Conferencing Goodies
-==========================
+**************************
 
 Now may be a good time to check out the API docs for
 :func:`django_twilio.views.conference` to see all the other goodies available.

@@ -1,4 +1,3 @@
-=======
 Gotchas
 =======
 
@@ -7,13 +6,13 @@ you" at one point or another. We've done our best to try and make django-twilio
 as easy to use as possible, but sometimes problems are unavoidable!
 
 Help! I Get HTTP 403 Forbidden
-******************************
+------------------------------
 
 There are two common problems that cause django-twilio to return HTTP 403 errors
 in your views:
 
 Forgery Protection
-==================
+------------------
 
 django-twilio has built in forgery protection to help verify that requests made
 to any of your twilio views actually originate from twilio.
@@ -30,7 +29,7 @@ Because of the way this forgery protection works, you'll get HTTP 403 errors
 when hitting django-twilio views if you test them yourself.
 
 Missing Settings
-================
+----------------
 
 django-twilio *requires* that you specify the variables ``TWILIO_ACCOUNT_SID``
 and ``TWILIO_AUTH_TOKEN`` in your site's settings module. These are used to
