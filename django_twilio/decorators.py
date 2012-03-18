@@ -3,6 +3,7 @@
 
 from functools import wraps
 
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseForbidden
@@ -12,6 +13,20 @@ from twilio.util import RequestValidator
 
 from django_twilio import conf
 from django_twilio.models import Caller
+
+
+def get_blacklisted_response(request):
+    """Helper function to reject blacklisted callers.
+    """
+    try:
+        caller = Caller.objects.get(phone_number=request.POST['From'])
+        if caller.blacklisted:
+            r = Response()
+            r.reject()
+            return HttpResponse(str(r), mimetype='application/xml')
+    except (KeyError, Caller.DoesNotExist):
+        pass
+    return None
 
 
 def twilio_view(f):
@@ -52,7 +67,6 @@ def twilio_view(f):
             return r
     """
     @csrf_exempt
-    @require_POST
     @wraps(f)
     def decorator(request, *args, **kwargs):
         # Attempt to gather all required information to allow us to check the
@@ -69,31 +83,42 @@ def twilio_view(f):
         #      environments.
         #   4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
         #      contains a hash that we'll use to check for forged requests.
-        try:
-            validator = RequestValidator(conf.TWILIO_AUTH_TOKEN)
-            url = request.build_absolute_uri()
-            signature = request.META['HTTP_X_TWILIO_SIGNATURE']
-        except (AttributeError, KeyError):
-            return HttpResponseForbidden()
-
-        # Now that we have all the required information to perform forgery
-        # checks, we'll actually do the forgery check.
-        if not validator.validate(url, request.POST, signature):
-            return HttpResponseForbidden()
-
-        # If the caller requesting service is blacklisted, reject their
-        # request.
-        try:
-            caller = Caller.objects.get(phone_number=request.POST['From'])
-            if caller.blacklisted:
-                r = Response()
-                r.reject()
-                return HttpResponse(str(r), mimetype='application/xml')
-        except (KeyError, Caller.DoesNotExist):
-            pass
-
-        # Run the wrapped view, and capture the data returned.
-        response = f(request, *args, **kwargs)
+        if not settings.DEBUG:
+            # Ensure the request method is POST
+            response = require_POST(f)(request, *args, **kwargs)
+            if isinstance(response, HttpResponse):
+                return response
+            
+            # Validate the request
+            try:
+                validator = RequestValidator(conf.TWILIO_AUTH_TOKEN)
+                url = request.build_absolute_uri()
+                signature = request.META['HTTP_X_TWILIO_SIGNATURE']
+            except (AttributeError, KeyError):
+                return HttpResponseForbidden()
+    
+            # Now that we have all the required information to perform forgery
+            # checks, we'll actually do the forgery check.
+            if not validator.validate(url, request.POST, signature):
+                return HttpResponseForbidden()
+    
+            # If the caller requesting service is blacklisted, reject their
+            # request.
+            blacklisted_resp = get_blacklisted_response(request)
+            if blacklisted_resp is not None:
+                return blacklisted_resp
+    
+            # Run the wrapped view, and capture the data returned.
+            response = f(request, *args, **kwargs)
+        else:
+            # If the caller requesting service is blacklisted, reject their
+            # request.
+            blacklisted_resp = get_blacklisted_response(request)
+            if blacklisted_resp is not None:
+                return blacklisted_resp
+            
+            # Run the wrapped view, and capture the data returned.
+            response = f(request, *args, **kwargs)
 
         # If the view returns a string (or a ``twilio.Verb`` object), we'll
         # assume it is XML TwilML data and pass it back with the appropriate

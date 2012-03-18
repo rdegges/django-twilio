@@ -2,6 +2,7 @@ from hmac import new
 from hashlib import sha1
 from base64 import encodestring
 
+from django.conf import settings
 from django.http import HttpResponse
 from django.test import Client, RequestFactory, TestCase
 
@@ -50,11 +51,20 @@ class TwilioViewTestCase(TestCase):
         self.assertTrue(self.client.post(self.str_uri).csrf_exempt)
 
     def test_requires_post(self):
+        debug_orig = settings.DEBUG
+        settings.DEBUG = False
         self.assertEquals(self.client.get(self.str_uri).status_code, 405)
         self.assertEquals(self.client.head(self.str_uri).status_code, 405)
         self.assertEquals(self.client.options(self.str_uri).status_code, 405)
         self.assertEquals(self.client.put(self.str_uri).status_code, 405)
         self.assertEquals(self.client.delete(self.str_uri).status_code, 405)
+        settings.DEBUG = True
+        self.assertEquals(self.client.get(self.str_uri).status_code, 200)
+        self.assertEquals(self.client.head(self.str_uri).status_code, 200)
+        self.assertEquals(self.client.options(self.str_uri).status_code, 200)
+        self.assertEquals(self.client.put(self.str_uri).status_code, 200)
+        self.assertEquals(self.client.delete(self.str_uri).status_code, 200)
+        settings.DEBUG = debug_orig
 
     def test_allows_post(self):
         request = self.factory.post(self.str_uri, HTTP_X_TWILIO_SIGNATURE=self.str_signature)
@@ -66,14 +76,29 @@ class TwilioViewTestCase(TestCase):
     def test_missing_settings_return_forbidden(self):
         del conf.TWILIO_ACCOUNT_SID
         del conf.TWILIO_AUTH_TOKEN
+        debug_orig = settings.DEBUG
+        settings.DEBUG = False
         self.assertEquals(self.client.post(self.str_uri).status_code, 403)
+        settings.DEBUG = True
+        self.assertEquals(self.client.post(self.str_uri).status_code, 200)
+        settings.DEBUG = debug_orig
 
     def test_missing_signature_returns_forbidden(self):
+        debug_orig = settings.DEBUG
+        settings.DEBUG = False
         self.assertEquals(self.client.post(self.str_uri).status_code, 403)
+        settings.DEBUG = True
+        self.assertEquals(self.client.post(self.str_uri).status_code, 200)
+        settings.DEBUG = debug_orig
 
     def test_incorrect_signature_returns_forbidden(self):
+        debug_orig = settings.DEBUG
+        settings.DEBUG = False
         request = self.factory.post(self.str_uri, HTTP_X_TWILIO_SIGNATURE='fakesignature')
         self.assertEquals(str_view(request).status_code, 403)
+        settings.DEBUG = True
+        self.assertEquals(str_view(request).status_code, 200)
+        settings.DEBUG = debug_orig
 
     def test_no_from_field(self):
         request = self.factory.post(self.str_uri,
@@ -86,14 +111,22 @@ class TwilioViewTestCase(TestCase):
         self.assertEquals(str_view(request).status_code, 200)
 
     def test_blacklist_works(self):
+        debug_orig = settings.DEBUG
+        settings.DEBUG = False
         request = self.factory.post(self.str_uri, {'From': '+13333333333'},
                 HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_blacklisted_caller)
         response = str_view(request)
-
         r = Response()
         r.reject()
-
         self.assertEquals(response.content, str(r))
+        settings.DEBUG = True
+        request = self.factory.post(self.str_uri, {'From': '+13333333333'},
+                HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_blacklisted_caller)
+        response = str_view(request)
+        r = Response()
+        r.reject()
+        self.assertEquals(response.content, str(r))
+        settings.DEBUG = debug_orig
 
     def test_decorator_modifies_str(self):
         request = self.factory.post(self.str_uri,
