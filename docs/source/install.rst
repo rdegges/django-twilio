@@ -73,6 +73,6 @@ Upgrading
 ---------
 
 Upgrading django-twilio gracefully is easy using South. If you aren't using
-South, you're out of luck!::
+South, you're out of luck(!)::
 
     python manage.py migrate django_twilio
