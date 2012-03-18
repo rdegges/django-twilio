@@ -15,7 +15,7 @@ setup(
     include_package_data = True,
 
     # Package dependencies:
-    install_requires = ['twilio==3.3.6', 'Django>=1.1'],
+    install_requires = ['twilio==3.3.6', 'Django>=1.3.1'],
 
     # Metadata for PyPI:
     author = 'Randall Degges',
