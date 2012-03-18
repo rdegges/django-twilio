@@ -5,11 +5,7 @@ Installing django-twilio is simple... Firstly, download and install
 django-twilio. The easiest way is with `pip
 <http://www.pip-installer.org/en/latest/>`_ ::
 
-    pip install -e git+https://github.com/rdegges/django-twilio.git#egg=django_twilio
-
-.. note::
-    We aren't on PyPI yet. Once the first release is stable it will be pushed
-    there. For now, just install from GitHub.
+    pip install django-twilio
 
 
 Requirements
