@@ -42,6 +42,7 @@ django-twilio's public facing APIs.
     :maxdepth: 2
 
     admin_module
+    client_module
     decorators_module
     models_module
     views_module
