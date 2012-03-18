@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'django-twilio'
-copyright = u'2011, Randall Degges'
+copyright = u'2012, Randall Degges'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
