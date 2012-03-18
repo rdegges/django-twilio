@@ -54,7 +54,8 @@ describes the architecture and API flow that all of your applications will be
 using, and that django-twilio will help to abstract.
 
 django-twilio also depends on the official `Twilio python library
-<https://github.com/twilio/twilio-python>`_, so you might want to look at their
-``README`` to get a decent idea of how things work.
+<http://readthedocs.org/docs/twilio-python/en/latest/>`_, so you may want to
+familiarize yourself with their docs before continuing so you have a good idea
+of how things work.
 
 Other then that, you're good to go!
