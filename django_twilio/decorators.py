@@ -91,8 +91,8 @@ def twilio_view(f):
             if not validator.validate(url, request.POST, signature):
                 return HttpResponseForbidden()
 
-            # Run the wrapped view, and capture the data returned.
-            response = f(request, *args, **kwargs)
+        # Run the wrapped view, and capture the data returned.
+        response = f(request, *args, **kwargs)
 
         # If the user requesting service is blacklisted, reject their
         # request.
