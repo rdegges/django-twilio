@@ -3,7 +3,7 @@ from django.test import TestCase
 from twilio.rest import TwilioRestClient
 
 from django_twilio.client import twilio_client
-from django_twilio.conf import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+from django_twilio.settings import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 
 
 class TwilioClientTestCase(TestCase):

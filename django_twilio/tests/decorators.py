@@ -8,7 +8,7 @@ from django.test import Client, RequestFactory, TestCase
 
 from twilio.twiml import Response
 
-from django_twilio import conf
+from django_twilio import settings as django_twilio_settings
 from django_twilio.tests.views import response_view, str_view, verb_view
 
 
@@ -28,23 +28,23 @@ class TwilioViewTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        django_twilio_settings.TWILIO_ACCOUNT_SID = 'xxx'
+        django_twilio_settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate Twilio signatures for our test views.
-        self.response_signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.response_signature = encodestring(new(django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/response_view/' % self.uri, sha1).digest()).strip()
-        self.str_signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.str_signature = encodestring(new(django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/str_view/' % self.uri, sha1).digest()).strip()
         self.str_signature_with_from_field_normal_caller = encodestring(new(
-                conf.TWILIO_AUTH_TOKEN,
+                django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/str_view/From+12222222222' % self.uri,
                 sha1).digest()).strip()
         self.str_signature_with_from_field_blacklisted_caller = encodestring(
-                new(conf.TWILIO_AUTH_TOKEN,
+                new(django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/str_view/From+13333333333' % self.uri,
                 sha1).digest()).strip()
-        self.verb_signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.verb_signature = encodestring(new(django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/verb_view/' % self.uri, sha1).digest()).strip()
 
     def test_is_csrf_exempt(self):
@@ -74,8 +74,8 @@ class TwilioViewTestCase(TestCase):
         self.assertEqual(str_view.__name__, 'str_view')
 
     def test_missing_settings_return_forbidden(self):
-        del conf.TWILIO_ACCOUNT_SID
-        del conf.TWILIO_AUTH_TOKEN
+        del django_twilio_settings.TWILIO_ACCOUNT_SID
+        del django_twilio_settings.TWILIO_AUTH_TOKEN
         debug_orig = settings.DEBUG
         settings.DEBUG = False
         self.assertEquals(self.client.post(self.str_uri).status_code, 403)

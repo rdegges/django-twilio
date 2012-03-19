@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.test import Client, RequestFactory, TestCase
 from twilio.twiml import Response
 
-from django_twilio import conf
+from django_twilio import settings
 from django_twilio.decorators import twilio_view
 from django_twilio.views import conference, dial, gather, play, record, say, \
         sms
@@ -45,11 +45,11 @@ class SayTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate Twilio signatures for our test views.
-        self.signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/say/' % self.uri, sha1).digest()).strip()
 
     def test_say_no_text(self):
@@ -73,11 +73,11 @@ class PlayTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/play/' % self.uri, sha1).digest()).strip()
 
     def test_play_no_url(self):
@@ -101,11 +101,11 @@ class GatherTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/gather/' % self.uri, sha1).digest()).strip()
 
     def test_gather(self):
@@ -125,11 +125,11 @@ class RecordTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/record/' % self.uri, sha1).digest()).strip()
 
     def test_record(self):
@@ -149,11 +149,11 @@ class SmsTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/sms/' % self.uri, sha1).digest()).strip()
 
     def test_sms_no_message(self):
@@ -177,11 +177,11 @@ class DialTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/dial/' % self.uri, sha1).digest()).strip()
 
     def test_dial_no_number(self):
@@ -205,11 +205,11 @@ class ConferenceTestCase(TestCase):
 
         # Guarantee a value for the required configuration settings after each
         # test case.
-        conf.TWILIO_ACCOUNT_SID = 'xxx'
-        conf.TWILIO_AUTH_TOKEN = 'xxx'
+        settings.TWILIO_ACCOUNT_SID = 'xxx'
+        settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(conf.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
                 '%s/conference/' % self.uri, sha1).digest()).strip()
 
     def test_conference_no_name(self):
