@@ -53,12 +53,11 @@ def twilio_view(f):
     @csrf_exempt
     @wraps(f)
     def decorator(request, *args, **kwargs):
+
         # Only handle Twilio forgery protection stuff if we're running in
         # production. This way, developers can test their Twilio view code
         # without getting errors.
         if not settings.DEBUG:
-
-
 
             # Attempt to gather all required information to allow us to check the
             # incoming HTTP request for forgery. If any of this information is not
