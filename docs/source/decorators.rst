@@ -89,5 +89,5 @@ development mode, you can:
 * Test your views out locally and make sure they return the code you want.
 
 Because of this, it is extremely important that when your site goes live, you
-ensure that ``settings.DEBUG = False``!!! **If you have
-``settings.DEBUG = True`` enabled, bad things will happen!**
+ensure that ``settings.DEBUG = False``!!! **If you have**
+``settings.DEBUG = True`` **enabled, bad things will happen!**
