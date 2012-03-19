@@ -43,7 +43,7 @@ To run the tests, you'll need to do the following:
 2. Switch to the develop branch: ``cd django-twilio; git fetch origin
    develop:develop``.
 
-3. Install the required packages for testing: ``pip install -r REQUIREMENTS``.
+3. Install the required packages for testing: ``pip install -r requirements.txt``.
 
 4. Install django-twilio in development mode: ``cd django_twilio; python
    setup.py develop``.
@@ -102,7 +102,7 @@ When contributing to django-twilio, here's a typical developer workflow::
     $ mkvirtualenv --no-site-packages djtw
     $ cd ~/django_twilio
     $ git checkout develop
-    $ pip install -r REQUIREMENTS
+    $ pip install -r requirements.txt
     $ python setup.py develop
 
     # Hacking:
