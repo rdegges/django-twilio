@@ -2,14 +2,18 @@
 *.py[co]
 
 # Packaging files:
-*.egg-info
+*.egg*
+dist
 
 # Editor temp files:
 *.swp
 *~
 
 # Sphinx docs:
-_build
+build
 
 # SQLite3 database files:
 *.db
+
+# Coverage reports:
+.coverage

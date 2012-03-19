@@ -1,0 +1,3 @@
+coverage==3.5.1
+django-nose==1.0
+Sphinx==1.1.2

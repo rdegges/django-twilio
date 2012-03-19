@@ -1,0 +1,7 @@
+include AUTHORS README requirements.txt UNLICENSE
+recursive-include docs *
+recursive-include test_project *
+recursive-exclude docs/source *.pyc
+recursive-exclude test_project *.pyc
+recursive-exclude django_twilio *.pyc
+prune docs/build
