@@ -37,10 +37,8 @@ def twilio_view(f):
           instead of building a ``HttpResponse`` object manually.
 
           .. note::
-            At this time this ONLY supports XML TwiML since the Twilio
-            library only supports XML rendering at the moment. In future
-            releases this may be changed to support JSON (and other formats) as
-            well.
+            The forgery protection checks ONLY happen if ``settings.DEBUG =
+            False`` (aka, your site is in production).
 
     Usage::
 
