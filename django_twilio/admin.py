@@ -4,7 +4,7 @@ various components through the django admin panel (if enabled).
 
 from django.contrib import admin
 
-from .models import Caller
+from django_twilio.models import Caller
 
 
 class CallerAdmin(admin.ModelAdmin):
