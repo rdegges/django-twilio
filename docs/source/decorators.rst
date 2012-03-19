@@ -68,3 +68,26 @@ Now let's take a look at the same view written *without*
 And that doesn't even include forgery protection or blacklist management! As
 you can see, using the :func:`django_twilio.decorators.twilio_view` decorator
 can save you a lot of time.
+
+
+How Forgery Protection Works
+****************************
+
+Forgery protection is extremely important when writing Twilio code. Since your
+code will be doing stuff that costs money (sending calls, SMS messages,
+etc.), ensuring all incoming HTTP requests actually originate from Twilio is
+really important.
+
+The way django-twilio implements forgery protection is by *only* enabling it
+when ``settings.DEBUG = False``--thereby only doing the validation checks when
+your site is running in production.
+
+This behavior has been specifically implemented this way so that, while in
+development mode, you can:
+
+* Unit test your Twilio views without getting permission denied errors.
+* Test your views out locally and make sure they return the code you want.
+
+Because of this, it is extremely important that when your site goes live, you
+ensure that ``settings.DEBUG = False``!!! **If you have
+``settings.DEBUG = True`` enabled, bad things will happen!**
