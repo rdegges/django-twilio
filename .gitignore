@@ -3,6 +3,7 @@
 
 # Packaging files:
 *.egg*
+dist
 
 # Editor temp files:
 *.swp
