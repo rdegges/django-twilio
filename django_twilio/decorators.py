@@ -55,21 +55,27 @@ def twilio_view(f):
     @csrf_exempt
     @wraps(f)
     def decorator(request, *args, **kwargs):
-        # Attempt to gather all required information to allow us to check the
-        # incoming HTTP request for forgery. If any of this information is not
-        # available, then we'll throw a HTTP 403 error (forbidden).
-        #
-        # The required fields to check for forged requests are:
-        #
-        #   1. ``TWILIO_ACCOUNT_SID`` (set in the site's settings module).
-        #   2. ``TWILIO_AUTH_TOKEN`` (set in the site's settings module).
-        #   3. The full URI of the request, eg: 'http://mysite.com/test/view/'.
-        #      This may not necessarily be available if this view is being
-        #      called via a unit testing library, or in certain localized
-        #      environments.
-        #   4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
-        #      contains a hash that we'll use to check for forged requests.
+        # Only handle Twilio forgery protection stuff if we're running in
+        # production. This way, developers can test their Twilio view code
+        # without getting errors.
         if not settings.DEBUG:
+
+
+
+            # Attempt to gather all required information to allow us to check the
+            # incoming HTTP request for forgery. If any of this information is not
+            # available, then we'll throw a HTTP 403 error (forbidden).
+            #
+            # The required fields to check for forged requests are:
+            #
+            #   1. ``TWILIO_ACCOUNT_SID`` (set in the site's settings module).
+            #   2. ``TWILIO_AUTH_TOKEN`` (set in the site's settings module).
+            #   3. The full URI of the request, eg: 'http://mysite.com/test/view/'.
+            #      This may not necessarily be available if this view is being
+            #      called via a unit testing library, or in certain localized
+            #      environments.
+            #   4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
+            #      contains a hash that we'll use to check for forged requests.
             # Ensure the request method is POST
             response = require_POST(f)(request, *args, **kwargs)
             if isinstance(response, HttpResponse):
