@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseForbidden
 from twilio.twiml import Verb
 from twilio.util import RequestValidator
 
-from django_twilio import conf
+from django_twilio import settings as django_twilio_settings
 from django_twilio.utils import get_blacklisted_response
 
 
@@ -80,7 +80,7 @@ def twilio_view(f):
 
             # Validate the request
             try:
-                validator = RequestValidator(conf.TWILIO_AUTH_TOKEN)
+                validator = RequestValidator(django_twilio_settings.TWILIO_AUTH_TOKEN)
                 url = request.build_absolute_uri()
                 signature = request.META['HTTP_X_TWILIO_SIGNATURE']
             except (AttributeError, KeyError):

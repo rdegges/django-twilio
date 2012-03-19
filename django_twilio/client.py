@@ -3,7 +3,7 @@
 
 from twilio.rest import TwilioRestClient
 
-from django_twilio import conf
+from django_twilio import settings
 
 
 # Create a single global ``twilio_client`` object that already makes use of
@@ -14,5 +14,5 @@ from django_twilio import conf
 # NOTE: I'm explicitly defining the API version here so that if users forcibly
 # install a later release of twilio-python that uses a different default API
 # version--we'll still be OK.
-twilio_client = TwilioRestClient(conf.TWILIO_ACCOUNT_SID,
-        conf.TWILIO_AUTH_TOKEN, version='2010-04-01')
+twilio_client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID,
+        settings.TWILIO_AUTH_TOKEN, version='2010-04-01')
