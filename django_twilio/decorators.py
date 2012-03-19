@@ -8,25 +8,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseForbidden
 
-from twilio.twiml import Response, Verb
+from twilio.twiml import Verb
 from twilio.util import RequestValidator
 
 from django_twilio import conf
-from django_twilio.models import Caller
-
-
-def get_blacklisted_response(request):
-    """Helper function to reject blacklisted callers.
-    """
-    try:
-        caller = Caller.objects.get(phone_number=request.POST['From'])
-        if caller.blacklisted:
-            r = Response()
-            r.reject()
-            return HttpResponse(str(r), mimetype='application/xml')
-    except (KeyError, Caller.DoesNotExist):
-        pass
-    return None
+from django_twilio.utils import get_blacklisted_response
 
 
 def twilio_view(f):
@@ -110,15 +96,15 @@ def twilio_view(f):
 
             # Run the wrapped view, and capture the data returned.
             response = f(request, *args, **kwargs)
-        else:
-            # If the caller requesting service is blacklisted, reject their
-            # request.
-            blacklisted_resp = get_blacklisted_response(request)
-            if blacklisted_resp is not None:
-                return blacklisted_resp
 
-            # Run the wrapped view, and capture the data returned.
-            response = f(request, *args, **kwargs)
+        # If the user requesting service is blacklisted, reject their
+        # request.
+        blacklisted_resp = get_blacklisted_response(request)
+        if blacklisted_resp:
+            return blacklisted_resp
+
+        # Run the wrapped view, and capture the data returned.
+        response = f(request, *args, **kwargs)
 
         # If the view returns a string (or a ``twilio.Verb`` object), we'll
         # assume it is XML TwilML data and pass it back with the appropriate
