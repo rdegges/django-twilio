@@ -88,7 +88,7 @@ def twilio_view(f):
             response = require_POST(f)(request, *args, **kwargs)
             if isinstance(response, HttpResponse):
                 return response
-            
+
             # Validate the request
             try:
                 validator = RequestValidator(conf.TWILIO_AUTH_TOKEN)
@@ -96,18 +96,18 @@ def twilio_view(f):
                 signature = request.META['HTTP_X_TWILIO_SIGNATURE']
             except (AttributeError, KeyError):
                 return HttpResponseForbidden()
-    
+
             # Now that we have all the required information to perform forgery
             # checks, we'll actually do the forgery check.
             if not validator.validate(url, request.POST, signature):
                 return HttpResponseForbidden()
-    
+
             # If the caller requesting service is blacklisted, reject their
             # request.
             blacklisted_resp = get_blacklisted_response(request)
             if blacklisted_resp is not None:
                 return blacklisted_resp
-    
+
             # Run the wrapped view, and capture the data returned.
             response = f(request, *args, **kwargs)
         else:
@@ -116,7 +116,7 @@ def twilio_view(f):
             blacklisted_resp = get_blacklisted_response(request)
             if blacklisted_resp is not None:
                 return blacklisted_resp
-            
+
             # Run the wrapped view, and capture the data returned.
             response = f(request, *args, **kwargs)
 
