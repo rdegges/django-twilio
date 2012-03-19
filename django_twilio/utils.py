@@ -18,7 +18,7 @@ def get_blacklisted_response(request):
         otherwise.
     """
     try:
-        caller = Caller.objects.get(phone_number=request.POST['From'])
+        caller = Caller.objects.get(phone_number=request.REQUEST['From'])
         if caller.blacklisted:
             r = Response()
             r.reject()
