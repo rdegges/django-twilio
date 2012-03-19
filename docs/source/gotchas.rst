@@ -26,7 +26,9 @@ In the event that HTTP requests to your views are determined to be forged,
 django-twilio will return an HTTP 403 (forbidden) response.
 
 Because of the way this forgery protection works, you'll get HTTP 403 errors
-when hitting django-twilio views if you test them yourself.
+when hitting django-twilio views if you test them yourself and you have
+``settings.DEBUG = False``. If you'd like to test your views, be sure to do so
+with Django's DEBUG setting ON.
 
 Missing Settings
 ----------------
