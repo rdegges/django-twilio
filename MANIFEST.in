@@ -1,0 +1,4 @@
+include AUTHORS README requirements.txt UNLICENSE
+recursive-include docs *
+recursive-include test_project *
+prune docs/build
