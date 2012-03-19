@@ -6,7 +6,7 @@ account data--stuff like call logs, recordings, SMS messages, etc.
 django-twilio makes accessing this information extremely easy.
 
 
-The Twilio Rest Client
+The Twilio REST Client
 ----------------------
 
 The official `Twilio python library
