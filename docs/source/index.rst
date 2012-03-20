@@ -8,9 +8,6 @@ django-twilio is a simple library for building twilio-powered `Django
 build powerful voice & SMS apps. The goal of this library is to help make
 building telephony applications as simple as humanly possible with twilio.
 
-.. note::
-    This library is still under development. Production use is discouraged at
-    this point.
 
 User's Guide
 ------------
