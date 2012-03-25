@@ -20,5 +20,5 @@ rest.
 
 ## Documentation
 
-The documentation is hosted at ReadTheDocs. You can check out the docs here:
-[here](http://django-twilio.rtfd.org/ "django-twilio latest")
+The documentation is hosted at ReadTheDocs. You can check out the docs
+[here](http://django-twilio.rtfd.org/ "django-twilio latest").
