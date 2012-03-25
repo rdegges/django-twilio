@@ -3,9 +3,9 @@ A simple library for building Twilio-powered Django webapps.
 
 ## Meta
 
-author: Randall Degges
-email:  rdegges@gmail.com
-status: maintained, stable
+* author: Randall Degges
+* email:  rdegges@gmail.com
+* status: maintained, stable
 
 
 ## Purpose
