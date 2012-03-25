@@ -1,4 +1,4 @@
-include AUTHORS README requirements.txt UNLICENSE
+include AUTHORS README.md requirements.txt UNLICENSE
 recursive-include docs *
 recursive-include test_project *
 recursive-exclude docs/source *.pyc
