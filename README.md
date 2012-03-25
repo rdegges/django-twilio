@@ -1,23 +1,14 @@
-     _  _                               _            _ _ _
-  __| |(_) __ _ _ __   __ _  ___       | |___      _(_) (_) ___
- / _` || |/ _` | '_ \ / _` |/ _ \ _____| __\ \ /\ / / | | |/ _ \
-| (_| || | (_| | | | | (_| | (_) |_____| |_ \ V  V /| | | | (_) |
- \__,_|/ |\__,_|_| |_|\__, |\___/       \__| \_/\_/ |_|_|_|\___/
-     |__/             |___/
-
 A simple library for building Twilio-powered Django webapps.
 
 
-Meta
-====
+## Meta
 
 author: Randall Degges
 email:  rdegges@gmail.com
 status: maintained, stable
 
 
-Purpose
-=======
+## Purpose
 
 Building telephony applications with Twilio is easy, but not simple.
 
@@ -27,8 +18,7 @@ that you can truly focus on the core application logic and leave out all the
 rest.
 
 
-Docs
-====
+## Documentation
 
 The documentation is hosted at ReadTheDocs. You can check out the docs here:
 http://django-twilio.rtfd.org/
