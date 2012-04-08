@@ -19,7 +19,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath('../../django_twilio'))
 sys.path.insert(1, os.path.abspath('../../test_project'))
 
-import settings
+from test_project import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 
