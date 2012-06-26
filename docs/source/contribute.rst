@@ -45,11 +45,11 @@ To run the tests, you'll need to do the following:
 
 3. Install the required packages for testing: ``pip install -r requirements.txt``.
 
-4. Install django-twilio in development mode: ``cd django_twilio; python
+4. Install django-twilio in development mode: ``python
    setup.py develop``.
 
 5. Run the test suite using the test project that ships with django-twilio: ``cd
-   ../test_project; python manage.py test django_twilio``.
+   test_project; python manage.py test django_twilio``.
 
 You'll see output that looks something like::
 
