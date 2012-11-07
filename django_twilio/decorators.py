@@ -6,7 +6,7 @@ from functools import wraps
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
 
 from twilio.twiml import Verb
 from twilio.util import RequestValidator
@@ -74,9 +74,8 @@ def twilio_view(f):
             #   4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
             #      contains a hash that we'll use to check for forged requests.
             # Ensure the request method is POST
-            response = require_POST(f)(request, *args, **kwargs)
-            if isinstance(response, HttpResponse):
-                return response
+            if (request.method != 'POST'):
+                return HttpResponseNotAllowed(request.method)
 
             # Validate the request
             try:
