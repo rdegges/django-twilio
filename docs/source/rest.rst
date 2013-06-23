@@ -59,7 +59,7 @@ Using :attr:`django_twilio.client.twilio_client`, you can print a list of all
 the phone numbers you have provisioned to your Twilio account by running the
 following code::
 
-    from django_twilio.client import twilio_cilent
+    from django_twilio.client import twilio_client
 
 
     for number in twilio_client.phone_numbers.iter():
