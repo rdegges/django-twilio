@@ -4,7 +4,7 @@ from django.db import models
 class Caller(models.Model):
     """A caller is defined uniquely by their phone number.
 
-    :param bool blacklisted: Desginates whether the caller can use our
+    :param bool blacklisted: Designates whether the caller can use our
         services.
     :param char phone_number: Unique phone number in `E.164
         <http://en.wikipedia.org/wiki/E.164>`_ format.
