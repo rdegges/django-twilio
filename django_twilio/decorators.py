@@ -105,9 +105,9 @@ def twilio_view(f):
         # consuming for every request. Instead, we'll let the errors pass
         # through to be dealt with by the developer.
         if isinstance(response, str):
-            return HttpResponse(response, mimetype='application/xml')
+            return HttpResponse(response, content_type='application/xml')
         elif isinstance(response, Verb):
-            return HttpResponse(str(response), mimetype='application/xml')
+            return HttpResponse(str(response), content_type='application/xml')
         else:
             return response
     return decorator

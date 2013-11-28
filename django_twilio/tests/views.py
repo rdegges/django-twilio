@@ -16,7 +16,7 @@ from django_twilio.views import conference, dial, gather, play, record, say, \
 def response_view(request):
     """A simple test view that returns a HttpResponse object."""
     return HttpResponse('<Response><Sms>Hi!</Sms></Response>',
-            mimetype='text/xml')
+            content_type='text/xml')
 
 
 @twilio_view
