@@ -11,7 +11,7 @@ class Caller(models.Model):
         <http://en.wikipedia.org/wiki/E.164>`_ format.
     """
     blacklisted = models.BooleanField()
-    phone_number = models.PhoneNumberField(unique=True)
+    phone_number = PhoneNumberField(unique=True)
 
     def __unicode__(self):
         return self.phone_number + (' (blacklisted) ' if self.blacklisted else '')
