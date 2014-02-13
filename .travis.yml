@@ -11,4 +11,4 @@ python:
 install: pip install -r requirements.txt
 
 # command to run tests using coverage, e.g. python setup.py test
-script: coverage run --source django_twilio runtests.py
+script: coverage run --source runtests.py
