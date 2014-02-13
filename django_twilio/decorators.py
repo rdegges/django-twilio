@@ -25,6 +25,7 @@ def simple_twilio_view(f):
         It will also prevent any HTTP verb other than POST.
 
         NEVER use simple_twilio_view in production: use twilio_view instead.
+
     '''
     @csrf_exempt
     @wraps(f)
