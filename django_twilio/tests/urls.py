@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 
 # Test URLs for our ``django_twilio.decorators`` module.
