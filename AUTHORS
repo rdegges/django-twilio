@@ -4,6 +4,12 @@ Authors
 django-twilio is written and maintained by Randall Degges and various
 contributers:
 
+Twilio maintainer
+=================
+(Twilio <3's Django-twilio)
+
+- Paul Hallett (http://twilio.com) phallett@twilio.com
+
 
 Patches and Suggestions
 -----------------------
@@ -11,4 +17,3 @@ Patches and Suggestions
 - Issac Kelly (http://www.issackelly.com/)
 - Kyle J. Conroy (http://www.kyleconroy.com/)
 - Lee Trout (http://www.leetrout.com/)
-- Paul Hallett (phallett@twilio.com)

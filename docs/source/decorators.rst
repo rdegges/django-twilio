@@ -16,7 +16,7 @@ django-twilio ships with a simple decorator that provides bare functionality:
 
 2. Provides csrf_exempt automatically
 
-3. Wraps the TWiML response in a correct HttpResponse object.
+3. Wraps the TWiML in a correct HttpResponse object.
 
 NOTE: This decorator is **NOT** recommended for live production and should only
 be used when twilio_view doesn't seem to work nicely with your development environment.

@@ -23,7 +23,7 @@ setup(
     license = 'UNLICENSE',
     url = 'http://twilio.com/',
     keywords = 'twilio telephony call phone voip sms',
-    description = 'A simple library for building twilio-powered Django webapps.',
+    description = 'Build Twilio functionality into your Django apps.',
     long_description = open(normpath(join(dirname(abspath(__file__)),
         'README.md'))).read()
 
