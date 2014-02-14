@@ -13,7 +13,7 @@ from django_twilio.tests.views import response_view, str_view, verb_view
 
 
 class TwilioViewTestCase(TestCase):
-    #fixtures = ['django_twilio.json']
+    fixtures = ['django_twilio.json']
     urls = 'django_twilio.tests.urls'
 
     def setUp(self):
