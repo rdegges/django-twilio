@@ -92,6 +92,27 @@ output not only failing test results, but also the coverage reports.
 When you submit patches or add functionality to django-twilio, be sure to run
 the test suite to ensure that no functionality is broken.
 
+Tests for Django 1.6.1
+-----------------------
+
+An alternative method of testing that works with Django 1.6.1 has been implemented.
+(This is also how we run CI on django-twilio).
+
+Before running these tests, you need to set up some environment variables.
+If you're using virtualenv, open the /bin/activate file in vi or nano and
+add the following to the end::
+
+    export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXX
+    export TWILIO_AUTH_TOKEN=YYYYYYYYYYYYYYY
+
+Make sure you replace your own tokens.
+
+This testing method can be run using::
+
+    $ python run_tests.py
+
+
+
 Workflow
 --------
 
