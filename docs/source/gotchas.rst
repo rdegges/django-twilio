@@ -14,8 +14,9 @@ in your views:
 Forgery Protection
 ------------------
 
-django-twilio has built in forgery protection to help verify that requests made
-to any of your twilio views actually originate from twilio.
+django-twilio has built in forgery protection in some decorators
+to help verify that requests made to any of your twilio views actually
+originate from twilio.
 
 We do this by analyzing HTTP requests sent to your views and comparing a special
 cryptographic hash. This way, attackers are not able to simply POST data to your
@@ -34,11 +35,13 @@ Missing Settings
 ----------------
 
 django-twilio *requires* that you specify the variables ``TWILIO_ACCOUNT_SID``
-and ``TWILIO_AUTH_TOKEN`` in your site's settings module. These are used to
-verify the legitimacy of HTTP requests to your twilio views.
+and ``TWILIO_AUTH_TOKEN`` either in your site's settings module, or as environment
+variables. These are used to verify the legitimacy of HTTP requests to your
+twilio views and to instantiate the TwilioRestClient.
 
 If these variables are missing, django-twilio will raise HTTP 403 (forbidden)
 errors since it is unable to determine whether or not the HTTP request
 originated from twilio.
 
-To fix this, simply add these variables into your site's settings module.
+To fix this, simply add these variables into your site's settings module, or
+into your environment variables.

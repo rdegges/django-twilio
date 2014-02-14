@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Caller(models.Model):
@@ -10,7 +13,7 @@ class Caller(models.Model):
         <http://en.wikipedia.org/wiki/E.164>`_ format.
     """
     blacklisted = models.BooleanField()
-    phone_number = models.CharField(max_length=20, unique=True)
+    phone_number = PhoneNumberField(unique=True)
 
     def __unicode__(self):
-        return self.phone_number + (' (blacklisted) ' if self.blacklisted else '')
+        return str(self.phone_number) + ' (blacklisted)' if self.blacklisted else ''

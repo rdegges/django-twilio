@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Useful decorators."""
 
 
@@ -6,13 +8,42 @@ from functools import wraps
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
+from django.http import (
+    HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed)
 
 from twilio.twiml import Verb
 from twilio.util import RequestValidator
 
 from django_twilio import settings as django_twilio_settings
 from django_twilio.utils import get_blacklisted_response
+
+
+def simple_twilio_view(f):
+    '''
+        Sometimes twilio_view will not work properly with tunnels or other
+        server configurations (like ngrok).
+        simple_twilio_view provides the bare minimum view that returns a
+        TWiML response with the correct HTTP headers.
+        It will also prevent any HTTP verb other than POST.
+
+        NEVER use simple_twilio_view in production: use twilio_view instead.
+
+    '''
+    @csrf_exempt
+    @wraps(f)
+    def decorator(request, *args, **kwargs):
+        if (request.method != 'POST'):
+            return HttpResponseNotAllowed(request.method)
+
+        response = f(request, *args, **kwargs)
+
+        if isinstance(response, str):
+            return HttpResponse(response, mimetype='application/xml')
+        elif isinstance(response, Verb):
+            return HttpResponse(str(response), mimetype='application/xml')
+        else:
+            return response
+    return decorator
 
 
 def twilio_view(f):
@@ -59,15 +90,16 @@ def twilio_view(f):
         # without getting errors.
         if not settings.DEBUG:
 
-            # Attempt to gather all required information to allow us to check the
-            # incoming HTTP request for forgery. If any of this information is not
-            # available, then we'll throw a HTTP 403 error (forbidden).
+            # Attempt to gather all required information to allow us to check
+            # the incoming HTTP request for forgery. If any of this information
+            # is not available, then we'll throw a HTTP 403 error (forbidden).
             #
             # The required fields to check for forged requests are:
             #
             #   1. ``TWILIO_ACCOUNT_SID`` (set in the site's settings module).
             #   2. ``TWILIO_AUTH_TOKEN`` (set in the site's settings module).
-            #   3. The full URI of the request, eg: 'http://mysite.com/test/view/'.
+            #   3. The full URI of the request, eg:
+            #      'http://mysite.com/test/view/'.
             #      This may not necessarily be available if this view is being
             #      called via a unit testing library, or in certain localized
             #      environments.
@@ -79,7 +111,8 @@ def twilio_view(f):
 
             # Validate the request
             try:
-                validator = RequestValidator(django_twilio_settings.TWILIO_AUTH_TOKEN)
+                validator = RequestValidator(
+                    django_twilio_settings.TWILIO_AUTH_TOKEN)
                 url = request.build_absolute_uri()
                 signature = request.META['HTTP_X_TWILIO_SIGNATURE']
             except (AttributeError, KeyError):
