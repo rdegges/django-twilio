@@ -3,7 +3,7 @@ from django.test import TestCase
 from twilio.rest import TwilioRestClient
 
 from django_twilio.client import twilio_client
-from django_twilio.settings import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+from django_twilio import settings
 
 
 class TwilioClientTestCase(TestCase):
@@ -12,5 +12,6 @@ class TwilioClientTestCase(TestCase):
         self.assertIsInstance(twilio_client, TwilioRestClient)
 
     def test_twilio_client_sets_creds(self):
-        self.assertEqual(twilio_client.auth, (TWILIO_ACCOUNT_SID,
-                TWILIO_AUTH_TOKEN))
+        self.assertEqual(
+            twilio_client.auth,
+            (settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN))

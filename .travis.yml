@@ -6,8 +6,9 @@ python:
 
 env:
   global:
-  - secure: JphWPJW4hP9G+Wzbl7beABS7eZpqImXjQxLSEQLxivQ1WuSJ9h045rY1JYMKUShJKE6HykPF7q6wtt/QYBRA2zcHK2ZYOlQriYFwsaTWq/F7rij+jeqmgMbRznhic40gxeq+YpO37uVBi1ykwinfJg/qUd2hwOTa0jC3BQHThMs=
-  - secure: VQNRCoUau08i4zI/nHa06v2LPriLTMfrCPvNieQEjkX1Gg5a5YyGXBcXyRVacAkIbZnwCNY1ZP9sqbPfdIvARCBuhfLTCsegnV+tN605W+tqYByISOy6HI+08tZVUhLGlmcag6LTxsiVUEtG420XTxyda94ZGOQruw85z1kpFJ8=
+  - secure: CNMxMTOQQ9MPjDiovmwBgNVugdglzU9WaZ6N/rNE0qyby892YmZuhdmWrm08zH07peIdTtvbX4RHXTY36PcU6tyfRwcYGKCowkJnxzfczXuYwQC5ItLGl79BvQe+0k0N7+3hmNUCe895tKhvCJZwl8nrhnFCDh4hKg69F5qIleE=
+  - secure: CHvcWYrSd/0WVQSeVSYQ/73j5RJi7uQiknofFonHisU5YxjuDA1Jpsi1yzuk+U1hQGh0MUynSh6omfJUlffQFF3Oiz00zyCb5jmF+XkMm4q9uyiMltVD4xfuq6YmMJxmi9hco9sBESZbd2mwlH4yUys/wVp4C+dOr204PWi73Qw=
+
 
 install: pip install -r requirements.txt
 script: python run_tests.py

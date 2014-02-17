@@ -2,6 +2,8 @@ from hmac import new
 from hashlib import sha1
 from base64 import encodestring
 
+import os
+
 from django.http import HttpResponse
 from django.test import Client, RequestFactory, TestCase
 from twilio.twiml import Response
@@ -63,6 +65,10 @@ class SayTestCase(TestCase):
             self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(say(request, text='hi').status_code, 200)
 
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+
 
 class PlayTestCase(TestCase):
 
@@ -95,6 +101,10 @@ class PlayTestCase(TestCase):
         self.assertEquals(
             play(request, url='http://b.com/b.wav').status_code, 200)
 
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+
 
 class GatherTestCase(TestCase):
 
@@ -121,6 +131,10 @@ class GatherTestCase(TestCase):
             self.gather_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(gather(request).status_code, 200)
 
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+
 
 class RecordTestCase(TestCase):
 
@@ -146,6 +160,10 @@ class RecordTestCase(TestCase):
         request = self.factory.post(
             self.record_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(record(request).status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class SmsTestCase(TestCase):
@@ -177,6 +195,10 @@ class SmsTestCase(TestCase):
         request = self.factory.post(
             self.sms_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(sms(request, message='test').status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class DialTestCase(TestCase):
@@ -210,6 +232,10 @@ class DialTestCase(TestCase):
         self.assertEquals(dial(
             request, number='+18182223333').status_code, 200)
 
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+
 
 class ConferenceTestCase(TestCase):
 
@@ -240,3 +266,7 @@ class ConferenceTestCase(TestCase):
         request = self.factory.post(
             self.conf_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(conference(request, name='a').status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
