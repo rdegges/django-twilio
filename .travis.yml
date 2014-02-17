@@ -1,14 +1,11 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
-
 python:
-  - "3.3"
-  - "2.7"
-  - "2.6"
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+- '3.3'
+- '2.7'
+- '2.6'
 install: pip install -r requirements.txt
-
-# command to run tests using coverage, e.g. python setup.py test
 script: python run_tests.py
+env:
+  global:
+  - secure: JphWPJW4hP9G+Wzbl7beABS7eZpqImXjQxLSEQLxivQ1WuSJ9h045rY1JYMKUShJKE6HykPF7q6wtt/QYBRA2zcHK2ZYOlQriYFwsaTWq/F7rij+jeqmgMbRznhic40gxeq+YpO37uVBi1ykwinfJg/qUd2hwOTa0jC3BQHThMs=
+  - secure: VQNRCoUau08i4zI/nHa06v2LPriLTMfrCPvNieQEjkX1Gg5a5YyGXBcXyRVacAkIbZnwCNY1ZP9sqbPfdIvARCBuhfLTCsegnV+tN605W+tqYByISOy6HI+08tZVUhLGlmcag6LTxsiVUEtG420XTxyda94ZGOQruw85z1kpFJ8=
