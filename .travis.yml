@@ -3,9 +3,11 @@ python:
 - '3.3'
 - '2.7'
 - '2.6'
-install: pip install -r requirements.txt
-script: python run_tests.py
+
 env:
   global:
   - secure: JphWPJW4hP9G+Wzbl7beABS7eZpqImXjQxLSEQLxivQ1WuSJ9h045rY1JYMKUShJKE6HykPF7q6wtt/QYBRA2zcHK2ZYOlQriYFwsaTWq/F7rij+jeqmgMbRznhic40gxeq+YpO37uVBi1ykwinfJg/qUd2hwOTa0jC3BQHThMs=
   - secure: VQNRCoUau08i4zI/nHa06v2LPriLTMfrCPvNieQEjkX1Gg5a5YyGXBcXyRVacAkIbZnwCNY1ZP9sqbPfdIvARCBuhfLTCsegnV+tN605W+tqYByISOy6HI+08tZVUhLGlmcag6LTxsiVUEtG420XTxyda94ZGOQruw85z1kpFJ8=
+
+install: pip install -r requirements.txt
+script: python run_tests.py
