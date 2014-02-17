@@ -52,6 +52,11 @@ logging into your `twilio account dashboard
 <https://www.twilio.com/user/account>`_. These tokens are used to communicate
 with the twilio API, be sure to keep these credentials safe!
 
+These can also be added to your environment variables instead if you prefer::
+
+    export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXX
+    export TWILO_AUTH_TOKEN=YYYYYYYYYYYY
+
 If you specify a value for ``TWILIO_DEFAULT_CALLERID``, than all SMS and voice
 messages sent through django-twilio's functions will use the default caller id
 as a convenience.

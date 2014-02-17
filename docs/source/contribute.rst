@@ -1,7 +1,7 @@
 Contributing
 ============
 
-django-twilio is still under development, and welcomes any code contributions!
+django-twilio is always under development, and welcomes any contributions!
 If you'd like to get your hands dirty with the source code, please fork the
 project on `our GitHub page <https://github.com/rdegges/django-twilio>`_.
 
@@ -16,6 +16,15 @@ codebase. Right now, that means:
 
 * 100% `PEP-8 compliance <http://www.python.org/dev/peps/pep-0008/>`_.
 * Proper spelling / punctuation in the source code.
+
+After setting up your developer environment you can run::
+
+    $ flake8 django_twilio
+
+This will lint the entire project and ensure PEP8 standards are being stuck to.
+
+**Please note**: We're pretty relaxed on line length, but make sure you keep
+it below 90 charactes where possible.
 
 
 Docs
@@ -48,27 +57,29 @@ To run the tests, you'll need to do the following:
 4. Install django-twilio in development mode: ``python
    setup.py develop``.
 
-5. Run the test suite using the test project that ships with django-twilio: ``cd
-   test_project; python manage.py test django_twilio``.
+5. Before running these tests, you need to set up some environment variables.
+   If you're using virtualenv, open the */bin/activate* file in vi or nano and
+   add the following to the end::
+
+    export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXX
+    export TWILIO_AUTH_TOKEN=YYYYYYYYYYYYYYY
+
+Obviously you'll need to replace this with your own account details.
+
+.. note::
+
+    The test suite will not cost you any credit from your Twilio account.
+
+6. Run the test suite using the run_tests.py command like so::
+
+    $ python run_tests.py
 
 You'll see output that looks something like::
 
-    rdegges@lap:~/Code/rdegges/django-twilio/test_project$ workon django-twilio
-    (django-twilio)rdegges@lap:~/Code/rdegges/django-twilio/test_project$ python manage.py test django_twilio
-    nosetests --verbosity 1 django_twilio --with-coverage --cover-package=django_twilio
     Creating test database for alias 'default'...
-    ......................
-    Name                       Stmts   Miss  Cover   Missing
-    --------------------------------------------------------
-    django_twilio                  0      0   100%
-    django_twilio.conf             3      0   100%
-    django_twilio.decorators      34      0   100%
-    django_twilio.models           6      0   100%
-    django_twilio.views           29      0   100%
-    --------------------------------------------------------
-    TOTAL                         72      0   100%
-    ----------------------------------------------------------------------
-    Ran 22 tests in 1.184s
+    ..............................
+    ------------------------------
+    Ran 30 tests in 0.071s
 
     OK
     Destroying test database for alias 'default'...
@@ -76,21 +87,24 @@ You'll see output that looks something like::
 That's it! As you can see, when you run the test suite, django-twilio should
 output not only failing test results, but also the coverage reports.
 
-.. note::
-
-    If you'd like to see more details about the tests that are ran, you can
-    optionally specify the ``--verbosity=2`` flag on the command line, eg::
-
-        python manage.py test django_twilio --verbosity=2
-
-    This will increase the output level, and show detailed test run
-    information.
-
-.. note::
-    I try to maintain 100% test coverage for django-twilio.
-
 When you submit patches or add functionality to django-twilio, be sure to run
 the test suite to ensure that no functionality is broken.
+
+Tests for Django 1.6.1
+-----------------------
+
+An alternative method of testing that works with Django 1.6.1 has been implemented.
+(This is also how we run CI on django-twilio).
+
+
+
+Make sure you replace your own tokens.
+
+This testing method can be run using::
+
+    $ python run_tests.py
+
+
 
 Workflow
 --------

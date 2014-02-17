@@ -2,21 +2,23 @@ from hmac import new
 from hashlib import sha1
 from base64 import encodestring
 
+import os
+
 from django.http import HttpResponse
 from django.test import Client, RequestFactory, TestCase
 from twilio.twiml import Response
 
 from django_twilio import settings
 from django_twilio.decorators import twilio_view
-from django_twilio.views import conference, dial, gather, play, record, say, \
-        sms
+from django_twilio.views import (
+    conference, dial, gather, play, record, say, sms)
 
 
 @twilio_view
 def response_view(request):
     """A simple test view that returns a HttpResponse object."""
     return HttpResponse('<Response><Sms>Hi!</Sms></Response>',
-            content_type='text/xml')
+                        content_type='text/xml')
 
 
 @twilio_view
@@ -49,16 +51,23 @@ class SayTestCase(TestCase):
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate Twilio signatures for our test views.
-        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(
+            new(settings.TWILIO_AUTH_TOKEN,
                 '%s/say/' % self.uri, sha1).digest()).strip()
 
     def test_say_no_text(self):
-        request = self.factory.post(self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertRaises(TypeError, say, request)
 
     def test_say_with_text(self):
-        request = self.factory.post(self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.say_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(say(request, text='hi').status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class PlayTestCase(TestCase):
@@ -77,16 +86,24 @@ class PlayTestCase(TestCase):
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(
+            new(settings.TWILIO_AUTH_TOKEN,
                 '%s/play/' % self.uri, sha1).digest()).strip()
 
     def test_play_no_url(self):
-        request = self.factory.post(self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertRaises(TypeError, play, request)
 
     def test_play_with_url(self):
-        request = self.factory.post(self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-        self.assertEquals(play(request, url='http://b.com/b.wav').status_code, 200)
+        request = self.factory.post(
+            self.play_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        self.assertEquals(
+            play(request, url='http://b.com/b.wav').status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class GatherTestCase(TestCase):
@@ -105,12 +122,18 @@ class GatherTestCase(TestCase):
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(
+            new(settings.TWILIO_AUTH_TOKEN,
                 '%s/gather/' % self.uri, sha1).digest()).strip()
 
     def test_gather(self):
-        request = self.factory.post(self.gather_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.gather_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(gather(request).status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class RecordTestCase(TestCase):
@@ -129,12 +152,18 @@ class RecordTestCase(TestCase):
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(
+            new(settings.TWILIO_AUTH_TOKEN,
                 '%s/record/' % self.uri, sha1).digest()).strip()
 
     def test_record(self):
-        request = self.factory.post(self.record_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.record_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(record(request).status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class SmsTestCase(TestCase):
@@ -153,16 +182,23 @@ class SmsTestCase(TestCase):
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(
+            new(settings.TWILIO_AUTH_TOKEN,
                 '%s/sms/' % self.uri, sha1).digest()).strip()
 
     def test_sms_no_message(self):
-        request = self.factory.post(self.sms_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.sms_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertRaises(TypeError, sms, request)
 
     def test_sms_with_message(self):
-        request = self.factory.post(self.sms_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.sms_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(sms(request, message='test').status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class DialTestCase(TestCase):
@@ -181,16 +217,24 @@ class DialTestCase(TestCase):
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(
+            new(settings.TWILIO_AUTH_TOKEN,
                 '%s/dial/' % self.uri, sha1).digest()).strip()
 
     def test_dial_no_number(self):
-        request = self.factory.post(self.dial_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.dial_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertRaises(TypeError, dial, request)
 
     def test_dial_with_number(self):
-        request = self.factory.post(self.dial_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
-        self.assertEquals(dial(request, number='+18182223333').status_code, 200)
+        request = self.factory.post(
+            self.dial_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        self.assertEquals(dial(
+            request, number='+18182223333').status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 
 class ConferenceTestCase(TestCase):
@@ -209,13 +253,20 @@ class ConferenceTestCase(TestCase):
         settings.TWILIO_AUTH_TOKEN = 'xxx'
 
         # Pre-calculate twilio signatures for our test views.
-        self.signature = encodestring(new(settings.TWILIO_AUTH_TOKEN,
+        self.signature = encodestring(
+            new(settings.TWILIO_AUTH_TOKEN,
                 '%s/conference/' % self.uri, sha1).digest()).strip()
 
     def test_conference_no_name(self):
-        request = self.factory.post(self.conf_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.conf_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertRaises(TypeError, conference, request)
 
     def test_conference_with_name(self):
-        request = self.factory.post(self.conf_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
+        request = self.factory.post(
+            self.conf_uri, HTTP_X_TWILIO_SIGNATURE=self.signature)
         self.assertEquals(conference(request, name='a').status_code, 200)
+
+    def tearDown(self):
+        settings.TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+        settings.TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']

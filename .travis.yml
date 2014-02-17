@@ -1,0 +1,13 @@
+language: python
+python:
+- '2.7'
+- '2.6'
+
+env:
+  global:
+  - secure: CNMxMTOQQ9MPjDiovmwBgNVugdglzU9WaZ6N/rNE0qyby892YmZuhdmWrm08zH07peIdTtvbX4RHXTY36PcU6tyfRwcYGKCowkJnxzfczXuYwQC5ItLGl79BvQe+0k0N7+3hmNUCe895tKhvCJZwl8nrhnFCDh4hKg69F5qIleE=
+  - secure: CHvcWYrSd/0WVQSeVSYQ/73j5RJi7uQiknofFonHisU5YxjuDA1Jpsi1yzuk+U1hQGh0MUynSh6omfJUlffQFF3Oiz00zyCb5jmF+XkMm4q9uyiMltVD4xfuq6YmMJxmi9hco9sBESZbd2mwlH4yUys/wVp4C+dOr204PWi73Qw=
+
+
+install: pip install -r requirements.txt
+script: python run_tests.py

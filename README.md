@@ -3,20 +3,20 @@ A simple library for building Twilio-powered Django webapps.
 
 ## Meta
 
-* author: Randall Degges
-* email:  rdegges@gmail.com
-* status: maintained, stable
+* Author: Randall Degges
+* Email:  rdegges@gmail.com
+* Maintainer: Paul Hallett
+* Email: phallett@twilio.com
+* Status: active development, stable, maintained
 
 
 ## Purpose
 
-Building telephony applications with Twilio is easy, but not simple.
+Twilio makes it really easy for developers to send and receive voice calls and
+sms messages.
 
-django-twilio is my attempt at reducing some of the complexities of telephony
-development with Twilio--namely, implementing common patterns, helpers, etc., so
-that you can truly focus on the core application logic and leave out all the
-rest.
-
+Django-twilio has been built to make integrating Twilio into your projects
+stupidly easy.
 
 ## Documentation
 

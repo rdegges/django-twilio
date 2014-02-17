@@ -28,7 +28,7 @@ Use Case
 ========
 
 django-twilio is a complete solution for anyone who wants to integrate voice or
-SMS functionality into their website without requiring any additional
+SMS functionality into their django website without requiring any additional
 infrastructure.
 
 Here are some common use cases:
