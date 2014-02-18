@@ -9,7 +9,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import (
-    HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed)
+    HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed)
 
 from twilio.twiml import Verb
 from twilio.util import RequestValidator
@@ -31,11 +31,18 @@ def simple_twilio_view(f):
     '''
     @csrf_exempt
     @wraps(f)
-    def decorator(request, *args, **kwargs):
+    def decorator(request_or_self, *args, **kwargs):
+        class_based_view = not (isinstance(request_or_self, HttpRequest))
+        if not class_based_view:
+            request = request_or_self
+        else:
+            assert len(args) >= 1
+            request = args[0]
+
         if request.method not in methods:
             return HttpResponseNotAllowed(request.method)
 
-        response = f(request, *args, **kwargs)
+        response = f(request_or_self, *args, **kwargs)
 
         if isinstance(response, str):
             return HttpResponse(response, mimetype='application/xml')
@@ -83,7 +90,15 @@ def twilio_view(f):
     """
     @csrf_exempt
     @wraps(f)
-    def decorator(request, methods=['POST'], blacklist=True, *args, **kwargs):
+    def decorator(request_or_self, methods=['POST'],
+                  blacklist=True, *args, **kwargs):
+
+        class_based_view = not (isinstance(request_or_self, HttpRequest))
+        if not class_based_view:
+            request = request_or_self
+        else:
+            assert len(args) >= 1
+            request = args[0]
 
         # Only handle Twilio forgery protection stuff if we're running in
         # production. This way, developers can test their Twilio view code
@@ -134,7 +149,7 @@ def twilio_view(f):
                 return blacklisted_resp
 
         # Run the wrapped view, and capture the data returned.
-        response = f(request, *args, **kwargs)
+        response = f(request_or_self, *args, **kwargs)
 
         # If the view returns a string (or a ``twilio.Verb`` object), we'll
         # assume it is TWiML and pass it back with the appropriate
