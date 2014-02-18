@@ -2,7 +2,6 @@
 
 """Twilio REST client helpers."""
 from django_twilio import settings
-import os
 
 from twilio.rest import TwilioRestClient
 

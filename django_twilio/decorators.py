@@ -7,7 +7,6 @@ from functools import wraps
 
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
 from django.http import (
     HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed)
 
@@ -31,7 +30,7 @@ def simple_twilio_view(f):
     '''
     @csrf_exempt
     @wraps(f)
-    def decorator(request_or_self, *args, **kwargs):
+    def decorator(request_or_self, methods=['POST'], *args, **kwargs):
         class_based_view = not (isinstance(request_or_self, HttpRequest))
         if not class_based_view:
             request = request_or_self
