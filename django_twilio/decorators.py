@@ -32,7 +32,7 @@ def simple_twilio_view(f):
     @csrf_exempt
     @wraps(f)
     def decorator(request, *args, **kwargs):
-        if (request.method != 'POST'):
+        if request.method not in methods:
             return HttpResponseNotAllowed(request.method)
 
         response = f(request, *args, **kwargs)
@@ -78,12 +78,12 @@ def twilio_view(f):
         @twilio_view
         def my_view(request):
             r = Response()
-            r.sms('Thanks for the SMS message!')
+            r.message('Thanks for the SMS message!')
             return r
     """
     @csrf_exempt
     @wraps(f)
-    def decorator(request, *args, **kwargs):
+    def decorator(request, methods=['POST'], blacklist=True, *args, **kwargs):
 
         # Only handle Twilio forgery protection stuff if we're running in
         # production. This way, developers can test their Twilio view code
@@ -105,8 +105,7 @@ def twilio_view(f):
             #      environments.
             #   4. A special HTTP header, ``HTTP_X_TWILIO_SIGNATURE`` which
             #      contains a hash that we'll use to check for forged requests.
-            # Ensure the request method is POST
-            if (request.method != 'POST'):
+            if request.method not in methods:
                 return HttpResponseNotAllowed(request.method)
 
             # Validate the request
@@ -120,20 +119,25 @@ def twilio_view(f):
 
             # Now that we have all the required information to perform forgery
             # checks, we'll actually do the forgery check.
-            if not validator.validate(url, request.POST, signature):
-                return HttpResponseForbidden()
+            if request.method == 'POST':
+                if not validator.validate(url, request.POST, signature):
+                    return HttpResponseForbidden()
+            if request.method == 'GET':
+                if not validator.validate(url, request.GET, signature):
+                    return HttpResponseForbidden()
 
         # If the user requesting service is blacklisted, reject their
         # request.
-        blacklisted_resp = get_blacklisted_response(request)
-        if blacklisted_resp:
-            return blacklisted_resp
+        if blacklist:
+            blacklisted_resp = get_blacklisted_response(request)
+            if blacklisted_resp:
+                return blacklisted_resp
 
         # Run the wrapped view, and capture the data returned.
         response = f(request, *args, **kwargs)
 
         # If the view returns a string (or a ``twilio.Verb`` object), we'll
-        # assume it is XML TwilML data and pass it back with the appropriate
+        # assume it is TWiML and pass it back with the appropriate
         # mimetype. We won't check the XML data because that would be too time
         # consuming for every request. Instead, we'll let the errors pass
         # through to be dealt with by the developer.
