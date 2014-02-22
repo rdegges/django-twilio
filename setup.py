@@ -25,6 +25,6 @@ setup(
     keywords = 'twilio telephony call phone voip sms',
     description = 'Build Twilio functionality into your Django apps.',
     long_description = open(normpath(join(dirname(abspath(__file__)),
-        'README.md'))).read()
+        'README.rst'))).read()
 
 )
