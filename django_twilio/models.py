@@ -16,4 +16,7 @@ class Caller(models.Model):
     phone_number = PhoneNumberField(unique=True)
 
     def __unicode__(self):
-        return str(self.phone_number) + ' (blacklisted)' if self.blacklisted else ''
+        name = str(self.phone_number)
+        if self.blacklisted:
+            name += ' (blacklisted)'
+        return name
