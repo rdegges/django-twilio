@@ -5,3 +5,4 @@ Sphinx==1.1.2
 flake8==2.1.0
 django-phonenumber-field==0.2a3
 twilio>=3.3.6
+wheel>=0.22.0
