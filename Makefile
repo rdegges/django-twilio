@@ -12,3 +12,7 @@ htmlcov:
 	coverage run --source django_twilio run_tests.py
 	coverage html
 	open htmlcov/index.html
+
+release:
+	python setup.py sdist upload
+	python setup.py bdist_wheel upload
