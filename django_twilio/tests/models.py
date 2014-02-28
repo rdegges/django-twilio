@@ -34,21 +34,20 @@ class CredentialTests(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(username='test', password='pass')
-        self.creds = Credential.objects.create()
-        # Some reason it won't let me create this in a one-liner like above.
-        self.creds.name = 'Test creds'
-        self.creds.user = self.user
-        self.creds.account_sid = 'XXX'
-        self.creds.auth_token = 'YYY'
-        self.creds.save()
+        self.creds = Credential.objects.create(
+            name='Test Creds',
+            account_sid='XXX',
+            auth_token='YYY',
+            user=self.user,
+        )
 
     def test_unicode(self):
         ''' Assert that unicode renders how we'd like it too '''
-        self.assertEquals(self.creds.__unicode__(), 'Test creds - XXX')
+        self.assertEquals(self.creds.__unicode__(), 'Test Creds - XXX')
 
     def test_credentials_fields(self):
         ''' Assert the fields are working correctly '''
-        self.assertEquals(self.creds.name, 'Test creds')
+        self.assertEquals(self.creds.name, 'Test Creds')
         self.assertEquals(self.creds.account_sid, 'XXX')
         self.assertEquals(self.creds.auth_token, 'YYY')
         self.assertEquals(self.creds.user, self.user)

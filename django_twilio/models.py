@@ -35,10 +35,10 @@ class Credential(models.Model):
     def __unicode__(self):
         return ' '.join([self.name, '-', self.account_sid])
 
-        name = models.CharField(max_length=30, required=True)
+    name = models.CharField(max_length=30)
 
-        user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
-        account_sid = models.CharField(max_length=34)
+    account_sid = models.CharField(max_length=34)
 
-        auth_token = models.CharField(max_length=32)
+    auth_token = models.CharField(max_length=32)

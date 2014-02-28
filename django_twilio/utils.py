@@ -31,7 +31,7 @@ def discover_twilio_creds(user=None):
     AUTH = 'TWILIO_AUTH_TOKEN'
 
     if user:
-        creds = Credential.objects.filter(user=user)
+        creds = Credential.objects.filter(user=user.id)
         if creds.exists():
             creds = creds[0]
             return (creds.account_sid, creds.auth_token)
