@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.conf import settings
+
 from phonenumber_field.modelfields import PhoneNumberField
 
 
@@ -20,3 +22,23 @@ class Caller(models.Model):
         if self.blacklisted:
             name += ' (blacklisted)'
         return name
+
+
+class Credential(models.Model):
+    """ A Credential model is a set of SID / AUTH tokens for the Twilio.com API
+
+        The Credential model can be used if a project uses more than one
+        Twilio account, or provides Users with access to Twilio powered
+        web apps that need their own custom credentials.
+    """
+
+    def __unicode__(self):
+        return ' '.join([self.name, '-', self.account_sid])
+
+        name = models.CharField(max_length=30, required=True)
+
+        user = models.OneToOneField(settings.AUTH_USER_MODEL)
+
+        account_sid = models.CharField(max_length=34)
+
+        auth_token = models.CharField(max_length=32)

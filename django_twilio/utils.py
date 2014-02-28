@@ -5,7 +5,41 @@
 from django.http import HttpResponse
 from twilio.twiml import Response
 
-from django_twilio.models import Caller
+from django_twilio.models import Caller, Credential
+
+import os
+
+
+def discover_twilio_creds(user=None):
+    """ Due to the multiple ways of providing SID / AUTH tokens through
+        this package, this function will search in the various places that
+        credentials might be stored.
+
+        The order this is done in is:
+
+        1. If a User is passed: the keys linked to the
+           user model from the Credentials model in the database.
+        2. Environment variables
+        3. django.conf settings
+
+        We recommend using enviornment variables were possible, it is the
+        most secure option
+
+    """
+
+    SID = 'TWILIO_ACCOUNT_SID'
+    AUTH = 'TWILIO_AUTH_TOKEN'
+
+    if user:
+        creds = Credential.objects.filter(user=user)
+        if creds.exists():
+            creds = creds[0]
+            return (creds.account_sid, creds.auth_token)
+
+    if SID and AUTH in os.environ:
+        return (os.environ[SID], os.environ[AUTH])
+
+    return (settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
 
 def get_blacklisted_response(request):

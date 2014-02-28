@@ -4,7 +4,7 @@ various components through the django admin panel (if enabled).
 
 from django.contrib import admin
 
-from django_twilio.models import Caller
+from django_twilio.models import Caller, Credential
 
 
 class CallerAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ class CallerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Caller, CallerAdmin)
+admin.site.register(Credential)
