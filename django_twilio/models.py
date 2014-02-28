@@ -7,12 +7,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Caller(models.Model):
-    """A caller is defined uniquely by their phone number.
+    """ A caller is defined uniquely by their phone number.
 
     :param bool blacklisted: Designates whether the caller can use our
         services.
     :param char phone_number: Unique phone number in `E.164
         <http://en.wikipedia.org/wiki/E.164>`_ format.
+
     """
     blacklisted = models.BooleanField()
     phone_number = PhoneNumberField(unique=True)
@@ -30,6 +31,12 @@ class Credential(models.Model):
         The Credential model can be used if a project uses more than one
         Twilio account, or provides Users with access to Twilio powered
         web apps that need their own custom credentials.
+
+    :param char name: The name used to distinguish this credential
+    :param char account_sid: The Twilio account_sid
+    :param char auth_token: The Twilio auth_token
+    :param key user: The user linked to this Credential
+
     """
 
     def __unicode__(self):
