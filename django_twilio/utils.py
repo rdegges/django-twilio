@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """Useful utility functions."""
 
+import os
 
 from django.http import HttpResponse
+from django.conf import settings
+
 from twilio.twiml import Response
 
 from django_twilio.models import Caller, Credential
-
-import os
 
 
 def discover_twilio_creds(user=None):
