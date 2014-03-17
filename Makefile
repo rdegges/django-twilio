@@ -2,7 +2,7 @@ lint:
 	flake8 django_twilio
 
 test:
-	python runtests.py
+	python run_tests.py
 
 coverage:
 	coverage run --source django_twilio run_tests.py
