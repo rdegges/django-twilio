@@ -42,7 +42,7 @@ Let's take a look at a few examples::
     @twilio_view
     def reply_to_sms_messages(request):
         r = Response()
-        r.sms('Thanks for the SMS message!')
+        r.message('Thanks for the SMS message!')
         return r
 
 In the example above, we built a view that twilio can POST data to, and that
@@ -61,8 +61,8 @@ Now let's take a look at the same view written *without*
     @require_POST
     def reply_to_sms_messages(request):
         r = Response()
-        r.sms('Thanks for the SMS message!')
-        return HttpResponse(r.__repr__(), mimetype='application/xml')
+        r.message('Thanks for the SMS message!')
+        return HttpResponse(r.toxml(), content_type='application/xml')
 
 And that doesn't even include forgery protection or blacklist management! As
 you can see, using the :func:`django_twilio.decorators.twilio_view` decorator

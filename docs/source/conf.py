@@ -20,8 +20,6 @@ sys.path.insert(0, os.path.abspath('../../django_twilio'))
 sys.path.insert(1, os.path.abspath('../../test_project'))
 
 from test_project import settings
-from django.core.management import setup_environ
-setup_environ(settings)
 
 # -- General configuration -----------------------------------------------------
 
@@ -48,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'django-twilio'
-copyright = u'2012, Randall Degges'
+copyright = u'2012-2014, Randall Degges'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

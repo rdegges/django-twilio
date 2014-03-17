@@ -1,8 +1,27 @@
-django-twilio
+=============
+Django-Twilio
 =============
 
-django-twilio is a simple library for building twilio-powered `Django
-<https://www.djangoproject.com/>`_ webapps.
+Integrate Twilio into your Django apps with ease.
+
+
+.. image:: https://badge.fury.io/py/django-twilio.png
+    :target: http://badge.fury.io/py/django-twilio
+
+.. image:: https://travis-ci.org/rdegges/django-twilio.png?branch=master
+        :target: https://travis-ci.org/rdegges/django-twilio
+
+.. image:: https://pypip.in/d/django-twilio/badge.png
+        :target: https://crate.io/packages/django-twilio?version=latest
+
+Meta
+----
+
+* Author: Randall Degges
+* Email:  rdegges@gmail.com
+* Maintainer: Paul Hallett
+* Email: paul@twilio.com
+* Status: active development, stable, maintained
 
 `Twilio <http://www.twilio.com/>`_ is a powerful HTTP API that allows you to
 build powerful voice & SMS apps. The goal of this library is to help make
