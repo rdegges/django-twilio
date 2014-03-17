@@ -17,14 +17,15 @@ from django_twilio.views import (
 @twilio_view
 def response_view(request):
     """A simple test view that returns a HttpResponse object."""
-    return HttpResponse('<Response><Sms>Hi!</Sms></Response>',
-                        content_type='text/xml')
+    return HttpResponse(
+        '<Response><Message>Hello from Django</Message></Response>',
+        content_type='text/xml')
 
 
 @twilio_view
 def str_view(request):
     """A simple test view that returns a string."""
-    return '<Response><Sms>Hi!</Sms></Response>'
+    return '<Response><Message>Hi!</Message></Response>'
 
 
 @twilio_view
