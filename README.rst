@@ -1,5 +1,5 @@
 =============
-Django-twilio
+Django-Twilio
 =============
 
 
@@ -21,7 +21,7 @@ Meta
 * Author: Randall Degges
 * Email:  rdegges@gmail.com
 * Maintainer: Paul Hallett
-* Email: phallett@twilio.com
+* Email: paul@twilio.com
 * Status: active development, stable, maintained
 
 

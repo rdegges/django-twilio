@@ -101,7 +101,7 @@ def sms(request, message, to=None, sender=None, action=None, method='POST',
     """
     r = Response()
     r.message(msg=message, to=to, sender=sender, method='POST', action=action,
-          statusCallback=status_callback)
+              statusCallback=status_callback)
     return r
 
 

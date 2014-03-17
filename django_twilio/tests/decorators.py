@@ -38,11 +38,11 @@ class TwilioViewTestCase(TestCase):
         self.str_signature = encodestring(
             new(django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/str_view/' % self.uri, sha1).digest()).strip()
-        self.str_signature_with_from_field_normal_caller = encodestring(
+        self.sig_with_from_field_normal_caller = encodestring(
             new(django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/str_view/From+12222222222' % self.uri,
                 sha1).digest()).strip()
-        self.str_signature_with_from_field_blacklisted_caller = encodestring(
+        self.sig_with_from_field_blacklisted_caller = encodestring(
             new(django_twilio_settings.TWILIO_AUTH_TOKEN,
                 '%s/str_view/From+13333333333' % self.uri,
                 sha1).digest()).strip()
@@ -111,7 +111,7 @@ class TwilioViewTestCase(TestCase):
     def test_from_field_no_caller(self):
         request = self.factory.post(
             self.str_uri, {'From': '+12222222222'},
-            HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_normal_caller)
+            HTTP_X_TWILIO_SIGNATURE=self.sig_with_from_field_normal_caller)
         self.assertEquals(str_view(request).status_code, 200)
 
     def test_blacklist_works(self):
@@ -119,7 +119,7 @@ class TwilioViewTestCase(TestCase):
         settings.DEBUG = False
         request = self.factory.post(
             self.str_uri, {'From': '+13333333333'},
-            HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_blacklisted_caller)
+            HTTP_X_TWILIO_SIGNATURE=self.sig_with_from_field_blacklisted_caller)
         response = str_view(request)
         r = Response()
         r.reject()
@@ -127,7 +127,7 @@ class TwilioViewTestCase(TestCase):
         settings.DEBUG = True
         request = self.factory.post(
             self.str_uri, {'From': '+13333333333'},
-            HTTP_X_TWILIO_SIGNATURE=self.str_signature_with_from_field_blacklisted_caller)
+            HTTP_X_TWILIO_SIGNATURE=self.sig_with_from_field_blacklisted_caller)
         response = str_view(request)
         r = Response()
         r.reject()
