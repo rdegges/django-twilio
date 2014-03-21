@@ -1,7 +1,7 @@
 Decorators
 ==========
 
-One of django-twilio's key features is making it easy to build twilio views for
+One of the key features of django-twilio is making it easy to build twilio views for
 your project, and avoid nasty boilerplate code. Let's take a look!
 
 All-In-One Decorator
@@ -88,5 +88,5 @@ development mode, you can:
 * Test your views out locally and make sure they return the code you want.
 
 Because of this, it is extremely important that when your site goes live, you
-ensure that ``settings.DEBUG = False``!!! **If you have**
-``settings.DEBUG = True`` **enabled, bad things will happen!**
+ensure that ``settings.DEBUG = False`` **If you have**
+``settings.DEBUG = True`` **, bad things will happen!**

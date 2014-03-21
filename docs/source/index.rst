@@ -48,20 +48,6 @@ Django web applications.
     howto
     contribute
 
-API Reference
--------------
-
-This section of the documentation provides detailed information on all of
-django-twilio's public facing APIs.
-
-.. toctree::
-    :maxdepth: 2
-
-    admin_module
-    client_module
-    decorators_module
-    models_module
-    views_module
 
 Indices and Tables
 ------------------
