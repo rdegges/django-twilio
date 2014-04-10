@@ -5,6 +5,7 @@ from base64 import encodestring
 from django.conf import settings
 from django.http import HttpResponse
 from django.test import Client, RequestFactory, TestCase
+from django.test.utils import override_settings
 
 from twilio.twiml import Response
 
@@ -149,3 +150,23 @@ class TwilioViewTestCase(TestCase):
         request = self.factory.post(
             self.response_uri, HTTP_X_TWILIO_SIGNATURE=self.response_signature)
         self.assertTrue(isinstance(response_view(request), HttpResponse))
+
+    def test_override_forgery_protection_off_debug_off(self):
+        with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=False, DEBUG=False):
+            request = self.factory.post(self.str_uri)
+            self.assertEquals(str_view(request).status_code, 200)
+
+    def test_override_forgery_protection_off_debug_on(self):
+        with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=False, DEBUG=True):
+            request = self.factory.post(self.str_uri)
+            self.assertEquals(str_view(request).status_code, 200)
+
+    def test_override_forgery_protection_on_debug_off(self):
+        with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=True, DEBUG=False):
+            request = self.factory.post(self.str_uri)
+            self.assertEquals(str_view(request).status_code, 403)
+
+    def test_override_forgery_protection_on_debug_on(self):
+        with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=True, DEBUG=True):
+            request = self.factory.post(self.str_uri)
+            self.assertEquals(str_view(request).status_code, 403)
