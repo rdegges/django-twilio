@@ -77,9 +77,12 @@ code will be doing stuff that costs money (sending calls, SMS messages,
 etc.), ensuring all incoming HTTP requests actually originate from Twilio is
 really important.
 
-The way django-twilio implements forgery protection is by *only* enabling it
-when ``settings.DEBUG = False``--thereby only doing the validation checks when
-your site is running in production.
+The way django-twilio implements forgery protection is by checking for a specific
+flag in the django configuration settings::
+
+  DJANGO_TWILIO_FORGERY_PROTECTION = False
+
+If this is not set, this will default to the **opposite** of ``settings.DEBUG``, so in debug mode the forgery protection will be off.
 
 This behavior has been specifically implemented this way so that, while in
 development mode, you can:
@@ -88,5 +91,4 @@ development mode, you can:
 * Test your views out locally and make sure they return the code you want.
 
 Because of this, it is extremely important that when your site goes live, you
-ensure that ``settings.DEBUG = False`` **If you have**
-``settings.DEBUG = True`` **, bad things will happen!**
+ensure that ``settings.DEBUG = False`` and ``DJANGO_TWILIO_FORGERY_PROTECTION = True``.

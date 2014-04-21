@@ -64,9 +64,11 @@ def twilio_view(f):
             assert len(args) >= 1
             request = args[0]
 
-        # Turn off Twilio authentication when in debug mode otherwise
-        # things do not work properly. For more information see the docs
-        if not settings.DEBUG:
+        # Turn off Twilio authentication when explicitly requested, or in debug mode.
+        # Otherwise things do not work properly. For more information see the docs.
+        use_forgery_protection = (
+            getattr(settings, 'DJANGO_TWILIO_FORGERY_PROTECTION', not settings.DEBUG))
+        if use_forgery_protection:
 
             if request.method not in methods:
                 return HttpResponseNotAllowed(request.method)
