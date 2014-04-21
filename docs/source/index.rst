@@ -12,7 +12,7 @@ Integrate Twilio into your Django apps with ease.
         :target: https://travis-ci.org/rdegges/django-twilio
 
 .. image:: https://pypip.in/d/django-twilio/badge.png
-        :target: https://crate.io/packages/django-twilio?version=latest
+        :target: https://crate.io/packages/django-twilio
 
 Meta
 ----
