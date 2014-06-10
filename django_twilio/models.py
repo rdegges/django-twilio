@@ -5,6 +5,8 @@ from django.conf import settings
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+from django_twilio.compat import AUTH_USER_MODEL
+
 
 class Caller(models.Model):
     """ A caller is defined uniquely by their phone number.
@@ -44,7 +46,7 @@ class Credential(models.Model):
 
     name = models.CharField(max_length=30)
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(AUTH_USER_MODEL)
 
     account_sid = models.CharField(max_length=34)
 
