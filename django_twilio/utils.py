@@ -59,7 +59,7 @@ def get_blacklisted_response(request):
             r = Response()
             r.reject()
             return HttpResponse(str(r), content_type='application/xml')
-    except (KeyError, Caller.DoesNotExist):
+    except Exception, e:
         pass
 
     return None
