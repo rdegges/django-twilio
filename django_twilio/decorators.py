@@ -90,7 +90,9 @@ def twilio_view(f):
                     return HttpResponseForbidden()
 
         # Blacklist check
-        if blacklist:
+        checkBlackList = (
+            getattr(settings, 'DJANGO_TWILIO_BLACKLIST_CHECK', blacklist))
+        if checkBlackList:
             blacklisted_resp = get_blacklisted_response(request)
             if blacklisted_resp:
                 return blacklisted_resp
