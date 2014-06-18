@@ -1,0 +1,81 @@
+Settings
+========
+
+Django-twilio has various settings that can be used to turn features on and off.
+
+Here we explain each setting, it's requirement, and why you might want to use it.
+
+Each setting should be placed in your settings.py file.
+
+
+**TWILIO_ACCOUNT_SID**
+
+**REQUIRED**
+
+The :func:`TWILIO_ACCOUNT_SID` setting is required and will throw an exception
+if it is not configured correctly::
+
+    TWILIO_ACCOUNT_SID='SIDXXXXXXXXXXXXXXX'
+
+This setting is used to authenticate your Twilio account.
+
+   .. note::
+      This setting can be placed in your Python environment instead, if you wish.
+      This is a far more secure option and is recommended.
+
+To add this setting to your environment, using virtualenv open up your /bin/activate.sh file and add the following to the end::
+
+    export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXX
+
+
+**TWILIO_AUTH_TOKEN**
+
+**REQUIRED**
+
+The :func:`TWILIO_AUTH_TOKEN` setting is required and will throw an exception
+if it is not configured correctly::
+
+    TWILIO_AUTH_TOKEN='ATXXXXXXXXXXXXXXX'
+
+This setting is used to authenticate your Twilio account.
+
+   .. note::
+      This setting can be placed in your Python environment instead, if you wish.
+      This is a far more secure option and is recommended.
+
+Using virtualenv open up your /bin/activate.sh file and add the following to the end::
+
+    export TWILIO_AUTH_TOKEN=XXXXXXXXXXXXX
+
+**DJANGO_TWILIO_FORGERY_PROTECTION**
+
+The :func:`DJANGO_TWILIO_FORGERY_PROTECTION` setting is not required.
+This setting is a boolean and should be placed in the settings.py file:
+
+    DJANGO_TWILIO_FORGERY_PROTECTION=False
+
+This setting is used to determine the forgery protection used by Django-twilio.
+If not set, this will always be the opposite of :func:`settings.DEBUG`, so in
+production mode the forgery protection will be on, and in debug mode the protection
+will be turned off.
+
+It is recommended that you leave the protection off in debug mode, but this setting
+will allow you to test the forgery protection with a tool like `ngrok
+<http://ngrok.com>`_
+
+**DJANGO_TWILIO_BLACKLIST_CHECK**
+
+
+The :func:`DJANGO_TWILIO_BLACKLIST_CHECK` setting is not required.
+This setting is a boolean and should be placed in the settings.py file:
+
+    DJANGO_TWILIO_BLACKLIST_CHECK=True
+
+This setting will determine if Django-twilio will run a database query comparing
+the incoming request :func:`From` attribute with any potential :class:`Caller` objects
+in your database.
+
+In short: turning this off will remove an unnecessary database query if you are not
+using any blacklists.
+
+

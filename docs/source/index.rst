@@ -41,12 +41,14 @@ Django web applications.
 
     foreword
     install
+    settings
     decorators
     views
     rest
     gotchas
     howto
     contribute
+    contributors
 
 
 Indices and Tables
