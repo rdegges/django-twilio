@@ -47,9 +47,13 @@ your settings.py file::
 Databases for Django 1.6 or lower
 ---------------------------------
 
-To use django-twilio with Django 1.6.* or less, you will need to install `South <http://south.aeracode.org/docs/>`_ with the following terminal command::
+To use django-twilio with Django 1.6.* or less, you will need to install `South 1.0 <http://south.aeracode.org/docs/>`_ with the following terminal command::
 
-    $ pip install South
+    $ pip install South==1.0
+
+Or upgrade South to version 1.0::
+
+    $ pip install --upgrade South
 
 Add south to your installed apps::
 
@@ -80,7 +84,7 @@ Databases for Django 1.7
 
 Django 1.7 has built in migrations, so there is no need to install any third-party schema management tool. To sync the django-twilio models with your Django 1.7 project just run::
 
-    $
+    $ python manage.py migrate
 
 Upgrading
 ---------
