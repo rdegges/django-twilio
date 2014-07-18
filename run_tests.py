@@ -30,7 +30,9 @@ from django_nose import NoseTestSuiteRunner
 
 def run_tests(*test_args):
 
-    django.setup()
+    if '1.7' in django.get_version():
+        print 'Runnning Django 1.7 test suite'
+        django.setup()
 
     if not test_args:
         test_args = ['django_twilio/tests']
