@@ -5,7 +5,7 @@ Django-twilio has various settings that can be used to turn features on and off.
 
 Here we explain each setting, it's requirement, and why you might want to use it.
 
-Each setting should be placed in your settings.py file.
+Each setting should be placed in your settings.py file, except the ``TWILIO_ACCOUNT_SID`` and ``TWILIO_AUTH_TOKEN`` variables, which should be kept in your environment variables to ensure proper security.
 
 
 **TWILIO_ACCOUNT_SID**

@@ -8,6 +8,17 @@ project on `our GitHub page <https://github.com/rdegges/django-twilio>`_.
 The guidelines below should help you get started.
 
 
+Setup
+-----
+
+1. Fork the project on Github
+2. Create a separate, **well named** branch to work on, off of the **develop** branch.
+3. Install the requirements using pip::
+
+    $ pip install -r requirements.txt
+
+You should now have the django-twilio source code and development ready to go.
+
 Style
 -----
 
@@ -19,12 +30,12 @@ codebase. Right now, that means:
 
 After setting up your developer environment you can run::
 
-    $ flake8 django_twilio
+    $ make lint
 
 This will lint the entire project and ensure PEP8 standards are being stuck to.
 
 **Please note**: We're pretty relaxed on line length, but make sure you keep
-it below 90 charactes where possible.
+it below 90 characters where possible.
 
 
 Docs
@@ -46,18 +57,8 @@ a great way to introduce yourself to the codebase!
 
 To run the tests, you'll need to do the following:
 
-1. Check out the latest version of django-twilio's source code using git:
-   ``git clone git://github.com/rdegges/django-twilio.git``.
 
-2. Switch to the develop branch: ``cd django-twilio; git fetch origin
-   develop:develop``.
-
-3. Install the required packages for testing: ``pip install -r requirements.txt``.
-
-4. Install django-twilio in development mode: ``python
-   setup.py develop``.
-
-5. Before running these tests, you need to set up some environment variables.
+1. Before running these tests, you need to set up some environment variables.
    If you're using virtualenv, open the */bin/activate* file in vi or nano and
    add the following to the end::
 
@@ -70,9 +71,9 @@ Obviously you'll need to replace this with your own account details.
 
     The test suite will not cost you any credit from your Twilio account.
 
-6. Run the test suite using the run_tests.py command like so::
+2. Run the test suite using the run_tests.py command like so::
 
-    $ python run_tests.py
+    $ make test
 
 You'll see output that looks something like::
 
@@ -90,22 +91,6 @@ output not only failing test results, but also the coverage reports.
 When you submit patches or add functionality to django-twilio, be sure to run
 the test suite to ensure that no functionality is broken.
 
-Tests for Django 1.6.1
------------------------
-
-An alternative method of testing that works with Django 1.6.1 has been implemented.
-(This is also how we run CI on django-twilio).
-
-
-
-Make sure you replace your own tokens.
-
-This testing method can be run using::
-
-    $ python run_tests.py
-
-
-
 Workflow
 --------
 
@@ -117,26 +102,25 @@ When contributing to django-twilio, here's a typical developer workflow::
     $ cd ~/django_twilio
     $ git checkout develop
     $ pip install -r requirements.txt
-    $ python setup.py develop
 
     # Hacking:
 
     $ cd ~/django_twilio/django_twilio
     $ git checkout develop
     $ vim ...
-    <<< hack >>>
+    <<< hack time >>>
 
     # Writing tests:
 
     $ cd ~/django_twilio/django_twilio/tests
     $ vim ...
-    <<< hack >>>
+    <<< hack time >>>
 
     # Running tests:
 
     $ cd ~/django_twilio/test_project
     $ workon djtw
-    $ python manage.py test django_twilio
+    $ make test
     <<< check test output >>>
 
 .. note::
