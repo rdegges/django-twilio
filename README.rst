@@ -25,13 +25,9 @@ Meta
 * Status: active development, stable, maintained
 
 
-Purpose
--------
+Twilio makes it easy to send & receive SMS messages, and create & manage voice calls through software.
 
-Twilio makes it easy for developers to send and receive voice calls and
-SMS messages.
-
-Django-twilio has been built to make integrating Twilio into your projects simple.
+Django-twilio makes it easy to use Twilio in your Django projects.
 
 Documentation
 -------------
