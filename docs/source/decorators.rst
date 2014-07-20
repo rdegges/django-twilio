@@ -1,14 +1,13 @@
 Decorators
 ==========
 
-One of the key features of django-twilio is making it easy to build twilio views for
-your project, and avoid nasty boilerplate code. Let's take a look!
+One of the key features of django-twilio is making it easy to build Django views that return TwiML instructions back to Twilio, without having to deal with all the complex security issues.
 
 All-In-One Decorator
 --------------------
 
 The most useful decorator that ships with django-twilio is
-:func:`django_twilio.decorators.twilio_view`, which will make your life much
+:func:`twilio_view`, which will make your life much
 easier.
 
 The :func:`django_twilio.decorators.twilio_view` decorator:
@@ -34,7 +33,10 @@ The :func:`django_twilio.decorators.twilio_view` decorator:
 4. Allows you to (optionally) return raw TwiML responses without building an
    ``HttpResponse`` object. This can save a lot of redundant typing.
 
-Let's take a look at a few examples::
+Example usage
+-------------
+
+Let's take a look at an example::
 
     from twilio.twiml import Response
     from django_twilio.decorators import twilio_view
@@ -48,25 +50,6 @@ Let's take a look at a few examples::
 In the example above, we built a view that twilio can POST data to, and that
 will instruct twilio to send a SMS message back to the person who messaged us
 saying "Thanks for the SMS message!".
-
-Now let's take a look at the same view written *without*
-:func:`django_twilio.decorators.twilio_view`::
-
-    from twilio.twiml import Response
-    from django.views.decorators.csrf import csrf_exempt
-    from django.views.decorators.http import require_POST
-    from django.http import HttpResponse
-
-    @csrf_exempt
-    @require_POST
-    def reply_to_sms_messages(request):
-        r = Response()
-        r.message('Thanks for the SMS message!')
-        return HttpResponse(r.toxml(), content_type='application/xml')
-
-And that doesn't even include forgery protection or blacklist management! As
-you can see, using the :func:`django_twilio.decorators.twilio_view` decorator
-can save you a lot of time.
 
 
 How Forgery Protection Works

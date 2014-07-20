@@ -1,34 +1,39 @@
 import sys
 
-try:
-    from django.conf import settings
+import django
 
-    settings.configure(
-        DEBUG=True,
-        USE_TZ=True,
-        DATABASES={
-            "default": {
-                "ENGINE": "django.db.backends.sqlite3",
-            }
-        },
-        ROOT_URLCONF="django_twilio.tests.urls",
-        INSTALLED_APPS=[
-            "django.contrib.auth",
-            "django.contrib.contenttypes",
-            "django.contrib.sites",
-            "django_twilio",
-        ],
-        SITE_ID=1,
-        NOSE_ARGS=['-s'],
-    )
+from django.conf import settings
 
-    from django_nose import NoseTestSuiteRunner
-except ImportError:
-    raise ImportError(
-        "To fix this error, run: pip install -r requirements.txt")
+settings.configure(
+    DEBUG=True,
+    USE_TZ=True,
+    DATABASES={
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+        }
+    },
+    ROOT_URLCONF="django_twilio.tests.urls",
+    INSTALLED_APPS=[
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sites",
+        "django_twilio",
+    ],
+    SITE_ID=1,
+    NOSE_ARGS=['-s'],
+    AUTH_USER_MODEL='auth.User',
+    TWILIO_AUTH_TOKEN='ACXXXXXXXXXXXX',
+    TWILIO_ACCOUNT_SID='SIXXXXXXXXXXXX',
+)
 
+from django_nose import NoseTestSuiteRunner
 
 def run_tests(*test_args):
+
+    if '1.7' in django.get_version():
+        print 'Runnning Django 1.7 test suite'
+        django.setup()
+
     if not test_args:
         test_args = ['django_twilio/tests']
 

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.conf import settings
+AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
+
 
 from phonenumber_field.modelfields import PhoneNumberField
-
-from django_twilio.compat import AUTH_USER_MODEL
 
 
 class Caller(models.Model):

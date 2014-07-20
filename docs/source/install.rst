@@ -1,30 +1,35 @@
 Installation
 ============
 
-Installing django-twilio is simple... Firstly, download and install
-django-twilio. The easiest way is with `pip
+Installing django-twilio is simple.
+
+Firstly, download and install django-twilio.
+
+The easiest way is with `pip
 <http://www.pip-installer.org/en/latest/>`_ ::
 
-    pip install django-twilio
+    $ pip install django-twilio
 
 
 Requirements
 ------------
 
-django-twilio will automatically install the official `twilio python library
-<https://github.com/twilio/twilio-python>`_, which (other than Django), is the
-only requirement.
 
-The twilio python library helps you rapidly build twilio applications, and it
-is heavily suggested that you check out that project before using
-django-twilio.
+Django-twilio will automatically install the official `twilio-python library
+<https://github.com/twilio/twilio-python>`_. The twilio-python library helps you rapidly build twilio applications, and it is heavily suggested that you check out that project before using django-twilio.
+
+If you are using django-twilio with Django version 1.6.* or less, you **will** need to install `South 1.0 <south.readthedocs.org/en/latest/releasenotes/1.0.html>`_. Older versions of South will not work. This is due to to recent database migration changes that have happened with Django 1.7, you can read more about `the changes here <https://docs.djangoproject.com/en/dev/releases/1.7/#what-s-new-in-django-1-7>`_.
+
+If you already have South installed, upgrading is easy::
+
+    $ pip install --upgrade South
 
 
 Django Integration
 ------------------
 
 After django-twilio is installed, add it to your ``INSTALLED_APPS`` tuple in
-your settings module::
+your settings.py file::
 
     INSTALLED_APPS = (
         'django.contrib.auth',
@@ -38,26 +43,61 @@ your settings module::
         ...
     )
 
-To sync the models to the database run::
-
-    python manage.py syncdb
-
-To sync (and update) django-twilio's database models.
-
 .. note::
-    We recommend using `South <http://south.aeracode.org/docs/>`_ for database
-    migrations. Initial migrations have already been created for django-twilio
-    in django_twilio/migrations/, so you only need to run ``python manage.py
-    migrate django_twilio`` instead of ``syncdb``.
+    Please note the underscore!
 
+Databases for Django 1.6 or lower
+---------------------------------
+
+To use django-twilio with Django 1.6.* or less, you will need to install `South 1.0 <http://south.aeracode.org/docs/>`_ with the following terminal command::
+
+    $ pip install South==1.0
+
+Or upgrade South to version 1.0::
+
+    $ pip install --upgrade South
+
+Add south to your installed apps::
+
+    INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+
+        'django_twilio',
+        'South'
+        ...
+    )
+
+and run the default ```syncdb``` command::
+
+    $ python manage.py syncdb
+
+To sync the django-twilio models to the database run::
+
+    $ python manage.py migrate django_twilio
+
+
+Databases for Django 1.7
+------------------------
+
+Django 1.7 has built in migrations, so there is no need to install any third-party schema management tool. To sync the django-twilio models with your Django 1.7 project just run::
+
+    $ python manage.py migrate
 
 Upgrading
 ---------
 
-Upgrading django-twilio gracefully is easy using South. If you aren't using
-South, you're out of luck(!)::
+Upgrading django-twilio gracefully is easy using pip::
 
-    python manage.py migrate django_twilio
+    $ pip install --upgrade django-twilio
+
+Then you just need to update the models::
+
+    $ python manage.py migrate django_twilio
 
 
 Authentication Token Management
@@ -74,7 +114,6 @@ with the twilio API, be sure to keep these credentials safe!
 The order in which Django will check for credentials is:
 
     1. Environment variables in your environment
-    2. A Credentials model if a User is passed
     3. Settings variables in the Django settings
 
 We recommend you use environment variables as these keep secret tokens out
@@ -92,6 +131,9 @@ To use settings variables, you'll need to add them to your settings.py file::
 
     TWILIO_ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
     TWILIO_AUTH_TOKEN = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
+
+.. note::
+    Storing tokens in your settings.py is bad security! Only do this if you are certain you will not be sharing the file publicly.
 
 And optionally add the default caller::
 
