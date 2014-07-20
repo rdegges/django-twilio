@@ -14,13 +14,15 @@ The easiest way is with `pip
 Requirements
 ------------
 
-Django-twilio will automatically install the official `twilio-python library
-<https://github.com/twilio/twilio-python>`_, which (other than Django), is the
-only requirement.
 
-The twilio-python library helps you rapidly build twilio applications, and it
-is heavily suggested that you check out that project before using
-django-twilio.
+Django-twilio will automatically install the official `twilio-python library
+<https://github.com/twilio/twilio-python>`_. The twilio-python library helps you rapidly build twilio applications, and it is heavily suggested that you check out that project before using django-twilio.
+
+If you are using django-twilio with Django version 1.6.* or less, you **will** need to install `South 1.0 <south.readthedocs.org/en/latest/releasenotes/1.0.html>`_. Older versions of South will not work. This is due to to recent database migration changes that have happened with Django 1.7, you can read more about `the changes here <https://docs.djangoproject.com/en/dev/releases/1.7/#what-s-new-in-django-1-7>`_.
+
+If you already have South installed, upgrading is easy::
+
+    $ pip install --upgrade South
 
 
 Django Integration
