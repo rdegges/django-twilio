@@ -1,34 +1,34 @@
 Decorators
 ==========
 
-One of the key features of django-twilio is making it easy to build Django views that return TwiML instructions back to Twilio, without having to deal with all the complex security issues.
+One of the key features of ``django-twilio`` is making it easy to build Django
+views that return TwiML instructions back to Twilio, without having to deal with
+all the complex security issues.
 
 All-In-One Decorator
 --------------------
 
-The most useful decorator that ships with django-twilio is
-:func:`twilio_view`, which will make your life much
-easier.
+The most useful decorator that ships with ``django-twilio`` is ``twilio_view``,
+which will make your life much easier.
 
-The :func:`django_twilio.decorators.twilio_view` decorator:
+The ``django_twilio.decorators.twilio_view`` decorator:
 
 1. Protects your views against forgery, and ensures that the request which hits
-   your view originated from twilio's servers. This way, you don't have to
+   your view originated from Twilio's servers. This way, you don't have to
    worry about fake requests hitting your views that may cause you to launch
-   calls, or waste any money on fradulent activity.
+   calls, or waste any money on fraudulent activity.
 
-2. Ensures your view is CSRF exempt. Since twilio will always POST data to your
-   views, you'd normally have to explicitly declare your view CSRF exempt.
-   :func:`django_twilio.decorators.twilio_view` does this automatically.
+2. Ensures your view is CSRF exempt. Since Twilio will always POST data to your
+   views, you'd normally have to explicitly declare your view CSRF exempt. The
+   decorator does this automatically.
 
-3. Enforces a blacklist. If you've got any
-   :class:`django_twilio.models.Caller` objects who are blacklisted, any
-   service requests from them will be rejected.
+3. Enforces a blacklist. If you've got any :class:`django_twilio.models.Caller`
+   objects who are blacklisted, any service requests from them will be rejected.
 
    .. note::
       You can manage your blacklist via the Django admin panel (if you have it
-      enabled). django-twilio provides a ``Caller`` admin hook that allows you
-      to create new callers, and blacklist them if you wish.
+      enabled). ``django-twilio`` provides a ``Caller`` admin hook that allows
+      you to create new callers, and blacklist them if you wish.
 
 4. Allows you to (optionally) return raw TwiML responses without building an
    ``HttpResponse`` object. This can save a lot of redundant typing.
@@ -38,34 +38,35 @@ Example usage
 
 Let's take a look at an example::
 
-    from twilio.twiml import Response
+    from twilio import twiml
     from django_twilio.decorators import twilio_view
 
     @twilio_view
     def reply_to_sms_messages(request):
-        r = Response()
+        r = twiml.Response()
         r.message('Thanks for the SMS message!')
         return r
 
-In the example above, we built a view that twilio can POST data to, and that
-will instruct twilio to send a SMS message back to the person who messaged us
-saying "Thanks for the SMS message!".
+In the example above, we built a view that Twilio can POST data to, and that
+will instruct Twilio to send a SMS message back to the person who messaged us
+saying, "Thanks for the SMS message!".
 
 
 How Forgery Protection Works
-****************************
+----------------------------
 
 Forgery protection is extremely important when writing Twilio code. Since your
-code will be doing stuff that costs money (sending calls, SMS messages,
-etc.), ensuring all incoming HTTP requests actually originate from Twilio is
-really important.
+code will be doing stuff that costs money (sending calls, SMS messages, etc.),
+ensuring all incoming HTTP requests actually originate from Twilio is really
+important.
 
-The way django-twilio implements forgery protection is by checking for a specific
-flag in the django configuration settings::
+The way ``django-twilio`` implements forgery protection is by checking for a
+specific flag in the django configuration settings::
 
-  DJANGO_TWILIO_FORGERY_PROTECTION = False
+    DJANGO_TWILIO_FORGERY_PROTECTION = False
 
-If this is not set, this will default to the **opposite** of ``settings.DEBUG``, so in debug mode the forgery protection will be off.
+If this setting is not present, it will default to the **opposite** of
+``settings.DEBUG``; in debug mode, forgery protection will be off.
 
 This behavior has been specifically implemented this way so that, while in
 development mode, you can:

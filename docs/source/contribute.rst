@@ -1,7 +1,7 @@
 Contributing
 ============
 
-django-twilio is always under development, and welcomes any contributions!
+``django-twilio`` is always under development, and welcomes any contributions!
 If you'd like to get your hands dirty with the source code, please fork the
 project on `our GitHub page <https://github.com/rdegges/django-twilio>`_.
 
@@ -12,12 +12,15 @@ Setup
 -----
 
 1. Fork the project on Github
-2. Create a separate, **well named** branch to work on, off of the **develop** branch.
+2. Create a separate, **well named** branch to work on, off of the **develop**
+   branch.
 3. Install the requirements using pip::
 
     $ pip install -r requirements.txt
+    $ pip install -r test_requirements.txt
 
-You should now have the django-twilio source code and development ready to go.
+You should now have the ``django-twilio`` source code and development
+environment ready to go.
 
 Style
 -----
@@ -28,7 +31,7 @@ codebase. Right now, that means:
 * 100% `PEP-8 compliance <http://www.python.org/dev/peps/pep-0008/>`_.
 * Proper spelling / punctuation in the source code.
 
-After setting up your developer environment you can run::
+After setting up your development environment, you can run::
 
     $ make lint
 
@@ -50,77 +53,84 @@ documentation online at `ReadTheDocs <http://readthedocs.org/>`_.
 Tests
 -----
 
-In order to ensure high-quality releases, django-twilio aims to have an
+In order to ensure high-quality releases, ``django-twilio`` aims to have an
 extensive test suite. All test suite patches and additions are welcome, and
 encouraged for new developers! The tests are well documented, and can be
 a great way to introduce yourself to the codebase!
 
-To run the tests, you'll need to do the following:
-
-
-1. Before running these tests, you need to set up some environment variables.
-   If you're using virtualenv, open the */bin/activate* file in vi or nano and
-   add the following to the end::
-
-    export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXX
-    export TWILIO_AUTH_TOKEN=YYYYYYYYYYYYYYY
-
-Obviously you'll need to replace this with your own account details.
-
-.. note::
-
-    The test suite will not cost you any credit from your Twilio account.
-
-2. Run the test suite using the run_tests.py command like so::
+To run the tests, you can either use::
 
     $ make test
 
+or::
+
+    $ python manage.py test
+
 You'll see output that looks something like::
 
+    nosetests --with-coverage --cover-package=django_twilio --verbosity=1
     Creating test database for alias 'default'...
-    ..............................
-    ------------------------------
-    Ran 30 tests in 0.071s
+    ......................................
+    Name                                          Stmts   Miss  Cover   Missing
+    ---------------------------------------------------------------------------
+    django_twilio                                     2      0   100%
+    django_twilio.client                              4      0   100%
+    django_twilio.decorators                         50      4    92%   74-75, 103-104
+    django_twilio.migrations                          0      0   100%
+    django_twilio.models                             20      0   100%
+    django_twilio.settings                            3      0   100%
+    django_twilio.south_migrations                    0      0   100%
+    django_twilio.south_migrations.0001_initial      14      2    86%   30-33
+    django_twilio.utils                              30      2    93%   44, 49
+    django_twilio.views                              38      0   100%
+    ---------------------------------------------------------------------------
+    TOTAL                                           161      8    95%
+    ----------------------------------------------------------------------
+    Ran 38 tests in 0.184s
 
     OK
     Destroying test database for alias 'default'...
 
-That's it! As you can see, when you run the test suite, django-twilio should
+That's it! As you can see, when you run the test suite, ``django-twilio`` should
 output not only failing test results, but also the coverage reports.
 
-When you submit patches or add functionality to django-twilio, be sure to run
-the test suite to ensure that no functionality is broken.
+When you submit patches or add functionality to ``django-twilio``, be sure to
+run the test suite to ensure that no functionality is broken!
 
 Workflow
 --------
 
-When contributing to django-twilio, here's a typical developer workflow::
+When contributing to ``django-twilio``, here's a typical developer workflow::
 
     # Preparing the environment:
 
+    $ pip install --upgrade virtualenv virtualenvwrapper
+    $ source "/usr/local/bin/virtualenvwrapper.sh"
     $ mkvirtualenv --no-site-packages djtw
-    $ cd ~/django_twilio
-    $ git checkout develop
-    $ pip install -r requirements.txt
+    (djtw)$ git clone https://github.com/<your_username>/django-twilio.git
+    (djtw)$ cd django_twilio/
+    (djtw)$ git remote add upstream https://github.com/rdegges/django-twilio.git
+    (djtw)$ git checkout develop
+    (djtw)$ git pull upstream develop
+    (djtw)$ pip install -r requirements.txt
+    (djtw)$ pip install -r test_requirements.txt
 
     # Hacking:
 
-    $ cd ~/django_twilio/django_twilio
-    $ git checkout develop
-    $ vim ...
+    (djtw)$ git checkout develop
+    (djtw)$ vim ...
     <<< hack time >>>
 
     # Writing tests:
 
-    $ cd ~/django_twilio/django_twilio/tests
+    (djtw)$ cd test_project/test_app/
     $ vim ...
     <<< hack time >>>
 
     # Running tests:
 
-    $ cd ~/django_twilio/test_project
-    $ workon djtw
-    $ make test
+    (djtw)$ cd django_twilio/
+    (djtw)$ make test
     <<< check test output >>>
 
 .. note::
@@ -132,7 +142,7 @@ When contributing to django-twilio, here's a typical developer workflow::
 Bugs / Feature Requests / Comments
 ----------------------------------
 
-If you've got any concerns about django-twilio, make your voice heard by
+If you've got any concerns about ``django-twilio``, make your voice heard by
 posting an issue on our `GitHub issue tracker
 <https://github.com/rdegges/django-twilio/issues>`_. All bugs / feature
 requests / comments are welcome.
