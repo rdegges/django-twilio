@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-import datetime
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
-from django_twilio.compat import AUTH_USER_MODEL
+from django_twilio.models import AUTH_USER_MODEL
 
 
 class Migration(SchemaMigration):

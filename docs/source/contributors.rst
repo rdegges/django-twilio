@@ -1,8 +1,8 @@
 Contributors
 ------------
 
-The Django-twilio library is the result of effort given by the following awesome
-Twilio / Django / Python community members:
+The ``django-twilio`` library is the result of effort given by the following
+awesome Twilio / Django / Python community members:
 
 * `Randall Degges <https://github.com/rdegges>`_ - original author
 * `Paul Hallett <https://github.com/phalt>`_ - current maintainer
@@ -19,5 +19,7 @@ Twilio / Django / Python community members:
 * `Florian Le Goff <https://github.com/madflo>`_
 * `Richard Kolkovich <https://github.com/sarumont>`_
 * `Sunah Suh <https://github.com/sunahsuh>`_
+* `Daniel Hawkins <https://github.com/hwkns>`_
 
-Without their support we wouldn't have such a well written library, thanks folks!
+Without their support, we wouldn't have such a well-written library.
+Thanks folks!

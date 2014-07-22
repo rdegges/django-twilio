@@ -1,0 +1,188 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals, absolute_import
+
+from django.conf import settings
+from django.http import HttpResponse
+from django.test import TestCase
+from twilio import twiml
+
+from django_twilio.decorators import twilio_view
+from django_twilio.views import (
+    conference, dial, gather, play, record, say, sms)
+
+from .utils import TwilioRequestFactory
+
+
+@twilio_view
+def response_view(request):
+    """
+    A simple test view that returns a HttpResponse object.
+    """
+    return HttpResponse(
+        '<Response><Message>Hello from Django</Message></Response>',
+        content_type='text/xml',
+    )
+
+
+@twilio_view
+def str_view(request):
+    """
+    A simple test view that returns a string.
+    """
+    return '<Response><Message>Hi!</Message></Response>'
+
+
+@twilio_view
+def bytes_view(request):
+    """
+    A simple test view that returns ASCII bytes.
+    """
+    return b'<Response><Message>Hi!</Message></Response>'
+
+
+@twilio_view
+def verb_view(request):
+    """
+    A simple test view that returns a ``twilio.Verb`` object.
+    """
+    r = twiml.Response()
+    r.reject()
+    return r
+
+
+class SayTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.say_uri = '/test_app/views/say/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+        self.request = self.factory.post(self.say_uri)
+
+    def test_say_no_text(self):
+        self.assertRaises(TypeError, say, self.request)
+
+    def test_say_with_text(self):
+        self.assertEquals(
+            say(self.request, text='hi').status_code,
+            200
+        )
+
+
+class PlayTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.play_uri = '/test_app/views/play/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+
+    def test_play_no_url(self):
+        request = self.factory.post(self.play_uri)
+        self.assertRaises(TypeError, play, request)
+
+    def test_play_with_url(self):
+        request = self.factory.post(self.play_uri)
+        self.assertEquals(
+            play(request, url='http://b.com/b.wav').status_code,
+            200,
+        )
+
+
+class GatherTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.gather_uri = '/test_app/views/gather/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+
+    def test_gather(self):
+        request = self.factory.post(self.gather_uri)
+        self.assertEquals(
+            gather(request).status_code,
+            200,
+        )
+
+
+class RecordTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.record_uri = '/test_app/views/record/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+
+    def test_record(self):
+        request = self.factory.post(self.record_uri)
+        self.assertEquals(
+            record(request).status_code,
+            200,
+        )
+
+
+class SmsTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.sms_uri = '/test_app/views/sms/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+
+    def test_sms_no_message(self):
+        request = self.factory.post(self.sms_uri)
+        self.assertRaises(TypeError, sms, request)
+
+    def test_sms_with_message(self):
+        request = self.factory.post(self.sms_uri)
+        self.assertEquals(
+            sms(request, message='test').status_code,
+            200,
+        )
+
+
+class DialTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.dial_uri = '/test_app/views/dial/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+
+    def test_dial_no_number(self):
+        request = self.factory.post(self.dial_uri)
+        self.assertRaises(TypeError, dial, request)
+
+    def test_dial_with_number(self):
+        request = self.factory.post(self.dial_uri)
+        self.assertEquals(
+            dial(request, number='+18182223333').status_code,
+            200,
+        )
+
+
+class ConferenceTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.conf_uri = '/test_app/views/conference/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+
+    def test_conference_no_name(self):
+        request = self.factory.post(self.conf_uri)
+        self.assertRaises(TypeError, conference, request)
+
+    def test_conference_with_name(self):
+        request = self.factory.post(self.conf_uri)
+        self.assertEquals(
+            conference(request, name='a').status_code,
+            200,
+        )

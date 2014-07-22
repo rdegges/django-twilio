@@ -6,6 +6,7 @@
 dist
 
 # Editor temp files:
+.idea/
 *.swp
 *~
 
@@ -18,3 +19,6 @@ build
 # Coverage reports:
 .coverage
 *htmlcov*
+
+# Tox testing
+.tox/

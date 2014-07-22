@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals, absolute_import
 
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.conf import settings
-AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
-
 
 from phonenumber_field.modelfields import PhoneNumberField
 
 
+AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
+
+
+@python_2_unicode_compatible
 class Caller(models.Model):
-    """ A caller is defined uniquely by their phone number.
+    """
+    A caller is defined uniquely by their phone number.
 
     :param bool blacklisted: Designates whether the caller can use our
         services.
@@ -20,15 +25,17 @@ class Caller(models.Model):
     blacklisted = models.BooleanField(default=False)
     phone_number = PhoneNumberField(unique=True)
 
-    def __unicode__(self):
-        name = str(self.phone_number)
-        if self.blacklisted:
-            name += ' (blacklisted)'
-        return name
+    def __str__(self):
+        return '{phone_number}{blacklist_status}'.format(
+            phone_number=str(self.phone_number),
+            blacklist_status=' (blacklisted)' if self.blacklisted else '',
+        )
 
 
+@python_2_unicode_compatible
 class Credential(models.Model):
-    """ A Credential model is a set of SID / AUTH tokens for the Twilio.com API
+    """
+    A Credential model is a set of SID / AUTH tokens for the Twilio.com API
 
         The Credential model can be used if a project uses more than one
         Twilio account, or provides Users with access to Twilio powered
@@ -41,8 +48,8 @@ class Credential(models.Model):
 
     """
 
-    def __unicode__(self):
-        return ' '.join([self.name, '-', self.account_sid])
+    def __str__(self):
+        return '{name} - {sid}'.format(name=self.name, sid=self.account_sid)
 
     name = models.CharField(max_length=30)
 
