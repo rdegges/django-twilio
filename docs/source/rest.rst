@@ -2,8 +2,8 @@ Accessing Twilio Resources
 ==========================
 
 Let's say you're building a Twilio application that needs access to all of your
-account data--stuff like call logs, recordings, SMS messages, etc.
-django-twilio makes accessing this information extremely easy.
+account data -- stuff like call logs, recordings, SMS messages, etc.
+``django-twilio`` makes accessing this information extremely easy.
 
 
 The Twilio REST Client
@@ -23,39 +23,38 @@ How it Works
 
 If you are using the `Twilio python library
 <http://readthedocs.org/docs/twilio-python/en/latest/>`_ by itself (without
-django-twilio), you could see a list of all the phone numbers you have
+``django-twilio``), you could see a list of all the phone numbers you have
 provisioned to your Twilio account by running the following code::
 
     from twilio.rest import TwilioRestClient
 
 
-    # Your private Twilio API creds.
+    # Your private Twilio API credentials.
     ACCOUNT_SID = 'xxx'
     AUTH_TOKEN = 'xxx'
 
-
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
     for number in client.phone_numbers.iter():
-        print number.friendly_name
+        print(number.friendly_name)
 
 While this is really convenient, it breaks the `Don't Repeat Yourself
-<http://en.wikipedia.org/wiki/Don't_repeat_yourself>`_ law of software
+<http://en.wikipedia.org/wiki/Don't_repeat_yourself>`_ rule of software
 engineering by making you manually specify your account credentials.
 
-Since django-twilio already requires you to enter your Twilio credentials in
-your ``settings.py`` file, django-twilio provides a simple wrapper around
-TwilioRestClient, :attr:`django_twilio.client.twilio_client`.
+Since ``django-twilio`` already requires you to enter your Twilio credentials in
+your ``settings.py`` file, ``django-twilio`` provides a simple wrapper around
+``TwilioRestClient``: ``django_twilio.client.twilio_client``.
 
 
-The twilio_client Wrapper
--------------------------
+The ``twilio_client`` Wrapper
+-----------------------------
 
-As mentioned in the previous section, django-twilio ships with an instantiated
-TwilioRestClient, so that you can use the `Twilio REST API
+As mentioned in the previous section, ``django-twilio`` ships with an
+instantiated ``TwilioRestClient``, so that you can use the `Twilio REST API
 <http://readthedocs.org/docs/twilio-python/en/latest/usage/basics.html>`_ with
-as little effort as possible :)
+as little effort as possible. :)
 
-Using :attr:`django_twilio.client.twilio_client`, you can print a list of all
+Using ``django_twilio.client.twilio_client``, you can print a list of all
 the phone numbers you have provisioned to your Twilio account by running the
 following code::
 
@@ -63,9 +62,9 @@ following code::
 
 
     for number in twilio_client.phone_numbers.iter():
-        print number.friendly_name
+        print(number.friendly_name)
 
-See how you didn't have to worry about credentials or anything? Niceeee.
+See how you didn't have to worry about credentials or anything? Niiiiice.
 
 
 Further Reading
@@ -90,6 +89,6 @@ can:
 * etc...
 
 To learn more about what you can do, I suggest reading the `Twilio REST
-documentation <http://www.twilio.com/docs/api/rest>`_ and the `twilio-python
+documentation <https://www.twilio.com/docs/api/rest>`_ and the `twilio-python
 REST documentation
-<http://readthedocs.org/docs/twilio-python/en/latest/usage/basics.html>`_.
+<https://twilio-python.readthedocs.org/en/latest/usage/basics.html>`_.

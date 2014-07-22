@@ -1,15 +1,15 @@
 lint:
-	flake8 django_twilio
+	flake8 django_twilio --exclude=migrations
 
 test:
-	python run_tests.py
+	python manage.py test
 
 coverage:
-	coverage run --source django_twilio run_tests.py
+	coverage run --source django_twilio manage.py test
 	coverage report -m
 
 htmlcov:
-	coverage run --source django_twilio run_tests.py
+	coverage run --source django_twilio manage.py test
 	coverage html
 	open htmlcov/index.html
 

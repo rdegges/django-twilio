@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals, absolute_import
 
-"""Twilio REST client helpers."""
-from django_twilio import settings
+"""
+Twilio REST client helpers.
+"""
 
 from twilio.rest import TwilioRestClient
 
+from .settings import TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+
+
 twilio_client = TwilioRestClient(
-    settings.TWILIO_ACCOUNT_SID,
-    settings.TWILIO_AUTH_TOKEN, version='2010-04-01')
+    TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN,
+    version='2010-04-01'
+)

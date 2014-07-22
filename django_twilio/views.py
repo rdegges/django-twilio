@@ -1,10 +1,15 @@
-from twilio.twiml import Response
-from django_twilio.decorators import twilio_view
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals, absolute_import
+
+from twilio import twiml
+
+from .decorators import twilio_view
 
 
 @twilio_view
 def say(request, text, voice=None, language=None, loop=None):
-    """See: http://www.twilio.com/docs/api/twiml/say.
+    """
+    See: http://www.twilio.com/docs/api/twiml/say.
 
     Usage::
 
@@ -15,14 +20,15 @@ def say(request, text, voice=None, language=None, loop=None):
             # ...
         )
     """
-    r = Response()
+    r = twiml.Response()
     r.say(text, voice=voice, language=language, loop=loop)
     return r
 
 
 @twilio_view
 def play(request, url, loop=None):
-    """See: twilio's website: http://www.twilio.com/docs/api/twiml/play.
+    """
+    See: http://www.twilio.com/docs/api/twiml/play.
 
     Usage::
 
@@ -35,7 +41,7 @@ def play(request, url, loop=None):
             # ...
         )
     """
-    r = Response()
+    r = twiml.Response()
     r.play(url, loop=loop)
     return r
 
@@ -43,7 +49,8 @@ def play(request, url, loop=None):
 @twilio_view
 def gather(request, action=None, method='POST', num_digits=None, timeout=None,
            finish_on_key=None):
-    """See: http://www.twilio.com/docs/api/twiml/gather.
+    """
+    See: http://www.twilio.com/docs/api/twiml/gather.
 
     Usage::
 
@@ -54,7 +61,7 @@ def gather(request, action=None, method='POST', num_digits=None, timeout=None,
             # ...
         )
     """
-    r = Response()
+    r = twiml.Response()
     r.gather(action=action, method=method, numDigits=num_digits,
              timeout=timeout, finishOnKey=finish_on_key)
     return r
@@ -64,7 +71,8 @@ def gather(request, action=None, method='POST', num_digits=None, timeout=None,
 def record(request, action=None, method='POST', timeout=None,
            finish_on_key=None, max_length=None, transcribe=None,
            transcribe_callback=None, play_beep=None):
-    """See: http://www.twilio.com/docs/api/twiml/record.
+    """
+    See: http://www.twilio.com/docs/api/twiml/record.
 
     Usage::
 
@@ -75,7 +83,7 @@ def record(request, action=None, method='POST', timeout=None,
             # ...
         )
     """
-    r = Response()
+    r = twiml.Response()
     r.record(action=action, method=method, timeout=timeout,
              finishOnKey=finish_on_key, maxLength=max_length,
              transcribe=transcribe, transcribeCallback=transcribe_callback,
@@ -86,7 +94,8 @@ def record(request, action=None, method='POST', timeout=None,
 @twilio_view
 def sms(request, message, to=None, sender=None, action=None, method='POST',
         status_callback=None):
-    """See: http://www.twilio.com/docs/api/twiml/sms.
+    """
+    See: http://www.twilio.com/docs/api/twiml/sms.
 
     Usage::
 
@@ -99,7 +108,7 @@ def sms(request, message, to=None, sender=None, action=None, method='POST',
             # ...
         )
     """
-    r = Response()
+    r = twiml.Response()
     r.message(msg=message, to=to, sender=sender, method='POST', action=action,
               statusCallback=status_callback)
     return r
@@ -108,7 +117,8 @@ def sms(request, message, to=None, sender=None, action=None, method='POST',
 @twilio_view
 def dial(request, number, action=None, method='POST', timeout=None,
          hangup_on_star=None, time_limit=None, caller_id=None):
-    """See: http://www.twilio.com/docs/api/twiml/dial.
+    """
+    See: http://www.twilio.com/docs/api/twiml/dial.
 
     Usage::
 
@@ -119,7 +129,7 @@ def dial(request, number, action=None, method='POST', timeout=None,
             # ...
         )
     """
-    r = Response()
+    r = twiml.Response()
     r.dial(number=number, action=action, method=method, timeout=timeout,
            hangupOnStar=hangup_on_star, timeLimit=time_limit,
            callerId=caller_id)
@@ -130,7 +140,8 @@ def dial(request, number, action=None, method='POST', timeout=None,
 def conference(request, name, muted=None, beep=None,
                start_conference_on_enter=None, end_conference_on_exit=None,
                wait_url=None, wait_method='POST', max_participants=None):
-    """See: http://www.twilio.com/docs/api/twiml/conference.
+    """
+    See: http://www.twilio.com/docs/api/twiml/conference.
 
     Usage::
 
@@ -142,7 +153,7 @@ def conference(request, name, muted=None, beep=None,
             # ...
         )
     """
-    r = Response()
+    r = twiml.Response()
     r.dial().conference(name=name, muted=muted, beep=beep,
                         startConferenceOnEnter=start_conference_on_enter,
                         endConferenceOnExit=end_conference_on_exit,
