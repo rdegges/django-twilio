@@ -55,7 +55,7 @@ DJANGO_TWILIO_FORGERY_PROTECTION (optional)
 The ``DJANGO_TWILIO_FORGERY_PROTECTION`` setting is optional. This setting is a
 boolean, and should be placed in the ``settings.py`` file:
 
-    DJANGO_TWILIO_FORGERY_PROTECTION=False
+    DJANGO_TWILIO_FORGERY_PROTECTION = False
 
 This setting is used to determine the forgery protection used by
 ``django-twilio``. If not set, this will always be the opposite of
