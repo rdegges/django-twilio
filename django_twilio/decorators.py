@@ -64,8 +64,7 @@ def twilio_view(f):
     """
     @csrf_exempt
     @wraps(f)
-    def decorator(request_or_self, methods=('POST',),
-                  blacklist=True, *args, **kwargs):
+    def decorator(request_or_self, *args, **kwargs):
 
         class_based_view = not isinstance(request_or_self, HttpRequest)
         if not class_based_view:
@@ -84,7 +83,7 @@ def twilio_view(f):
         )
         if use_forgery_protection:
 
-            if request.method not in methods:
+            if request.method not in ['GET', 'POST']:
                 return HttpResponseNotAllowed(request.method)
 
             # Forgery check
@@ -102,11 +101,11 @@ def twilio_view(f):
                 if not validator.validate(url, request.GET, signature):
                     return HttpResponseForbidden()
 
-        # Blacklist check
+        # Blacklist check, by default is true
         check_blacklist = getattr(
             settings,
             'DJANGO_TWILIO_BLACKLIST_CHECK',
-            blacklist
+            True
         )
         if check_blacklist:
             blacklisted_resp = get_blacklisted_response(request)

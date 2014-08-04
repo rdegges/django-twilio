@@ -38,7 +38,8 @@ class TwilioViewTestCase(TestCase):
     def test_requires_post(self):
         client = Client(enforce_csrf_checks=True)
         with override_settings(DEBUG=False):
-            self.assertEquals(client.get(self.str_uri).status_code, 405)
+            self.assertEquals(client.get(self.str_uri).status_code, 403)
+            self.assertEquals(client.post(self.str_uri).status_code, 403)
             self.assertEquals(client.head(self.str_uri).status_code, 405)
             self.assertEquals(client.options(self.str_uri).status_code, 405)
             self.assertEquals(client.put(self.str_uri).status_code, 405)
