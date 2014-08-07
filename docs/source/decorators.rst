@@ -52,6 +52,30 @@ will instruct Twilio to send a SMS message back to the person who messaged us
 saying, "Thanks for the SMS message!".
 
 
+Class based view example
+------------------------
+
+Here's the same thing as above, using a class-based view::
+
+    from twilio import twiml
+
+    from django.views.generic import View
+    from django.utils.decorators import method_decorator
+
+    from django_twilio.decorators import twilio_view
+
+    class ThanksView(View):
+
+        @method_decorator(twilio_view)
+        def dispatch(self, request, *args, **kwargs):
+            return super(ResponseView, self).dispatch(request, *args, **kwargs)
+
+        def post(self, request):
+            r = twiml.Response()
+            r.message('Thanks for the SMS message!')
+            return r
+
+
 How Forgery Protection Works
 ----------------------------
 
