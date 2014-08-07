@@ -11,7 +11,8 @@ from django_dynamic_fixture import G
 
 from django_twilio.models import Caller
 
-from .views import response_view, str_view, bytes_view, verb_view, BytesView, StrView, VerbView, ResponseView
+from .views import (response_view, str_view, bytes_view, verb_view,
+                    BytesView, StrView, VerbView, ResponseView)
 from .utils import TwilioRequestFactory
 
 
