@@ -52,7 +52,6 @@ class TwilioViewTestCase(TestCase):
             self.assertEquals(client.get(self.str_class_uri).status_code, 403)
             self.assertEquals(client.post(self.str_class_uri).status_code, 403)
             self.assertEquals(client.head(self.str_class_uri).status_code, 405)
-            self.assertEquals(client.options(self.str_class_uri).status_code, 405)
             self.assertEquals(client.put(self.str_class_uri).status_code, 405)
             self.assertEquals(client.delete(self.str_class_uri).status_code, 405)
 
@@ -67,7 +66,6 @@ class TwilioViewTestCase(TestCase):
             self.assertEquals(client.get(self.str_class_uri).status_code, 200)
             self.assertEquals(client.post(self.str_class_uri).status_code, 200)
             self.assertEquals(client.head(self.str_class_uri).status_code, 200)
-            self.assertEquals(client.options(self.str_class_uri).status_code, 200)
 
     def test_allows_post(self):
         request = self.factory.post(self.str_uri)
@@ -109,7 +107,6 @@ class TwilioViewTestCase(TestCase):
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
             self.assertEquals(str_view(request).status_code, 403)
-
         with override_settings(DEBUG=True):
             self.assertEquals(str_view(request).status_code, 200)
 
