@@ -95,7 +95,6 @@ class TwilioViewTestCase(TestCase):
         with override_settings(DEBUG=False):
             self.assertEquals(self.client.post(self.str_uri).status_code, 403)
             self.assertEquals(self.client.post(self.str_class_uri).status_code, 403)
-
         with override_settings(DEBUG=True):
             self.assertEquals(self.client.post(self.str_uri).status_code, 200)
             self.assertEquals(self.client.post(self.str_class_uri).status_code, 200)
