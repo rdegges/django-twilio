@@ -7,6 +7,9 @@ from django.test import TestCase
 from twilio import twiml
 
 from django_twilio.decorators import twilio_view
+from django.views.generic import View
+from django.utils.decorators import method_decorator
+
 from django_twilio.views import (
     conference, dial, gather, play, record, say, sms)
 
@@ -24,12 +27,44 @@ def response_view(request):
     )
 
 
+class ResponseView(View):
+
+    @method_decorator(twilio_view)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ResponseView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        return HttpResponse(
+            '<Response><Message>Hello from Django</Message></Response>',
+            content_type='text/xml',
+        )
+
+    def post(self, request):
+        return HttpResponse(
+           '<Response><Message>Hello from Django</Message></Response>',
+            content_type='text/xml',
+        )
+
+
 @twilio_view
 def str_view(request):
     """
     A simple test view that returns a string.
     """
     return '<Response><Message>Hi!</Message></Response>'
+
+
+class StrView(View):
+
+    @method_decorator(twilio_view)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StrView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        return '<Response><Message>Hi!</Message></Response>'
+
+    def post(self, request):
+        return '<Response><Message>Hi!</Message></Response>'
 
 
 @twilio_view
@@ -40,6 +75,19 @@ def bytes_view(request):
     return b'<Response><Message>Hi!</Message></Response>'
 
 
+class BytesView(View):
+
+    @method_decorator(twilio_view)
+    def dispatch(self, request, *args, **kwargs):
+        return super(BytesView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        return b'<Response><Message>Hi!</Message></Response>'
+
+    def post(self, request):
+        return b'<Response><Message>Hi!</Message></Response>'
+
+
 @twilio_view
 def verb_view(request):
     """
@@ -48,6 +96,23 @@ def verb_view(request):
     r = twiml.Response()
     r.reject()
     return r
+
+
+class VerbView(View):
+
+    @method_decorator(twilio_view)
+    def dispatch(self, request, *args, **kwargs):
+        return super(VerbView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        r = twiml.Response()
+        r.reject()
+        return r
+
+    def post(self, request):
+        r = twiml.Response()
+        r.reject()
+        return r
 
 
 class SayTestCase(TestCase):
