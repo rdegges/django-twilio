@@ -3,3 +3,4 @@ django-dynamic-fixture==1.7.0
 django-nose==1.2
 flake8==2.2.2
 ipdb==0.8
+ipython==1.2.1
