@@ -22,3 +22,6 @@ build
 
 # Tox testing
 .tox/
+
+# Local virtualenv
+venv
