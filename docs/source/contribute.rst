@@ -14,13 +14,16 @@ Setup
 1. Fork the project on Github
 2. Create a separate, **well named** branch to work on, off of the **develop**
    branch.
-3. Install the requirements using pip::
+3. Use the Makefile to set up your development environment::
 
-    $ pip install -r requirements.txt
-    $ pip install -r test_requirements.txt
+    $ make install-test
 
 You should now have the ``django-twilio`` source code and development
-environment ready to go.
+environment ready to go. Run the tests to ensure everything is okay::
+
+    $ make test
+
+The tests should return with no failures.
 
 Style
 -----
@@ -62,10 +65,6 @@ To run the tests, you can either use::
 
     $ make test
 
-or::
-
-    $ python manage.py test
-
 You'll see output that looks something like::
 
     nosetests --with-coverage --cover-package=django_twilio --verbosity=1
@@ -104,33 +103,29 @@ When contributing to ``django-twilio``, here's a typical developer workflow::
 
     # Preparing the environment:
 
-    $ pip install --upgrade virtualenv virtualenvwrapper
-    $ source "/usr/local/bin/virtualenvwrapper.sh"
-    $ mkvirtualenv --no-site-packages djtw
-    (djtw)$ git clone https://github.com/<your_username>/django-twilio.git
-    (djtw)$ cd django_twilio/
-    (djtw)$ git remote add upstream https://github.com/rdegges/django-twilio.git
-    (djtw)$ git checkout develop
-    (djtw)$ git pull upstream develop
-    (djtw)$ pip install -r requirements.txt
-    (djtw)$ pip install -r test_requirements.txt
+    $ git clone https://github.com/<your_username>/django-twilio.git
+    $ cd django_twilio/
+    $ git remote add upstream https://github.com/rdegges/django-twilio.git
+    $ git checkout develop
+    $ git pull upstream develop
+    $ make install-test
 
     # Hacking:
 
-    (djtw)$ git checkout develop
-    (djtw)$ vim ...
+    $ git checkout develop
+    $ vim ...
     <<< hack time >>>
 
     # Writing tests:
 
-    (djtw)$ cd test_project/test_app/
+    $ cd test_project/test_app/
     $ vim ...
     <<< hack time >>>
 
     # Running tests:
 
-    (djtw)$ cd django_twilio/
-    (djtw)$ make test
+    $ cd django_twilio/
+    $ make test
     <<< check test output >>>
 
 .. note::
