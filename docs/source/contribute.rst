@@ -103,6 +103,11 @@ When contributing to ``django-twilio``, here's a typical developer workflow::
 
     # Preparing the environment:
 
+    $ git clone https://github.com/<your_username>/django-twilio.git
+    $ cd django_twilio/
+    $ git remote add upstream https://github.com/rdegges/django-twilio.git
+    $ git checkout develop
+    $ git pull upstream develop
     $ make install-test
 
     # Hacking:
