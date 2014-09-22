@@ -95,7 +95,8 @@ def record(request, action=None, method='POST', timeout=None,
 def sms(request, message, to=None, sender=None, action=None, method='POST',
         status_callback=None):
     """
-    See: http://www.twilio.com/docs/api/twiml/sms.
+    NOTE: Now deprecated, please use message() instead
+    See: http://www.twilio.com/docs/api/twiml/sms
 
     Usage::
 
@@ -112,6 +113,34 @@ def sms(request, message, to=None, sender=None, action=None, method='POST',
     r.message(msg=message, to=to, sender=sender, method='POST', action=action,
               statusCallback=status_callback)
     return r
+
+@twilio_view
+def message(request, message, to=None, sender=None, action=None, methods='POST',
+            media=None, status_callback=None):
+    """
+    See: https://www.twilio.com/docs/api/twiml/sms/message
+
+    Usage::
+
+        # urls.py
+        urlpatterns = patterns('',
+            # ...
+            url(r'^sms/$', 'django_twilio.views.message', {
+                'message': 'Hello, world!',
+                'media': 'http://fullpath.com/my_image.png'
+            }),
+            # ...
+        )
+    """
+
+    r = twiml.Response()
+    r.message(msg=message, to=to, sender=sender, method='POST',
+              action=action, statusCallback=status_callback,
+              media=media
+    )
+
+    return r
+
 
 
 @twilio_view
