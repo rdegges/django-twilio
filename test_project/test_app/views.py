@@ -236,7 +236,6 @@ class MessageTestCase(TestCase):
         )
 
 
-
 class DialTestCase(TestCase):
 
     def setUp(self):

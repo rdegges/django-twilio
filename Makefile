@@ -14,7 +14,7 @@ install-test: venv install
 	. venv/bin/activate; pip install -r test_requirements.txt
 
 lint: venv
-	flake8 django_twilio --exclude=migrations
+	. venv/bin/activate; flake8 django_twilio/ --exclude=*migrations
 
 test: venv
 	. venv/bin/activate; python manage.py test
