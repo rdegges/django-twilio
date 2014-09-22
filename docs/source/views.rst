@@ -320,7 +320,7 @@ Sending SMS Messages
 --------------------
 
 In addition to building plug-n-play voice applications, we can also build
-plug-n-play SMS applications using the ``django_twilio.views.sms`` view.
+plug-n-play SMS applications using the ``django_twilio.views.message`` view.
 This view allows us to send off arbitrary SMS messages based on incoming Twilio
 requests.
 
@@ -333,7 +333,7 @@ incoming request, we'll simply send back an SMS message to the sender::
     urlpatterns = patterns(
         '',
         # ...
-        url(r'^sms/$', 'django_twilio.views.sms', {
+        url(r'^message/$', 'django_twilio.views.message', {
             'message': 'Thanks for the SMS. Talk to you soon!',
         }),
         # ...
@@ -342,16 +342,16 @@ incoming request, we'll simply send back an SMS message to the sender::
 Sending SMS Messages (with Additional Options)
 **********************************************
 
-Like most of our other views, the ``django_twilio.views.sms`` view also
+Like most of our other views, the ``django_twilio.views.message`` view also
 allows us to specify some other parameters to change our view's behavior::
 
     urlpatterns = patterns('',
         # ...
-        url(r'^sms/$', 'django_twilio.views.sms', {
+        url(r'^message/$', 'django_twilio.views.message', {
             'message': 'Yo!',
             'to': '+12223334444',
             'sender': '+18882223333',
-            'status_callback': '/sms/completed/',
+            'status_callback': '/message/completed/',
         }),
         # ...
     )
@@ -363,6 +363,25 @@ Here, we instruct ``django-twilio`` to send an SMS message to the caller
 Furthermore, the ``status_callback`` parameter that we specified will be POSTed
 to by Twilio once it attempts to send this SMS message. Twilio will send us some
 metadata about the SMS message that we can use in our application as desired.
+
+
+Sending MMS Messages
+--------------------
+
+MMS enables you to add images, gif and video to standard SMS messages. This
+allows you to create rich and engaging experiences without the need of a smart phone.
+
+MMS uses the same view as SMS, but we must include a ``media`` parameter::
+
+    urlpatterns = patterns(
+        '',
+        # ...
+        url(r'^message/$', 'django_twilio.views.message', {
+            'message': 'Oh my glob, amazing!',
+            'media': 'http://i.imgur.com/UMlp0iK.jpg',
+        }),
+        # ...
+    )
 
 Teleconferencing
 ----------------
