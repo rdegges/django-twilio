@@ -37,7 +37,7 @@ build: venv
 	. venv/bin/activate; python setup.py bdist_wheel
 
 clean:
-	rm -rf build
+	rm -rf docs/build
 	rm -rf django_twilio.egg-info
 	rm -rf htmlcov
 	rm -rf dist
