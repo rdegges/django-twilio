@@ -9,16 +9,16 @@ from .decorators import twilio_view
 @twilio_view
 def say(request, text, voice=None, language=None, loop=None):
     """
-    See: http://www.twilio.com/docs/api/twiml/say.
+See: http://www.twilio.com/docs/api/twiml/say.
 
-    Usage::
+Usage::
 
-        # urls.py
-        urlpatterns = patterns('',
-            # ...
-            url(r'^say/$', 'django_twilio.views.say', {'text': 'hello, world!'})
-            # ...
-        )
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^say/$', 'django_twilio.views.say', {'text': 'hello, world!'})
+        # ...
+    )
     """
     r = twiml.Response()
     r.say(text, voice=voice, language=language, loop=loop)
@@ -95,7 +95,8 @@ def record(request, action=None, method='POST', timeout=None,
 def sms(request, message, to=None, sender=None, action=None, method='POST',
         status_callback=None):
     """
-    See: http://www.twilio.com/docs/api/twiml/sms.
+    NOTE: Now deprecated, please use message() instead
+    See: http://www.twilio.com/docs/api/twiml/sms
 
     Usage::
 
@@ -111,6 +112,33 @@ def sms(request, message, to=None, sender=None, action=None, method='POST',
     r = twiml.Response()
     r.message(msg=message, to=to, sender=sender, method='POST', action=action,
               statusCallback=status_callback)
+    return r
+
+
+@twilio_view
+def message(request, message, to=None, sender=None, action=None,
+            methods='POST', media=None, status_callback=None):
+    """
+    See: https://www.twilio.com/docs/api/twiml/sms/message
+
+    Usage::
+
+        # urls.py
+        urlpatterns = patterns('',
+            # ...
+            url(r'^sms/$', 'django_twilio.views.message', {
+                'message': 'Hello, world!',
+                'media': 'http://fullpath.com/my_image.png'
+            }),
+            # ...
+        )
+    """
+
+    r = twiml.Response()
+    r.message(msg=message, to=to, sender=sender, method='POST',
+              action=action, statusCallback=status_callback,
+              media=media)
+
     return r
 
 
@@ -141,17 +169,17 @@ def conference(request, name, muted=None, beep=None,
                start_conference_on_enter=None, end_conference_on_exit=None,
                wait_url=None, wait_method='POST', max_participants=None):
     """
-    See: http://www.twilio.com/docs/api/twiml/conference.
+See: http://www.twilio.com/docs/api/twiml/conference.
 
-    Usage::
+Usage::
 
-        # urls.py
-        urlpatterns = patterns('',
-            # ...
-            url(r'^conference/?(P<name>\\w+)/$', 'django_twilio.views.conference',
-                    {'max_participants': 10}),
-            # ...
-        )
+    # urls.py
+    urlpatterns = patterns('',
+        # ...
+        url(r'^conference/?(P<name>\\w+)/$', 'django_twilio.views.conference',
+                {'max_participants': 10}),
+        # ...
+    )
     """
     r = twiml.Response()
     r.dial().conference(name=name, muted=muted, beep=beep,
