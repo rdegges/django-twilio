@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, absolute_import
 from django.http import HttpRequest
 from django.core.handlers.wsgi import WSGIRequest
+
 from .exceptions import NotDjangoRequestException
+
+import six
 
 
 class TwilioRequest(object):
@@ -20,8 +22,8 @@ class TwilioRequest(object):
         Build out the Twilio key/values from the parameters into attributes
         on this class.
         '''
-        for key, value in parameters.iteritems():
-            setattr(self, unicode(key).lower(), value)
+        for key, value in six.iteritems(parameters):
+            setattr(self, key.lower(), value)
         if getattr(self, 'callsid', False):
             self.type = 'voice'
         elif getattr(self, 'messagesid', False):
