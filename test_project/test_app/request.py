@@ -5,6 +5,8 @@ from django.conf import settings
 from .utils import TwilioRequestFactory
 
 from django_twilio.request import decompose, TwilioRequest
+from django_twilio.exceptions import NotDjangoRequestException
+
 
 
 class TestRequestBase(TestCase):
@@ -43,3 +45,29 @@ class TestDecompose(TestRequestBase):
         )
         response = decompose(request)
         self.assertEquals(response.type, 'voice')
+
+    def test_sms_decompose_function(self):
+        request = self.factory.post(
+            '/test_app/decorators/verb_view',
+            self.message_dict
+        )
+        response = decompose(request)
+        self.assertEquals(response.type, 'message')
+
+    def test_blank_decompose_function(self):
+        request = self.factory.post(
+            '/test_app/decorators/verb_view',
+        )
+        response = decompose(request)
+        self.assertEquals(response.type, 'unknown')
+
+    def test_blank_get_decompose_function(self):
+        request = self.factory.get(
+            '/test_app/decorators/verb_view?messageSid=ACXXXX',
+        )
+        response = decompose(request)
+        self.assertEquals(response.type, 'message')
+
+    def test_raises_not_django_request_exception(self):
+        request = {}
+        self.assertRaises(NotDjangoRequestException, decompose, request)
