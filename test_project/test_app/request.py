@@ -8,7 +8,6 @@ from django_twilio.request import decompose, TwilioRequest
 from django_twilio.exceptions import NotDjangoRequestException
 
 
-
 class TestRequestBase(TestCase):
 
     def setUp(self):
@@ -45,6 +44,8 @@ class TestDecompose(TestRequestBase):
         )
         response = decompose(request)
         self.assertEquals(response.type, 'voice')
+        self.assertEquals(response.accountsid, 'ACXXXX')
+        self.assertEquals(response.from_, '+44123456789')
 
     def test_sms_decompose_function(self):
         request = self.factory.post(

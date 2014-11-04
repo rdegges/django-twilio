@@ -23,7 +23,10 @@ class TwilioRequest(object):
         on this class.
         '''
         for key, value in six.iteritems(parameters):
-            setattr(self, key.lower(), value)
+            if key == 'From':
+                setattr(self, 'from_', value)
+            else:
+                setattr(self, key.lower(), value)
         if getattr(self, 'callsid', False):
             self.type = 'voice'
         elif getattr(self, 'messagesid', False):
