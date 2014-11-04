@@ -43,6 +43,7 @@ Django web applications.
     install
     settings
     decorators
+    requests
     views
     rest
     gotchas

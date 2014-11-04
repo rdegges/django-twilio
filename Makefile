@@ -21,7 +21,6 @@ test: venv
 
 coverage: venv
 	. venv/bin/activate; coverage run --source django_twilio manage.py test
-	. venv/bin/activate; coverage report -m
 
 htmlcov: venv
 	. venv/bin/activate; coverage run --source django_twilio manage.py test
