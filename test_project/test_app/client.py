@@ -10,7 +10,7 @@ from django_dynamic_fixture import G
 
 from django_twilio.client import twilio_client
 from django_twilio.models import Credential
-from django_twilio.utils import discover_twilio_credentials
+from django_twilio.utils import discover_twilio_credentials_from_model
 
 
 class TwilioClientTestCase(TestCase):
@@ -34,7 +34,7 @@ class TwilioClientTestCase(TestCase):
             user=self.user,
         )
 
-        credentials = discover_twilio_credentials(user=self.user)
+        credentials = discover_twilio_credentials_from_model(user=self.user)
 
         self.assertEquals(credentials[0], self.credentials.account_sid)
         self.assertEquals(credentials[1], self.credentials.auth_token)

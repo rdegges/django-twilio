@@ -6,6 +6,7 @@ Useful utility functions.
 """
 
 import os
+import random
 
 from django.http import HttpResponse
 from django.conf import settings
@@ -15,45 +16,14 @@ from twilio import twiml
 from .models import Caller, Credential
 
 
-def discover_twilio_credentials(user=None):
-    """ Due to the multiple ways of providing SID / AUTH tokens through
-        this package, this function will search in the various places that
-        credentials might be stored.
+from .settings import discover_twilio_credentials
 
-        The order this is done in is:
 
-        1. If a User is passed: the keys linked to the
-           user model from the Credentials model in the database.
-        2. Environment variables
-        3. django.conf settings
-
-        We recommend using environment variables were possible; it is the
-        most secure option
-    """
-
-    SID = 'TWILIO_ACCOUNT_SID'
-    AUTH = 'TWILIO_AUTH_TOKEN'
-
-    if user:
-        credentials = Credential.objects.filter(user=user.id)
-        if credentials.exists():
-            credentials = credentials[0]
-            return credentials.account_sid, credentials.auth_token
-
-    if SID in os.environ and AUTH in os.environ:
-        return os.environ[SID], os.environ[AUTH]
-
-    if hasattr(settings, SID) and hasattr(settings, AUTH):
-        return settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN
-
-    raise AttributeError(
-        "Could not find {sid} or {auth} in environment variables, "
-        "User credentials, or django project settings.".format(
-            sid=SID,
-            auth=AUTH,
-        )
-    )
-
+def discover_twilio_credentials_from_model(user):
+    credentials = Credential.objects.filter(user=user.id)
+    if credentials.exists():
+        credentials = credentials[0]
+        return discover_twilio_credentials(credentials)
 
 def get_blacklisted_response(request):
     """Analyze the incoming Twilio request to determine whether or not to
