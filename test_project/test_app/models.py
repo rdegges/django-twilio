@@ -152,6 +152,7 @@ class TwoFactorAuthUserTestCase(TestCase):
     def test_create_superuser(self):
         self.manager = TwoFactorAuthUserManager()
         self.manager.model = Mock(return_value=self.user)
+        self.manager.do_two_fa_actions = Mock(return_value=self.user)
         result = self.manager.create_superuser(username='Paul',
             first_name='Paul',
             second_name='Hallett',
@@ -162,7 +163,3 @@ class TwoFactorAuthUserTestCase(TestCase):
         self.assertEquals(result.is_admin, True)
 
         self.assertTrue(result.is_staff)
-
-    def test_do_two_fa_actions(self):
-        self.manager = TwoFactorAuthUserManager()
-        result = self.manager.do_two_fa_actions(self.user)

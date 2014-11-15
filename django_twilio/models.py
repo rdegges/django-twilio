@@ -84,7 +84,7 @@ class TwoFactorAuthUserManager(BaseUserManager):
         user.two_factor_auth_id = auth_id
 
         # Send the user a 2 Factor Authentication sms message
-        send_two_factor_auth_message(code, user.phone_number)
+        send_two_factor_auth_message(code, user.phone_number.__unicode__())
 
         return user
 
