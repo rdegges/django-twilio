@@ -8,7 +8,14 @@ from django.contrib.auth.models import User
 
 from django_dynamic_fixture import G
 
-from django_twilio.models import Caller, Credential
+from django_twilio.models import (
+    Caller,
+    Credential,
+    TwoFactorAuthUser,
+    TwoFactorAuthUserManager
+)
+
+from mock import Mock
 
 
 class CallerTestCase(TestCase):
@@ -67,3 +74,95 @@ class CredentialTests(TestCase):
         self.assertEquals(self.credentials.account_sid, 'XXX')
         self.assertEquals(self.credentials.auth_token, 'YYY')
         self.assertEquals(self.credentials.user, self.user)
+
+
+class TwoFactorAuthUserTestCase(TestCase):
+    """
+    Run tests against the :class:`django_twilio.models.TwoFactorAuthUser` model.
+    """
+
+    def setUp(self):
+        self.user = G(
+            TwoFactorAuthUser,
+            username='Paul',
+            first_name='Paul',
+            second_name='Hallett',
+            email='hello@phalt.co',
+            phone_number='+12223334444',
+        )
+
+    def test_has_str_method(self):
+        self.assertIsInstance(self.user.__str__, MethodType)
+
+    def test_str_returns_a_string(self):
+        self.assertIsInstance(self.user.__str__(), str)
+
+    def test_get_full_name(self):
+        self.assertEquals('Paul Hallett', self.user.get_full_name())
+
+    def test_get_short_name(self):
+        self.assertEquals('Paul', self.user.get_short_name())
+
+    def test_has_perm(self):
+        # Not yet implemented
+        self.assertTrue(self.user.has_perm('test'))
+
+    def test_has_module_perm(self):
+        # Not yet implemented
+        self.assertTrue(self.user.has_module_perms('test'))
+
+    def test_assertion_errors(self):
+        self.manager = TwoFactorAuthUserManager()
+        self.assertRaises(
+            ValueError,
+            self.manager.create_user,username=None,
+            first_name='Paul',
+            second_name='Hallett',
+            email='hello@phalt.co',
+            phone_number='+12223334444')
+        self.assertRaises(
+            ValueError,
+            self.manager.create_user,username='Paul',
+            first_name=None,
+            second_name='Hallett',
+            email='hello@phalt.co',
+            phone_number='+12223334444')
+        self.assertRaises(
+            ValueError,
+            self.manager.create_user,username='Paul',
+            first_name='Paul',
+            second_name=None,
+            email='hello@phalt.co',
+            phone_number='+12223334444')
+        self.assertRaises(
+            ValueError,
+            self.manager.create_user,username='Paul',
+            first_name='None',
+            second_name='Hallett',
+            email=None,
+            phone_number='+12223334444')
+        self.assertRaises(
+            ValueError,
+            self.manager.create_user,username='Paul',
+            first_name='None',
+            second_name='Hallett',
+            email='hello@phalt.co',
+            phone_number=None)
+
+    def test_create_superuser(self):
+        self.manager = TwoFactorAuthUserManager()
+        self.manager.model = Mock(return_value=self.user)
+        result = self.manager.create_superuser(username='Paul',
+            first_name='Paul',
+            second_name='Hallett',
+            email='hello@phalt.co',
+            phone_number='+12223334444',
+            is_admin=True
+        )
+        self.assertEquals(result.is_admin, True)
+
+        self.assertTrue(result.is_staff)
+
+    def test_do_two_fa_actions(self):
+        self.manager = TwoFactorAuthUserManager()
+        result = self.manager.do_two_fa_actions(self.user)

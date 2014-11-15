@@ -10,6 +10,8 @@ from __future__ import unicode_literals, absolute_import
 import random
 from django.conf import settings
 
+from .client import twilio_client
+
 def generate_two_factor_auth_details():
     """
     Generate a set length code and a unique ID for two factor authentication
@@ -42,8 +44,6 @@ def send_two_factor_auth_message(code, to_number, from_number=None):
     )
 
     message = message.replace('{{code}}', code)
-
-    twilio_client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
     try:
         twilio_client.messages.create(

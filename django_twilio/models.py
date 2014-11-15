@@ -113,11 +113,11 @@ class TwoFactorAuthUserManager(BaseUserManager):
             first_name=first_name,
             second_name=second_name,
             username=username,
-            phone_number=phone_number,
+            phone_number=phone_number
         )
 
         user.set_password(password)
-        user = do_two_fa_actions(user)
+        user = self.do_two_fa_actions(user)
         if is_admin:
             user.is_admin = True
         user.save(using=self._db)
@@ -131,7 +131,7 @@ class TwoFactorAuthUserManager(BaseUserManager):
             is_admin = True
         """
 
-        return create_user(email, first_name, second_name, username,
+        return self.create_user(email, first_name, second_name, username,
                            phone_number, password, is_admin)
 
 
@@ -171,7 +171,7 @@ class TwoFactorAuthUser(AbstractBaseUser):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = [
-        'email', 'first_name', 'second_name', 'phone_number', 'username'
+        'email', 'first_name', 'second_name', 'phone_number'
     ]
 
     objects = TwoFactorAuthUserManager()
@@ -197,7 +197,8 @@ class TwoFactorAuthUser(AbstractBaseUser):
 
     username = models.CharField(
         verbose_name='Username',
-        max_length=255
+        max_length=255,
+        unique=True
     )
 
     phone_number = PhoneNumberField(
