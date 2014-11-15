@@ -233,4 +233,4 @@ class TwoFactorAuthUser(AbstractBaseUser):
 
     @property
     def is_staff(self):
-        return self.is_staff
+        return self.is_admin
