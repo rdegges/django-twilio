@@ -45,12 +45,9 @@ def send_two_factor_auth_message(code, to_number, from_number=None):
 
     message = message.replace('{{code}}', code)
 
-    try:
-        twilio_client.messages.create(
-            to=to_number,
-            from_=from_,
-            body=message
-        )
-        return True
-    except:
-        return False
+    twilio_client.messages.create(
+        to=to_number,
+        from_=from_,
+        body=message
+    )
+    return True

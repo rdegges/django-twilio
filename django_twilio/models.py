@@ -177,7 +177,7 @@ class TwoFactorAuthUser(AbstractBaseUser):
     objects = TwoFactorAuthUserManager()
 
     def __str__(self):
-        return '{0}, verified is {0}'.format(self.username, self.verified)
+        return '{0}'.format(self.username, self.verified)
 
     email = models.EmailField(
         verbose_name='email address',
