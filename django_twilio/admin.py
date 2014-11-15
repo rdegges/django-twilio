@@ -36,7 +36,7 @@ class UserCreationForm(forms.ModelForm):
         label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
-        class = TwoFactorAuthUser
+        model = TwoFactorAuthUser
         fields = (
             'first_name', 'second_name', 'email', 'username', 'phone_number')
 
@@ -65,7 +65,7 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        class = TwoFactorAuthUser
+        model = TwoFactorAuthUser
         fields = (
             'first_name', 'second_name', 'email', 'username', 'phone_number')
 
@@ -77,7 +77,7 @@ class UserChangeForm(forms.ModelForm):
         return self.initial['password']
 
 
-def TwoFactorAuthUserAdmin(UserAdmin):
+class TwoFactorAuthUserAdmin(UserAdmin):
 
     form = UserChangeForm
     add_form = UserCreationForm
@@ -103,10 +103,11 @@ def TwoFactorAuthUserAdmin(UserAdmin):
     )
 
     search_fields = ('email', 'username', 'first_name', 'second_name')
+    filter_horizontal = ()
 
 
-
+admin.site.register(TwoFactorAuthUser, TwoFactorAuthUserAdmin)
 admin.site.register(Caller, CallerAdmin)
 admin.site.register(Credential)
 admin.site.unregister(Group)
-admin.site.register(TwoFactorAuthUser, TwoFactorAuthUserAdmin)
+
