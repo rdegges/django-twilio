@@ -17,12 +17,12 @@ Here is an example::
     from twilio import twiml
     from django_twilio.decorators import twilio_view
     # include decompose in your views.py
-    from django_twilio.requests import decompose
+    from django_twilio.request import decompose
 
     @twilio_view
     def inbound_view(request):
 
-        response = twiml.response()
+        response = twiml.Response()
 
         # Create a new TwilioRequest object
         twilio_request = decompose(request)
