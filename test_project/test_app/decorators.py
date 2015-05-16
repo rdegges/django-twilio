@@ -31,42 +31,55 @@ class TwilioViewTestCase(TestCase):
         )
 
         # Test URIs.
+        self.uris = []
         self.str_uri = '/test_app/decorators/str_view/'
+        self.uris.append(self.str_uri)
         self.str_class_uri = '/test_app/decorators/str_class_view/'
+        self.uris.append(self.str_class_uri)
         self.bytes_uri = '/test_app/decorators/bytes_view/'
+        self.uris.append(self.bytes_uri)
         self.bytes_class_uri = '/test_app/decorators/bytes_class_view/'
+        self.uris.append(self.bytes_class_uri)
         self.verb_uri = '/test_app/decorators/verb_view/'
-        self.verb_class_uri = 'test_app/decorators/verb_class_view/'
+        self.uris.append(self.verb_uri)
+        self.verb_class_uri = '/test_app/decorators/verb_class_view/'
+        self.uris.append(self.verb_class_uri)
         self.response_uri = '/test_app/decorators/response_view/'
-        self.response_class_uri = 'test_app/decorators/response_class_view/'
+        self.uris.append(self.response_uri)
+        self.response_class_uri = '/test_app/decorators/response_class_view/'
+        self.uris.append(self.response_class_uri)
+
+    def _assertStatusCode(self, actual_code, expected_code, uri):
+            return self.assertEquals(
+                actual_code, expected_code,
+                '%s != %s. Bad uri is: %s' % (actual_code, expected_code, uri)
+            )
 
     def test_requires_get_or_post(self):
-        client = Client(enforce_csrf_checks=True)
+        c = Client(enforce_csrf_checks=True)
         with override_settings(DEBUG=False):
-            self.assertEquals(client.get(self.str_uri).status_code, 403)
-            self.assertEquals(client.post(self.str_uri).status_code, 403)
-            self.assertEquals(client.head(self.str_uri).status_code, 405)
-            self.assertEquals(client.options(self.str_uri).status_code, 405)
-            self.assertEquals(client.put(self.str_uri).status_code, 405)
-            self.assertEquals(client.delete(self.str_uri).status_code, 405)
+            for uri in self.uris:
+                self._assertStatusCode(c.get(uri).status_code, 403, uri)
+                self._assertStatusCode(c.post(uri).status_code, 403, uri)
+                self._assertStatusCode(c.head(uri).status_code, 405, uri)
+                self._assertStatusCode(c.options(uri).status_code, 405, uri)
+                self._assertStatusCode(c.put(uri).status_code, 405, uri)
+                self._assertStatusCode(c.delete(uri).status_code, 405, uri)
 
-            self.assertEquals(client.get(self.str_class_uri).status_code, 403)
-            self.assertEquals(client.post(self.str_class_uri).status_code, 403)
-            self.assertEquals(client.head(self.str_class_uri).status_code, 405)
-            self.assertEquals(client.put(self.str_class_uri).status_code, 405)
-            self.assertEquals(client.delete(self.str_class_uri).status_code, 405)
-
+    def test_all_return_statuses_when_debug_true(self):
+        c = Client(enforce_csrf_checks=True)
         with override_settings(DEBUG=True):
-            self.assertEquals(client.get(self.str_uri).status_code, 200)
-            self.assertEquals(client.post(self.str_uri).status_code, 200)
-            self.assertEquals(client.head(self.str_uri).status_code, 200)
-            self.assertEquals(client.options(self.str_uri).status_code, 200)
-            self.assertEquals(client.put(self.str_uri).status_code, 200)
-            self.assertEquals(client.delete(self.str_uri).status_code, 200)
-
-            self.assertEquals(client.get(self.str_class_uri).status_code, 200)
-            self.assertEquals(client.post(self.str_class_uri).status_code, 200)
-            self.assertEquals(client.head(self.str_class_uri).status_code, 200)
+            for uri in self.uris:
+                self._assertStatusCode(c.get(uri).status_code, 200, uri)
+                self._assertStatusCode(c.post(uri).status_code, 200, uri)
+                self._assertStatusCode(c.head(uri).status_code, 200, uri)
+                self._assertStatusCode(c.options(uri).status_code, 200, uri)
+                if uri.endswith('class_view/'):
+                    self._assertStatusCode(c.put(uri).status_code, 405, uri)
+                    self._assertStatusCode(c.delete(uri).status_code, 405, uri)
+                else:
+                    self._assertStatusCode(c.put(uri).status_code, 200, uri)
+                    self._assertStatusCode(c.delete(uri).status_code, 200, uri)
 
     def test_allows_post(self):
         request = self.factory.post(self.str_uri)
