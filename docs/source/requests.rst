@@ -22,7 +22,7 @@ Here is an example::
     @twilio_view
     def inbound_view(request):
 
-        response = twiml.response()
+        response = twiml.Response()
 
         # Create a new TwilioRequest object
         twilio_request = decompose(request)
