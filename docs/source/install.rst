@@ -133,7 +133,7 @@ Using ``virtualenv``, open up your ``/bin/activate.sh`` file and add the
 following to the end::
 
     export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXX
-    export TWILO_AUTH_TOKEN=YYYYYYYYYYYY
+    export TWILIO_AUTH_TOKEN=YYYYYYYYYYYY
 
 You'll need to deactivate and restart your virtualenv for it to take effect.
 
