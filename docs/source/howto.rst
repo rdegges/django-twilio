@@ -27,7 +27,7 @@ Blacklisting Callers via Django Admin
 -------------------------------------
 
 The simplest way to blacklist callers is via the Django admin panel. If you're
-using the Django admin panel, you'll see a ``django-twilo`` Caller section that
+using the Django admin panel, you'll see a ``django-twilio`` Caller section that
 allows you to manage callers.
 
 To blacklist a caller, do the following:
