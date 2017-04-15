@@ -5,6 +5,34 @@ One of the key features of ``django-twilio`` is making it easy to build Django
 views that return TwiML instructions back to Twilio, without having to deal with
 all the complex security issues.
 
+Simple Decorator
+----------------
+
+Sometimes when testing twilio, the twilio_view decorator (see below) doesn't
+properly work with tunnels or other setups (such as ngrok). To get around this,
+django-twilio ships with a simple decorator that provides bare functionality:
+
+1. Only allows HTTP POST requests to the view
+
+2. Provides csrf_exempt automatically
+
+3. Wraps the TWiML response in a correct HttpResponse object.
+
+NOTE: This decorator is **NOT** recommended for live production and should only
+be used when twilio_view doesn't seem to work nicely with your development environment.
+
+simple_twilio_view is nice and easy to use::
+
+    from twilio.twiml import Response
+    from django_twilio.decorators import simple_twilio_view
+
+    @simple_twilio_view
+    def reply_to_sms_messages(request):
+        r = Response()
+        r.sms('Thanks for the SMS message!')
+        return r
+
+
 All-In-One Decorator
 --------------------
 

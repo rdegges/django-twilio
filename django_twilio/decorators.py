@@ -26,6 +26,32 @@ if sys.version_info[0] == 3:
 else:
     text_type = unicode
 
+def simple_twilio_view(f):
+    '''
+        Sometimes twilio_view will not work properly with tunnels or other
+        server configurations (like ngrok).
+        simple_twilio_view provides the bare minimum view that returns a
+        TWiML response with the correct HTTP headers.
+        It will also prevent any HTTP verb other than POST.
+
+        NEVER use simple_twilio_view in production: use twilio_view instead.
+    '''
+    @csrf_exempt
+    @wraps(f)
+    def decorator(request, *args, **kwargs):
+        if (request.method != 'POST'):
+            return HttpResponseNotAllowed(request.method)
+
+        response = f(request, *args, **kwargs)
+
+        if isinstance(response, str):
+            return HttpResponse(response, mimetype='application/xml')
+        elif isinstance(response, Verb):
+            return HttpResponse(str(response), mimetype='application/xml')
+        else:
+            return response
+    return decorator
+
 
 def twilio_view(f):
     """
