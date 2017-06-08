@@ -22,6 +22,7 @@ awesome Twilio / Django / Python community members:
 * `Daniel Hawkins <https://github.com/hwkns>`_
 * `wbt <https://github.com/wbt>`_
 * `shinriyo <https://github.com/shinriyo>`_
+* `Mathieu Steele <https://github.com/mathieusteele>`_
 
 Without their support, we wouldn't have such a well-written library.
 Thanks folks!
