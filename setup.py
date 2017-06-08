@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-
 from os.path import abspath, dirname, join, normpath
 
 from setuptools import find_packages, setup
@@ -19,7 +18,7 @@ setup(
 
     # Package dependencies:
     install_requires=[
-        'twilio>=3.6.9',
+        'twilio>=6.3.0',
         'Django>=1.4',
         'django-phonenumber-field>=0.6'
     ],
