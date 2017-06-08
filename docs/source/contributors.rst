@@ -20,6 +20,7 @@ awesome Twilio / Django / Python community members:
 * `Richard Kolkovich <https://github.com/sarumont>`_
 * `Sunah Suh <https://github.com/sunahsuh>`_
 * `Daniel Hawkins <https://github.com/hwkns>`_
+* `wbt <https://github.com/wbt>`_
 
 Without their support, we wouldn't have such a well-written library.
 Thanks folks!
