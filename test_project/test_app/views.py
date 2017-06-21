@@ -11,7 +11,8 @@ from django.views.generic import View
 from django.utils.decorators import method_decorator
 
 from django_twilio.views import (
-    conference, dial, gather, play, record, say, sms)
+    conference, dial, gather, play, record, say, sms, message
+    )
 
 from .utils import TwilioRequestFactory
 
@@ -207,6 +208,30 @@ class SmsTestCase(TestCase):
         request = self.factory.post(self.sms_uri)
         self.assertEquals(
             sms(request, message='test').status_code,
+            200,
+        )
+
+class MessageTestCase(TestCase):
+
+    def setUp(self):
+
+        # Test URI
+        self.message_uri = '/test_app/views/message/'
+
+        self.factory = TwilioRequestFactory(token=settings.TWILIO_AUTH_TOKEN)
+
+    def test_message_no_message(self):
+        request = self.factory.post(self.message_uri)
+        self.assertRaises(TypeError, message, request)
+
+    def test_message_with_media(self):
+        request = self.factory.post(self.message_uri)
+        self.assertEquals(
+            message(
+                request,
+                message='test',
+                media='http://i.imgur.com/Qa8GVPU.gif'
+            ).status_code,
             200,
         )
 

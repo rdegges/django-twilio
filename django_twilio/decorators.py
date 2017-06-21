@@ -13,8 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import (
     HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed)
 
-from twilio.twiml import Verb
-from twilio.util import RequestValidator
+from twilio.twiml import TwiML as Verb
+from twilio.request_validator import RequestValidator
 
 from .settings import TWILIO_AUTH_TOKEN
 from .utils import get_blacklisted_response

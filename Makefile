@@ -14,14 +14,13 @@ install-test: venv install
 	. venv/bin/activate; pip install -r test_requirements.txt
 
 lint: venv
-	flake8 django_twilio --exclude=migrations
+	. venv/bin/activate; flake8 django_twilio/ --exclude=*migrations
 
 test: venv
 	. venv/bin/activate; python manage.py test
 
 coverage: venv
 	. venv/bin/activate; coverage run --source django_twilio manage.py test
-	. venv/bin/activate; coverage report -m
 
 htmlcov: venv
 	. venv/bin/activate; coverage run --source django_twilio manage.py test
@@ -36,8 +35,13 @@ build: venv
 	. venv/bin/activate; python setup.py sdist
 	. venv/bin/activate; python setup.py bdist_wheel
 
+
+shell: venv
+	. venv/bin/activate; python manage.py shell
+
 clean:
-	rm -rf build
+	rm -rf docs/build
 	rm -rf django_twilio.egg-info
 	rm -rf htmlcov
 	rm -rf dist
+	rm -rf build/

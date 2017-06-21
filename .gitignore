@@ -24,4 +24,4 @@ build
 .tox/
 
 # Local virtualenv
-venv
+venv*
