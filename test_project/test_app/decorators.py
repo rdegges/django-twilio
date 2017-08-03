@@ -6,7 +6,8 @@ from django.http import HttpResponse
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 
-from twilio import twiml
+from twilio.twiml.voice_response import VoiceResponse
+
 from django_dynamic_fixture import G
 
 from django_twilio.models import Caller
@@ -50,7 +51,7 @@ class TwilioViewTestCase(TestCase):
         self.uris.append(self.response_class_uri)
 
     def _assertStatusCode(self, actual_code, expected_code, uri):
-            return self.assertEquals(
+            return self.assertEqual(
                 actual_code, expected_code,
                 '%s != %s. Bad uri is: %s' % (actual_code, expected_code, uri)
             )
@@ -83,11 +84,11 @@ class TwilioViewTestCase(TestCase):
 
     def test_allows_post(self):
         request = self.factory.post(self.str_uri)
-        self.assertEquals(str_view(request).status_code, 200)
+        self.assertEqual(str_view(request).status_code, 200)
 
     def test_class_view_allows_post(self):
         request = self.factory.post(self.str_class_uri)
-        self.assertEquals(StrView.as_view()(request).status_code, 200)
+        self.assertEqual(StrView.as_view()(request).status_code, 200)
 
     def test_decorator_preserves_metadata(self):
         self.assertEqual(str_view.__name__, 'str_view')
@@ -99,19 +100,19 @@ class TwilioViewTestCase(TestCase):
     @override_settings(TWILIO_AUTH_TOKEN=None)
     def test_missing_settings_return_forbidden(self):
         with override_settings(DEBUG=False):
-            self.assertEquals(self.client.post(self.str_uri).status_code, 403)
+            self.assertEqual(self.client.post(self.str_uri).status_code, 403)
             self.assertEqual(self.client.post(self.str_class_uri).status_code, 403)
         with override_settings(DEBUG=True):
-            self.assertEquals(self.client.post(self.str_uri).status_code, 200)
-            self.assertEquals(self.client.post(self.str_class_uri).status_code, 200)
+            self.assertEqual(self.client.post(self.str_uri).status_code, 200)
+            self.assertEqual(self.client.post(self.str_class_uri).status_code, 200)
 
     def test_missing_signature_returns_forbidden(self):
         with override_settings(DEBUG=False):
-            self.assertEquals(self.client.post(self.str_uri).status_code, 403)
-            self.assertEquals(self.client.post(self.str_class_uri).status_code, 403)
+            self.assertEqual(self.client.post(self.str_uri).status_code, 403)
+            self.assertEqual(self.client.post(self.str_class_uri).status_code, 403)
         with override_settings(DEBUG=True):
-            self.assertEquals(self.client.post(self.str_uri).status_code, 200)
-            self.assertEquals(self.client.post(self.str_class_uri).status_code, 200)
+            self.assertEqual(self.client.post(self.str_uri).status_code, 200)
+            self.assertEqual(self.client.post(self.str_class_uri).status_code, 200)
 
     def test_incorrect_signature_returns_forbidden(self):
         with override_settings(DEBUG=False):
@@ -119,9 +120,9 @@ class TwilioViewTestCase(TestCase):
                 self.str_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(str_view(request).status_code, 403)
+            self.assertEqual(str_view(request).status_code, 403)
         with override_settings(DEBUG=True):
-            self.assertEquals(str_view(request).status_code, 200)
+            self.assertEqual(str_view(request).status_code, 200)
 
     def test_incorrect_signature_returns_forbidden_class_view(self):
         with override_settings(DEBUG=False):
@@ -129,42 +130,42 @@ class TwilioViewTestCase(TestCase):
                 self.str_class_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(StrView.as_view()(request).status_code, 403)
+            self.assertEqual(StrView.as_view()(request).status_code, 403)
         with override_settings(DEBUG=True):
-            self.assertEquals(StrView.as_view()(request).status_code, 200)
+            self.assertEqual(StrView.as_view()(request).status_code, 200)
 
     def test_no_from_field(self):
         request = self.factory.post(self.str_uri)
-        self.assertEquals(str_view(request).status_code, 200)
+        self.assertEqual(str_view(request).status_code, 200)
 
     def test_no_form_field_class_view(self):
         request = self.factory.post(self.str_class_uri)
-        self.assertEquals(StrView.as_view()(request).status_code, 200)
+        self.assertEqual(StrView.as_view()(request).status_code, 200)
 
     def test_from_field_no_caller(self):
         request = self.factory.post(self.str_uri, {'From': '+12222222222'})
-        self.assertEquals(str_view(request).status_code, 200)
+        self.assertEqual(str_view(request).status_code, 200)
 
     def tst_form_field_no_caller_class_view(self):
         request = self.factory.post(self.str_class_uri, {'From': '+12222222222'})
-        self.assertEquals(StrView.as_view()(request).status_code, 200)
+        self.assertEqual(StrView.as_view()(request).status_code, 200)
 
     def test_blacklist_works(self):
         with override_settings(DEBUG=False):
             request = self.factory.post(self.str_uri, {'From': '+13333333333'})
             response = str_view(request)
-            r = twiml.Response()
+            r = VoiceResponse()
             r.reject()
-            self.assertEquals(
+            self.assertEqual(
                 response.content,
                 str(r).encode('utf-8'),
             )
         with override_settings(DEBUG=True):
             request = self.factory.post(self.str_uri, {'From': '+13333333333'})
             response = str_view(request)
-            r = twiml.Response()
+            r = VoiceResponse()
             r.reject()
-            self.assertEquals(
+            self.assertEqual(
                 response.content,
                 str(r).encode('utf-8'),
             )
@@ -173,18 +174,18 @@ class TwilioViewTestCase(TestCase):
         with override_settings(DEBUG=False):
             request = self.factory.post(self.str_class_uri, {'From': '+13333333333'})
             response = StrView.as_view()(request)
-            r = twiml.Response()
+            r = VoiceResponse()
             r.reject()
-            self.assertEquals(
+            self.assertEqual(
                 response.content,
                 str(r).encode('utf-8'),
             )
         with override_settings(DEBUG=True):
             request = self.factory.post(self.str_class_uri, {'From': '+13333333333'})
             response = StrView.as_view()(request)
-            r = twiml.Response()
+            r = VoiceResponse()
             r.reject()
-            self.assertEquals(
+            self.assertEqual(
                 response.content,
                 str(r).encode('utf-8'),
             )
@@ -227,7 +228,7 @@ class TwilioViewTestCase(TestCase):
                 self.str_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(str_view(request).status_code, 200)
+            self.assertEqual(str_view(request).status_code, 200)
 
     def test_override_forgery_protection_off_debug_off_class_view(self):
         with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=False, DEBUG=False):
@@ -235,7 +236,7 @@ class TwilioViewTestCase(TestCase):
                 self.str_class_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(StrView.as_view()(request).status_code, 200)
+            self.assertEqual(StrView.as_view()(request).status_code, 200)
 
     def test_override_forgery_protection_off_debug_on(self):
         with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=False, DEBUG=True):
@@ -243,7 +244,7 @@ class TwilioViewTestCase(TestCase):
                 self.str_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(str_view(request).status_code, 200)
+            self.assertEqual(str_view(request).status_code, 200)
 
     def test_override_forgery_protection_off_debug_on_class_view(self):
         with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=False, DEBUG=True):
@@ -251,7 +252,7 @@ class TwilioViewTestCase(TestCase):
                 self.str_class_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(StrView.as_view()(request).status_code, 200)
+            self.assertEqual(StrView.as_view()(request).status_code, 200)
 
     def test_override_forgery_protection_on_debug_off(self):
         with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=True, DEBUG=False):
@@ -259,7 +260,7 @@ class TwilioViewTestCase(TestCase):
                 self.str_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(str_view(request).status_code, 403)
+            self.assertEqual(str_view(request).status_code, 403)
 
     def test_override_forgery_protection_on_debug_off_class_view(self):
         with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=True, DEBUG=False):
@@ -267,7 +268,7 @@ class TwilioViewTestCase(TestCase):
                 self.str_class_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(StrView.as_view()(request).status_code, 403)
+            self.assertEqual(StrView.as_view()(request).status_code, 403)
 
     def test_override_forgery_protection_on_debug_on(self):
         with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=True, DEBUG=True):
@@ -275,7 +276,7 @@ class TwilioViewTestCase(TestCase):
                 self.str_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(str_view(request).status_code, 403)
+            self.assertEqual(str_view(request).status_code, 403)
 
     def test_override_forgery_protection_on_debug_on_class_view(self):
         with override_settings(DJANGO_TWILIO_FORGERY_PROTECTION=True, DEBUG=True):
@@ -283,4 +284,4 @@ class TwilioViewTestCase(TestCase):
                 self.str_class_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
-            self.assertEquals(StrView.as_view()(request).status_code, 403)
+            self.assertEqual(StrView.as_view()(request).status_code, 403)

@@ -43,9 +43,9 @@ class TestDecompose(TestRequestBase):
             self.call_dict
         )
         response = decompose(request)
-        self.assertEquals(response.type, 'voice')
-        self.assertEquals(response.accountsid, 'ACXXXX')
-        self.assertEquals(response.from_, '+44123456789')
+        self.assertEqual(response.type, 'voice')
+        self.assertEqual(response.accountsid, 'ACXXXX')
+        self.assertEqual(response.from_, '+44123456789')
 
     def test_sms_decompose_function(self):
         request = self.factory.post(
@@ -53,21 +53,21 @@ class TestDecompose(TestRequestBase):
             self.message_dict
         )
         response = decompose(request)
-        self.assertEquals(response.type, 'message')
+        self.assertEqual(response.type, 'message')
 
     def test_blank_decompose_function(self):
         request = self.factory.post(
             '/test_app/decorators/verb_view',
         )
         response = decompose(request)
-        self.assertEquals(response.type, 'unknown')
+        self.assertEqual(response.type, 'unknown')
 
     def test_blank_get_decompose_function(self):
         request = self.factory.get(
             '/test_app/decorators/verb_view?messageSid=ACXXXX',
         )
         response = decompose(request)
-        self.assertEquals(response.type, 'message')
+        self.assertEqual(response.type, 'message')
 
     def test_raises_not_django_request_exception(self):
         request = {}

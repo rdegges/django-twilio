@@ -10,7 +10,7 @@ import os
 from django.http import HttpResponse
 from django.conf import settings
 
-from twilio import twiml
+from twilio.twiml.voice_response import VoiceResponse
 
 from .models import Caller, Credential
 
@@ -68,7 +68,7 @@ def get_blacklisted_response(request):
     try:
         caller = Caller.objects.get(phone_number=request.REQUEST['From'])
         if caller.blacklisted:
-            r = twiml.Response()
+            r = VoiceResponse()
             r.reject()
             return HttpResponse(str(r), content_type='application/xml')
     except Exception:

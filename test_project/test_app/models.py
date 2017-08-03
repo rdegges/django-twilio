@@ -54,7 +54,7 @@ class CredentialTests(TestCase):
         """
         Assert that str renders how we'd like it too
         """
-        self.assertEquals(
+        self.assertEqual(
             self.credentials.__str__(),
             'Test Credentials - XXX',
         )
@@ -63,7 +63,7 @@ class CredentialTests(TestCase):
         """
         Assert the fields are working correctly
         """
-        self.assertEquals(self.credentials.name, 'Test Credentials')
-        self.assertEquals(self.credentials.account_sid, 'XXX')
-        self.assertEquals(self.credentials.auth_token, 'YYY')
-        self.assertEquals(self.credentials.user, self.user)
+        self.assertEqual(self.credentials.name, 'Test Credentials')
+        self.assertEqual(self.credentials.account_sid, 'XXX')
+        self.assertEqual(self.credentials.auth_token, 'YYY')
+        self.assertEqual(self.credentials.user, self.user)

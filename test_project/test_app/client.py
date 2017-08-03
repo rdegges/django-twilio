@@ -36,5 +36,5 @@ class TwilioClientTestCase(TestCase):
 
         credentials = discover_twilio_credentials(user=self.user)
 
-        self.assertEquals(credentials[0], self.credentials.account_sid)
-        self.assertEquals(credentials[1], self.credentials.auth_token)
+        self.assertEqual(credentials[0], self.credentials.account_sid)
+        self.assertEqual(credentials[1], self.credentials.auth_token)
