@@ -153,7 +153,7 @@ def dial(request, number, action=None, method='POST', timeout=None,
         # urls.py
         urlpatterns = patterns('',
             # ...
-            url(r'^dial/?(P<number>\w+)/$', 'django_twilio.views.dial'),
+            url(r'^dial/(?P<number>\w+)/$', 'django_twilio.views.dial'),
             # ...
         )
     """
@@ -176,7 +176,7 @@ Usage::
     # urls.py
     urlpatterns = patterns('',
         # ...
-        url(r'^conference/?(P<name>\w+)/$', 'django_twilio.views.conference',
+        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference',
                 {'max_participants': 10}),
         # ...
     )
