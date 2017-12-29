@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
-from twilio import twiml
+from twilio.twiml.voice_response import VoiceResponse, Dial
+from twilio.twiml.messaging_response import MessagingResponse
 
 from .decorators import twilio_view
 
@@ -20,7 +21,7 @@ Usage::
         # ...
     )
     """
-    r = twiml.Response()
+    r = VoiceResponse()
     r.say(text, voice=voice, language=language, loop=loop)
     return r
 
@@ -41,7 +42,7 @@ def play(request, url, loop=None):
             # ...
         )
     """
-    r = twiml.Response()
+    r = VoiceResponse()
     r.play(url, loop=loop)
     return r
 
@@ -61,7 +62,7 @@ def gather(request, action=None, method='POST', num_digits=None, timeout=None,
             # ...
         )
     """
-    r = twiml.Response()
+    r = VoiceResponse()
     r.gather(action=action, method=method, numDigits=num_digits,
              timeout=timeout, finishOnKey=finish_on_key)
     return r
@@ -83,7 +84,7 @@ def record(request, action=None, method='POST', timeout=None,
             # ...
         )
     """
-    r = twiml.Response()
+    r = VoiceResponse()
     r.record(action=action, method=method, timeout=timeout,
              finishOnKey=finish_on_key, maxLength=max_length,
              transcribe=transcribe, transcribeCallback=transcribe_callback,
@@ -109,8 +110,8 @@ def sms(request, message, to=None, sender=None, action=None, method='POST',
             # ...
         )
     """
-    r = twiml.Response()
-    r.message(msg=message, to=to, sender=sender, method='POST', action=action,
+    r = MessagingResponse()
+    r.message(message, to=to, sender=sender, method='POST', action=action,
               statusCallback=status_callback)
     return r
 
@@ -134,8 +135,8 @@ def message(request, message, to=None, sender=None, action=None,
         )
     """
 
-    r = twiml.Response()
-    r.message(msg=message, to=to, sender=sender, method='POST',
+    r = MessagingResponse()
+    r.message(message, to=to, sender=sender, method='POST',
               action=action, statusCallback=status_callback,
               media=media)
 
@@ -157,7 +158,7 @@ def dial(request, number, action=None, method='POST', timeout=None,
             # ...
         )
     """
-    r = twiml.Response()
+    r = VoiceResponse()
     r.dial(number=number, action=action, method=method, timeout=timeout,
            hangupOnStar=hangup_on_star, timeLimit=time_limit,
            callerId=caller_id)
@@ -181,10 +182,12 @@ Usage::
         # ...
     )
     """
-    r = twiml.Response()
-    r.dial().conference(name=name, muted=muted, beep=beep,
+    r = VoiceResponse()
+    dial = Dial()
+    dial.conference(name=name, muted=muted, beep=beep,
                         startConferenceOnEnter=start_conference_on_enter,
                         endConferenceOnExit=end_conference_on_exit,
                         waitUrl=wait_url, waitMethod=wait_method,
                         )
+    r.append(dial)
     return r

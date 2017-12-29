@@ -4,7 +4,7 @@ from __future__ import unicode_literals, absolute_import
 from django.conf import settings
 from django.http import HttpResponse
 from django.test import TestCase
-from twilio import twiml
+from twilio.twiml.voice_response import VoiceResponse
 
 from django_twilio.decorators import twilio_view
 from django.views.generic import View
@@ -94,7 +94,7 @@ def verb_view(request):
     """
     A simple test view that returns a ``twilio.Verb`` object.
     """
-    r = twiml.Response()
+    r = VoiceResponse()
     r.reject()
     return r
 
@@ -106,12 +106,12 @@ class VerbView(View):
         return super(VerbView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        r = twiml.Response()
+        r = VoiceResponse()
         r.reject()
         return r
 
     def post(self, request):
-        r = twiml.Response()
+        r = VoiceResponse()
         r.reject()
         return r
 
@@ -130,7 +130,7 @@ class SayTestCase(TestCase):
         self.assertRaises(TypeError, say, self.request)
 
     def test_say_with_text(self):
-        self.assertEquals(
+        self.assertEqual(
             say(self.request, text='hi').status_code,
             200
         )
@@ -151,7 +151,7 @@ class PlayTestCase(TestCase):
 
     def test_play_with_url(self):
         request = self.factory.post(self.play_uri)
-        self.assertEquals(
+        self.assertEqual(
             play(request, url='http://b.com/b.wav').status_code,
             200,
         )
@@ -168,7 +168,7 @@ class GatherTestCase(TestCase):
 
     def test_gather(self):
         request = self.factory.post(self.gather_uri)
-        self.assertEquals(
+        self.assertEqual(
             gather(request).status_code,
             200,
         )
@@ -185,7 +185,7 @@ class RecordTestCase(TestCase):
 
     def test_record(self):
         request = self.factory.post(self.record_uri)
-        self.assertEquals(
+        self.assertEqual(
             record(request).status_code,
             200,
         )
@@ -206,7 +206,7 @@ class SmsTestCase(TestCase):
 
     def test_sms_with_message(self):
         request = self.factory.post(self.sms_uri)
-        self.assertEquals(
+        self.assertEqual(
             sms(request, message='test').status_code,
             200,
         )
@@ -226,7 +226,7 @@ class MessageTestCase(TestCase):
 
     def test_message_with_media(self):
         request = self.factory.post(self.message_uri)
-        self.assertEquals(
+        self.assertEqual(
             message(
                 request,
                 message='test',
@@ -251,7 +251,7 @@ class DialTestCase(TestCase):
 
     def test_dial_with_number(self):
         request = self.factory.post(self.dial_uri)
-        self.assertEquals(
+        self.assertEqual(
             dial(request, number='+18182223333').status_code,
             200,
         )
@@ -272,7 +272,7 @@ class ConferenceTestCase(TestCase):
 
     def test_conference_with_name(self):
         request = self.factory.post(self.conf_uri)
-        self.assertEquals(
+        self.assertEqual(
             conference(request, name='a').status_code,
             200,
         )

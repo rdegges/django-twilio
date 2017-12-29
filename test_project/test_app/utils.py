@@ -8,7 +8,7 @@ if sys.version_info[0] == 3:
 else:
     from urlparse import urljoin
 
-from twilio.util import RequestValidator
+from twilio.request_validator import RequestValidator
 
 from django.test import RequestFactory
 
