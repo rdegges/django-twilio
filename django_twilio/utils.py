@@ -66,7 +66,8 @@ def get_blacklisted_response(request):
         otherwise.
     """
     try:
-        caller = Caller.objects.get(phone_number=request.REQUEST['From'])
+        frm = request.GET['From'] if request.method == 'GET' else request.POST['From']
+        caller = Caller.objects.get(phone_number=frm)
         if caller.blacklisted:
             r = VoiceResponse()
             r.reject()

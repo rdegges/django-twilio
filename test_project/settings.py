@@ -114,7 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     # Use south for database migrations:
-    'south',
+    #'south',
 
     # Use django-nose for running our tests:
     'django_nose',
