@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.conf import settings
 
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 from django_dynamic_fixture import G
 
 from django_twilio.client import twilio_client
@@ -16,7 +16,7 @@ from django_twilio.utils import discover_twilio_credentials
 class TwilioClientTestCase(TestCase):
 
     def test_twilio_client_exists(self):
-        self.assertIsInstance(twilio_client, TwilioRestClient)
+        self.assertIsInstance(twilio_client, Client)
 
     def test_twilio_client_sets_credentials(self):
         self.assertEqual(
@@ -36,5 +36,5 @@ class TwilioClientTestCase(TestCase):
 
         credentials = discover_twilio_credentials(user=self.user)
 
-        self.assertEquals(credentials[0], self.credentials.account_sid)
-        self.assertEquals(credentials[1], self.credentials.auth_token)
+        self.assertEqual(credentials[0], self.credentials.account_sid)
+        self.assertEqual(credentials[1], self.credentials.auth_token)
