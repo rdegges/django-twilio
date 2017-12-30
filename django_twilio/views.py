@@ -185,9 +185,9 @@ Usage::
     r = VoiceResponse()
     dial = Dial()
     dial.conference(name=name, muted=muted, beep=beep,
-                        startConferenceOnEnter=start_conference_on_enter,
-                        endConferenceOnExit=end_conference_on_exit,
-                        waitUrl=wait_url, waitMethod=wait_method,
-                        )
+                    startConferenceOnEnter=start_conference_on_enter,
+                    endConferenceOnExit=end_conference_on_exit,
+                    waitUrl=wait_url, waitMethod=wait_method,
+                    )
     r.append(dial)
     return r
