@@ -18,8 +18,8 @@ setup(
 
     # Package dependencies:
     install_requires=[
-        'twilio>=6.3.0<7',
-        'Django>=1.8<2',
+        'twilio>=6.3.0,<7',
+        'Django>=1.8,<2',
         'django-phonenumber-field>=0.6'
     ],
 

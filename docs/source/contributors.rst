@@ -5,7 +5,8 @@ The ``django-twilio`` library is the result of effort given by the following
 awesome Twilio / Django / Python community members:
 
 * `Randall Degges <https://github.com/rdegges>`_ - original author
-* `Paul Hallett <https://github.com/phalt>`_ - current maintainer
+* `Jason Held <https://github.com/jheld>`_ - current maintainer
+* `Paul Hallett <https://github.com/phalt>`_ - past maintainer
 * `Lee Trout <https://github.com/leetrout>`_
 * `Roger Boardman <https://github.com/boardman>`_
 * `Kyle Conroy <https://github.com/kyleconroy>`_
