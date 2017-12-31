@@ -56,7 +56,7 @@ class Credential(models.Model):
 
     name = models.CharField(max_length=30)
 
-    user = models.OneToOneField(AUTH_USER_MODEL)
+    user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     account_sid = models.CharField(max_length=34)
 
