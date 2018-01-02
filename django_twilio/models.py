@@ -31,6 +31,9 @@ class Caller(models.Model):
             blacklist_status=' (blacklisted)' if self.blacklisted else '',
         )
 
+    class Meta:
+        app_label = 'django_twilio'
+
 
 @python_2_unicode_compatible
 class Credential(models.Model):
@@ -53,8 +56,11 @@ class Credential(models.Model):
 
     name = models.CharField(max_length=30)
 
-    user = models.OneToOneField(AUTH_USER_MODEL)
+    user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     account_sid = models.CharField(max_length=34)
 
     auth_token = models.CharField(max_length=32)
+
+    class Meta:
+        app_label = 'django_twilio'

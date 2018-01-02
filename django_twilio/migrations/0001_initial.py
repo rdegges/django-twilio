@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=30)),
                 ('account_sid', models.CharField(max_length=34)),
                 ('auth_token', models.CharField(max_length=32)),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },

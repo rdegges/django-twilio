@@ -113,8 +113,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
-    # Use south for database migrations:
-    'south',
+    # keep in mind that this is the test_project only.
+    # the `south_migrations` folder still exists in the actual
+    # repo.
+    # thus, even the test_project uses native django migrations now
+    # 'south',
 
     # Use django-nose for running our tests:
     'django_nose',

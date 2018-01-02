@@ -24,7 +24,10 @@ from .utils import get_blacklisted_response
 if sys.version_info[0] == 3:
     text_type = str
 else:
-    text_type = unicode
+    # python3 don't do __builtin__ imports, but py2 can!
+    import __builtin__
+    # flake8 statically fails for python3 otherwise
+    text_type = __builtin__.unicode
 
 
 def twilio_view(f):
