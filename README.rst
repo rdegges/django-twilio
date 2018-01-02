@@ -20,8 +20,8 @@ Meta
 
 * Author: Randall Degges
 * Email:  rdegges@gmail.com
-* Maintainer: Paul Hallett
-* Email: paul@twilio.com
+* Maintainer: Jason Held
+* Email: jasonsheld@gmail.com
 * Status: active development, stable, maintained
 
 
