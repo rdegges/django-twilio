@@ -12,8 +12,6 @@ Integrate Twilio into your Django apps with ease.
 .. image:: https://travis-ci.org/rdegges/django-twilio.png?branch=master
         :target: https://travis-ci.org/rdegges/django-twilio
 
-.. image:: https://pypip.in/d/django-twilio/badge.png
-        :target: https://crate.io/packages/django-twilio
 
 Meta
 ----
@@ -28,6 +26,10 @@ Meta
 Twilio makes it easy to send & receive SMS messages, and create & manage voice calls through software.
 
 Django-twilio makes it easy to use Twilio in your Django projects.
+
+twilio 5.x SDK support works for the 0.8 version.
+
+Please see version 0.9.0a1 for twilio 6.x support. Stable release is on the way.
 
 Documentation
 -------------
