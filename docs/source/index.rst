@@ -11,16 +11,14 @@ Integrate Twilio into your Django apps with ease.
 .. image:: https://travis-ci.org/rdegges/django-twilio.png?branch=master
         :target: https://travis-ci.org/rdegges/django-twilio
 
-.. image:: https://pypip.in/d/django-twilio/badge.png
-        :target: https://crate.io/packages/django-twilio
 
 Meta
 ----
 
 * Author: Randall Degges
 * Email:  rdegges@gmail.com
-* Maintainer: Paul Hallett
-* Email: paul@twilio.com
+* Maintainer: Jason Held
+* Email: jasonsheld@gmail.com
 * Status: active development, stable, maintained
 
 `Twilio <http://www.twilio.com/>`_ is a powerful HTTP API that allows you to
@@ -30,6 +28,12 @@ building telephony applications as simple as humanly possible with twilio.
 
 User's Guide
 ------------
+
+
+twilio 5.x SDK support works for the 0.8 version.
+
+Please see version 0.9.0a1 for twilio 6.x support. Stable release is on the way.
+
 
 This part of the documentation contains an extensive walk through of
 django-twilio. It begins with some background information about django-twilio,
