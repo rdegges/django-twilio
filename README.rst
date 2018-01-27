@@ -12,6 +12,9 @@ Integrate Twilio into your Django apps with ease.
 .. image:: https://travis-ci.org/rdegges/django-twilio.png?branch=master
         :target: https://travis-ci.org/rdegges/django-twilio
 
+.. image:: https://readthedocs.org/projects/django-twilio/badge/?version=latest
+    :target: https://readthedocs.org/projects/django-twilio/badge/?version=latest
+
 
 Meta
 ----
