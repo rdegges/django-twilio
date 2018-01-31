@@ -4,15 +4,15 @@ Django-Twilio
 
 Integrate Twilio into your Django apps with ease.
 
-
 .. image:: https://badge.fury.io/py/django-twilio.png
     :target: http://badge.fury.io/py/django-twilio
-
 .. image:: https://travis-ci.org/rdegges/django-twilio.png?branch=master
-        :target: https://travis-ci.org/rdegges/django-twilio
-
+    :target: https://travis-ci.org/rdegges/django-twilio
 .. image:: https://readthedocs.org/projects/django-twilio/badge/?version=latest
     :target: https://readthedocs.org/projects/django-twilio/badge/?version=latest
+.. image:: https://img.shields.io/pypi/pyversions/coverage.svg
+    :target: https://pypi.python.org/pypi/django-twilio/0.9.0a1
+    :alt: Python versions supported
 
 Meta
 ----
