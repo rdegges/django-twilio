@@ -30,7 +30,7 @@ setup(
     author='Randall Degges',
     author_email='rdegges@gmail.com',
     license='UNLICENSE',
-    url='http://twilio.com/',
+    url='https://github.com/rdegges/django-twilio',
     keywords='twilio telephony call phone voip sms',
     description='Build Twilio functionality into your Django apps.',
     long_description=open(
