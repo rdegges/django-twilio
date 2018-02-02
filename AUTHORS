@@ -4,12 +4,16 @@ Authors
 django-twilio is written and maintained by Randall Degges and various
 contributers:
 
-Twilio maintainer
+Django-Twilio maintainer
 =================
 
+- Jason Held (http://twilio.com) jasonsheld@gmail.com
+
+Twilio
+======
 (Twilio <3's Django-twilio)
 
-- Paul Hallett (http://twilio.com) paul@twilio.com
+In the past there have been maintainers at twilio.
 
 
 Patches and Suggestions
