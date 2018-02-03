@@ -5,29 +5,19 @@ from __future__ import unicode_literals, absolute_import
 Useful decorators.
 """
 
-import sys
 from functools import wraps
 
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import (
     HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed)
+from django.utils.six import text_type
 
 from twilio.twiml import TwiML as Verb
 from twilio.request_validator import RequestValidator
 
 from .settings import TWILIO_AUTH_TOKEN
 from .utils import get_blacklisted_response
-
-
-# Snippet from the `six` library to help with Python3 compatibility
-if sys.version_info[0] == 3:
-    text_type = str
-else:
-    # python3 don't do __builtin__ imports, but py2 can!
-    import __builtin__
-    # flake8 statically fails for python3 otherwise
-    text_type = __builtin__.unicode
 
 
 def twilio_view(f):
@@ -68,7 +58,9 @@ def twilio_view(f):
     @csrf_exempt
     @wraps(f)
     def decorator(request_or_self, *args, **kwargs):
-
+        # When using `method_decorator` on class methods,
+        # I haven't been able to get any class views.
+        # i would like more research before just taking the check out.
         class_based_view = not isinstance(request_or_self, HttpRequest)
         if not class_based_view:
             request = request_or_self
