@@ -4,3 +4,4 @@ django-nose==1.4.4
 flake8==2.2.2
 ipdb==0.8
 ipython==1.2.1
+mock==2.0.0

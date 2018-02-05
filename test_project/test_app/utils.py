@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
-import sys
-
-if sys.version_info[0] == 3:
-    from urllib.parse import urljoin
-else:
-    from urlparse import urljoin
+from django.utils.six.moves.urllib.parse import urljoin
 
 from twilio.request_validator import RequestValidator
 
