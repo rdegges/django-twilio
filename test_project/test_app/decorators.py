@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
+import os
+
+import mock
 from django.conf import settings
 from django.http import HttpResponse
 from django.test import Client, TestCase
 from django.test.utils import override_settings
-
+from django_dynamic_fixture import G
 from twilio.twiml.voice_response import VoiceResponse
 
-from django_dynamic_fixture import G
-
 from django_twilio.models import Caller
-
+from django_twilio.utils import discover_twilio_credentials
+from .utils import TwilioRequestFactory
 from .views import (response_view, str_view, bytes_view, verb_view,
                     BytesView, StrView, VerbView, ResponseView)
-from .utils import TwilioRequestFactory
 
 
 class TwilioViewTestCase(TestCase):
@@ -86,6 +87,10 @@ class TwilioViewTestCase(TestCase):
         request = self.factory.post(self.str_uri)
         self.assertEqual(str_view(request).status_code, 200)
 
+    def test_allows_get(self):
+        request = self.factory.get(self.str_uri)
+        self.assertEqual(str_view(request).status_code, 200)
+
     def test_class_view_allows_post(self):
         request = self.factory.post(self.str_class_uri)
         self.assertEqual(StrView.as_view()(request).status_code, 200)
@@ -123,10 +128,26 @@ class TwilioViewTestCase(TestCase):
             self.assertEqual(str_view(request).status_code, 403)
         with override_settings(DEBUG=True):
             self.assertEqual(str_view(request).status_code, 200)
+        with override_settings(DEBUG=False):
+            request = self.factory.get(
+                self.str_uri,
+                HTTP_X_TWILIO_SIGNATURE='fake_signature',
+            )
+            self.assertEqual(str_view(request).status_code, 403)
+        with override_settings(DEBUG=True):
+            self.assertEqual(str_view(request).status_code, 200)
 
     def test_incorrect_signature_returns_forbidden_class_view(self):
         with override_settings(DEBUG=False):
             request = self.factory.post(
+                self.str_class_uri,
+                HTTP_X_TWILIO_SIGNATURE='fake_signature',
+            )
+            self.assertEqual(StrView.as_view()(request).status_code, 403)
+        with override_settings(DEBUG=True):
+            self.assertEqual(StrView.as_view()(request).status_code, 200)
+        with override_settings(DEBUG=False):
+            request = self.factory.get(
                 self.str_class_uri,
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
@@ -285,3 +306,20 @@ class TwilioViewTestCase(TestCase):
                 HTTP_X_TWILIO_SIGNATURE='fake_signature',
             )
             self.assertEqual(StrView.as_view()(request).status_code, 403)
+
+
+class TwilioUtilTest(TestCase):
+    def test_discover_twilio_credentials_environ(self):
+        SID = 'TWILIO_ACCOUNT_SID'
+        AUTH = 'TWILIO_AUTH_TOKEN'
+        patched = {SID: u'environ-test-case-sid', AUTH: u'environ-test-case-auth', }
+        with mock.patch.dict(os.environ, patched):
+            sid, auth = discover_twilio_credentials()
+        self.assertEqual(sid, patched[SID])
+        self.assertEqual(auth, patched[AUTH])
+
+    @override_settings()
+    def test_discover_twilio_credentials_none(self):
+        del settings.TWILIO_AUTH_TOKEN
+        del settings.TWILIO_ACCOUNT_SID
+        self.assertRaises(AttributeError, discover_twilio_credentials)
