@@ -12,7 +12,7 @@ Integrate Twilio into your Django apps with ease.
 .. image:: https://readthedocs.org/projects/django-twilio/badge/?version=latest
     :target: https://readthedocs.org/projects/django-twilio/badge/?version=latest
 .. image:: https://img.shields.io/pypi/pyversions/coverage.svg
-    :target: https://pypi.python.org/pypi/django-twilio/0.9.0a1
+    :target: https://pypi.python.org/pypi/django-twilio/0.9.0
     :alt: Python versions supported
 
 
@@ -30,9 +30,9 @@ Twilio makes it easy to send & receive SMS messages, and create & manage voice c
 
 Django-twilio makes it easy to use Twilio in your Django projects.
 
-twilio 5.x SDK support works for the 0.8 version.
+Version 0.9.0 supports twilio 6.x and django 1.8-2.0.
 
-Please see version 0.9.0a1 for twilio 6.x support. Stable release is on the way.
+For legacy twilio (5.x SDK), please see the 0.8 version.
 
 Documentation
 -------------
