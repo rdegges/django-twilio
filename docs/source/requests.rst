@@ -14,7 +14,7 @@ Example usage
 
 Here is an example::
 
-    from twilio import twiml
+    from twilio.twiml.messaging_response import MessagingResponse
     from django_twilio.decorators import twilio_view
     # include decompose in your views.py
     from django_twilio.request import decompose
@@ -22,7 +22,7 @@ Here is an example::
     @twilio_view
     def inbound_view(request):
 
-        response = twiml.Response()
+        response = MessagingResponse()
 
         # Create a new TwilioRequest object
         twilio_request = decompose(request)

@@ -38,12 +38,12 @@ Example usage
 
 Let's take a look at an example::
 
-    from twilio import twiml
+    from twilio.twiml.messaging_response import MessagingResponse
     from django_twilio.decorators import twilio_view
 
     @twilio_view
     def reply_to_sms_messages(request):
-        r = twiml.Response()
+        r = MessagingResponse()
         r.message('Thanks for the SMS message!')
         return r
 
@@ -57,7 +57,7 @@ Class based view example
 
 Here's the same thing as above, using a class-based view::
 
-    from twilio import twiml
+    from twilio.twiml.messaging_response import MessagingResponse
 
     from django.views.generic import View
     from django.utils.decorators import method_decorator
@@ -71,7 +71,7 @@ Here's the same thing as above, using a class-based view::
             return super(ResponseView, self).dispatch(request, *args, **kwargs)
 
         def post(self, request):
-            r = twiml.Response()
+            r = MessagingResponse()
             r.message('Thanks for the SMS message!')
             return r
 

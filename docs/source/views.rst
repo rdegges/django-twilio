@@ -474,12 +474,12 @@ with just the built-in ``django_twilio.views.conference`` view::
     )
 
     # views.py
-    from twilio import twiml
+    from twilio.twiml.voice_response import VoiceResponse
     from django_twilio.decorators import twilio_view
 
     @twilio_view
     def say_hi(request):
-        r = twiml.Response()
+        r = VoiceResponse()
         r.say('Thanks for joining the conference! Django and Twilio rock!')
         return r
 
