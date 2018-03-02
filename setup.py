@@ -31,7 +31,7 @@ setup(
     author_email='rdegges@gmail.com',
     license='UNLICENSE',
     url='https://github.com/rdegges/django-twilio',
-    keywords='twilio telephony call phone voip sms',
+    keywords='twilio telephony call phone voip sms django django-twilio',
     description='Build Twilio functionality into your Django apps.',
     long_description=open(
         normpath(join(dirname(abspath(__file__)), 'README.rst'))
