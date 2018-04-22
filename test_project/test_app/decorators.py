@@ -20,8 +20,6 @@ from .views import (response_view, str_view, bytes_view, verb_view,
 
 class TwilioViewTestCase(TestCase):
 
-    urls = 'test_project.test_app.urls'
-
     def setUp(self):
 
         self.regular_caller = G(Caller, phone_number='+12222222222', blacklisted=False)
