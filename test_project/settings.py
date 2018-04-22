@@ -6,8 +6,17 @@ import sys
 
 # Django settings for test_project project.
 
+import os
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from distutils.version import StrictVersion
+
+import django
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -18,6 +27,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
 }
 
@@ -85,23 +95,47 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'j1wd@qqodn-r9h&o@0jj!uw^#pm5wcdu2^cdsax=hm+-mk705p'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+# This is a temporary shim to allow the old style MIDDLEWARE_CLASSES to work
+# We will forge a plan to remove at least the unsupported versions soon.
+# Django 2.0 is the future, but 1.11 is still supported.
+# This test_project though is simple enough that the restrictions are small.
+if StrictVersion(django.__version__) < StrictVersion('2.0'):
+    MIDDLEWARE_CLASSES = (
+        'django.middleware.common.CommonMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+    )
+else:
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-)
+ROOT_URLCONF = 'test_project.urls'
 
-ROOT_URLCONF = 'test_project.test_app.urls'
-
-TEMPLATE_DIRS = ()
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        ,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -136,10 +170,6 @@ else:
 
 NOSE_ARGS = ['--with-coverage', '--cover-package=django_twilio']
 
-# Until South is once again Python 3 compatible,
-# skip testing migrations in Python 3
-if sys.version_info[0] == 3:
-    SOUTH_TESTS_MIGRATE = False
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
