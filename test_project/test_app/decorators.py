@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 from django_dynamic_fixture import G
+from twilio.twiml.messaging_response import Message
 from twilio.twiml.voice_response import VoiceResponse
 
 from django_twilio.models import Caller
@@ -171,8 +172,25 @@ class TwilioViewTestCase(TestCase):
 
     def test_blacklist_works(self):
         with override_settings(DEBUG=False):
-            request = self.factory.post(self.str_uri, {'From': '+13333333333'})
+            request = self.factory.post(self.str_uri, {'From': str(self.blocked_caller.phone_number)})
             response = str_view(request)
+            r = Message()
+            self.assertEqual(
+                response.content,
+                str(r).encode('utf-8'),
+            )
+        with override_settings(DEBUG=True):
+            request = self.factory.post(self.str_uri, {'From': str(self.blocked_caller.phone_number)})
+            response = str_view(request)
+            r = Message()
+            self.assertEqual(
+                response.content,
+                str(r).encode('utf-8'),
+            )
+        with override_settings(DEBUG=False):
+            request = self.factory.post(self.verb_uri, {'From': str(self.blocked_caller.phone_number),
+                                                        'callsid': 'some-call-sid', })
+            response = verb_view(request)
             r = VoiceResponse()
             r.reject()
             self.assertEqual(
@@ -180,8 +198,9 @@ class TwilioViewTestCase(TestCase):
                 str(r).encode('utf-8'),
             )
         with override_settings(DEBUG=True):
-            request = self.factory.post(self.str_uri, {'From': '+13333333333'})
-            response = str_view(request)
+            request = self.factory.post(self.verb_uri, {'From': str(self.blocked_caller.phone_number),
+                                                        'callsid': 'some-call-sid', })
+            response = verb_view(request)
             r = VoiceResponse()
             r.reject()
             self.assertEqual(
@@ -191,8 +210,27 @@ class TwilioViewTestCase(TestCase):
 
     def test_black_list_works_class_view(self):
         with override_settings(DEBUG=False):
-            request = self.factory.post(self.str_class_uri, {'From': '+13333333333'})
+            request = self.factory.post(self.str_class_uri, {'From': str(self.blocked_caller.phone_number)})
             response = StrView.as_view()(request)
+            r = Message()
+            self.assertEqual(
+                response.content,
+                str(r).encode('utf-8'),
+            )
+        with override_settings(DEBUG=True):
+            request = self.factory.post(self.str_class_uri, {'From': str(self.blocked_caller.phone_number)})
+            response = StrView.as_view()(request)
+            r = Message()
+            self.assertEqual(
+                response.content,
+                str(r).encode('utf-8'),
+            )
+
+    def test_black_list_works_verb_class_view(self):
+        with override_settings(DEBUG=False):
+            request = self.factory.post(self.verb_class_uri, {'From': str(self.blocked_caller.phone_number),
+                                                              'callsid': 'some-call-sid', })
+            response = VerbView.as_view()(request)
             r = VoiceResponse()
             r.reject()
             self.assertEqual(
@@ -200,8 +238,9 @@ class TwilioViewTestCase(TestCase):
                 str(r).encode('utf-8'),
             )
         with override_settings(DEBUG=True):
-            request = self.factory.post(self.str_class_uri, {'From': '+13333333333'})
-            response = StrView.as_view()(request)
+            request = self.factory.post(self.verb_class_uri, {'From': str(self.blocked_caller.phone_number),
+                                                              'callsid': 'some-call-sid', })
+            response = VerbView.as_view()(request)
             r = VoiceResponse()
             r.reject()
             self.assertEqual(
