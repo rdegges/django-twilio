@@ -37,6 +37,8 @@ User's Guide
 
 Version 0.9.0 supports twilio 6.x and django 1.8-2.0.
 
+Version 0.9.2 has minimal py3.7 and also allows django 2.1
+
 For legacy twilio (5.x SDK), please see the 0.8 version.
 
 
