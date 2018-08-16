@@ -9,7 +9,7 @@ setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.9.2',
+    version='0.9.3',
     packages=find_packages(),
 
     # Packaging options:
@@ -20,10 +20,14 @@ setup(
     install_requires=[
         'setuptools>=36.2',
         'twilio>=6.3.0,<7',
-        'Django>=1.8,<1.9;python_version=="3.3"',
-        'Django>=1.8,<2;python_version<"3.4"',
-        'Django>=1.8,<2.2;python_version>="3.4, <3.7"',
-        'Django>=2.1,<2.2;python_version>="3.5"',
+        # less than py3.4 can run 1.11-<2
+        'Django>=1.11,<2;python_version<"3.4"',
+        # py3.4 can run 1.11-<2.1
+        'Django>=1.11,<2.1;python_version="3.4"',
+        # py3.5 < 3.7, can run 1.11 < 2.2
+        'Django>=1.11,<2.2;python_version>="3.5, <3.7"',
+        # py3.7 can run 1.11.17 < 2.2
+        'Django>=1.11.17,<2.2;python_version="3.7"',
         'django-phonenumber-field>=0.6',
     ],
 
@@ -39,9 +43,6 @@ setup(
     ).read(),
     classifiers=[
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',

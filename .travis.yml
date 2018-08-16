@@ -1,20 +1,20 @@
 language: python
 
+dist: zenial
+
 python:
     - '2.7'
     - '3.4'
     - '3.5'
     - '3.6'
-    # travis ci doesn't have good py 3.7 support, yet.
-#    - '3.7'
+    - '3.7'
     - 'pypy'
     - 'pypy3'
 
 env:
-    - DJANGO="django>=1.8,<1.9"
-    - DJANGO="django>=1.9,<1.10"
-    - DJANGO="django>=1.10,<1.11"
     - DJANGO="django>=1.11,<2"
+    - DJANGO="django>=1.11,<2.1"
+    - DJANGO="django>=1.11.17,<2.2"
     - DJANGO="django>=2.0,<2.1"
     - DJANGO="django>=2.1,<2.2"
 
@@ -31,26 +31,18 @@ matrix:
     - python: "2.7"
       env: DJANGO="django>=2.0,<2.1"
     - python: "2.7"
+      env: DJANGO="django>=1.11.17,<2.2"
+    - python: "2.7"
       env: DJANGO="django>=2.1,<2.2"
     - python: "pypy"
       env: DJANGO="django>=2.0,<2.1"
     - python: "pypy"
       env: DJANGO="django>=2.1,<2.2"
-    - python: "3.6"
-      env: DJANGO="django>=1.8,<1.9"
-    - python: "3.6"
-      env: DJANGO="django>=1.9,<1.10"
-    - python: "3.6"
-      env: DJANGO="django>=1.10,<1.11"
+    - python: "pypy"
+      env: DJANGO="django>=1.11.17,<2.2"
     - python: "3.4"
       env: DJANGO="django>=2.1,<2.2"
-    - python: "3.7"
-      env: DJANGO="django>=1.8,<1.9"
-    - python: "3.7"
-      env: DJANGO="django>=1.9,<1.10"
-    - python: "3.7"
-      env: DJANGO="django>=1.10,<1.11"
+    - python: "3.4"
+      env: DJANGO="django>=1.11.17,<2.2"
     - python: "3.7"
       env: DJANGO="django>=1.11,<2"
-    - python: "3.7"
-      env: DJANGO="django>=2.0,<2.1"
