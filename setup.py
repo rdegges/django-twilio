@@ -18,10 +18,10 @@ elif sys.version_info[0] == 3:
         INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
     elif 5 <= sys.version_info[1] < 7:
         # py3.5+ can run 1.11.17 < 2.2
-        django_python_version_install = 'Django>=1.11,<2.2',
+        django_python_version_install = 'Django>=1.11,<3.0',
         INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
     elif sys.version_info[1] >= 7:
-        django_python_version_install = 'Django>=1.11.17,<2.2'
+        django_python_version_install = 'Django>=1.11.17,<3.0'
         INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 setup(
 
