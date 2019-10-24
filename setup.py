@@ -3,13 +3,31 @@ from __future__ import unicode_literals, absolute_import
 from os.path import abspath, dirname, join, normpath
 
 from setuptools import find_packages, setup
+import sys
 
 
+INSTALL_PYTHON_REQUIRES = []
+if sys.version_info[0] == 2:
+    # less than py3.4 can run 1.11-<2
+    django_python_version_install = 'Django>=1.11,<2',
+    INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+elif sys.version_info[0] == 3:
+    if sys.version_info[1] == 4:
+        # py3.4 can run 1.11-<2.1
+        django_python_version_install = 'Django>=1.11,<2.1',
+        INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+    elif 5 <= sys.version_info[1] < 7:
+        # py3.5+ can run 1.11.17 < 2.2
+        django_python_version_install = 'Django>=1.11,<3.0',
+        INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+    elif sys.version_info[1] >= 7:
+        django_python_version_install = 'Django>=1.11.17,<3.0'
+        INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.9.3',
+    version='0.11.0rc1',
     packages=find_packages(),
 
     # Packaging options:
@@ -20,12 +38,8 @@ setup(
     install_requires=[
         'setuptools>=36.2',
         'twilio>=6.3.0,<7',
-        'Django>=1.8,<1.9;python_version=="3.3"',
-        'Django>=1.8,<2;python_version<"3.4"',
-        'Django>=1.8,<2.2;python_version>="3.4, <3.7"',
-        'Django>=2.1,<2.2;python_version>="3.5"',
         'django-phonenumber-field>=0.6',
-    ],
+    ] + INSTALL_PYTHON_REQUIRES,
 
     # Metadata for PyPI:
     author='Randall Degges',
@@ -39,12 +53,10 @@ setup(
     ).read(),
     classifiers=[
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
         'Intended Audience :: Developers',
         'License :: Public Domain',
         'Operating System :: OS Independent',
