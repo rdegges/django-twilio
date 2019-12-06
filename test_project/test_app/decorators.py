@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, absolute_import
 
 import os
 
-import mock
+from unittest import mock
 from django.conf import settings
 from django.http import HttpResponse
 from django.test import Client, TestCase
@@ -23,8 +22,8 @@ class TwilioViewTestCase(TestCase):
 
     def setUp(self):
 
-        self.regular_caller = G(Caller, phone_number='+12222222222', blacklisted=False)
-        self.blocked_caller = G(Caller, phone_number='+13333333333', blacklisted=True)
+        self.regular_caller = G(Caller, phone_number='+15005550000', blacklisted=False)
+        self.blocked_caller = G(Caller, phone_number='+15005550001', blacklisted=True)
 
         self.factory = TwilioRequestFactory(
             token=settings.TWILIO_AUTH_TOKEN,

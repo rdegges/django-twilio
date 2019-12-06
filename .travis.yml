@@ -3,13 +3,11 @@ language: python
 dist: xenial
 
 python:
-    - '2.7'
     - '3.4'
     - '3.5'
     - '3.6'
     - '3.7'
     # - 'pypy'
-    - 'pypy2.7-6.0'
     # - 'pypy3'
     - 'pypy3.5-6.0'
 
@@ -19,6 +17,7 @@ env:
     - DJANGO="django>=2.0,<2.1"
     - DJANGO="django>=2.1,<2.2"
     - DJANGO="django>=2.2,<3.0"
+    - DJANGO="django>=3.0,<3.1"
 
 install:
     - pip install ${DJANGO}
@@ -30,30 +29,18 @@ script:
 
 matrix:
   exclude:
-    - python: "2.7"
-      env: DJANGO="django>=1.11.17,<2.0"
-    - python: "2.7"
-      env: DJANGO="django>=2.0,<2.1"
-    - python: "2.7"
-      env: DJANGO="django>=2.1,<2.2"
-    - python: "2.7"
-      env: DJANGO="django>=2.2,<3.0"
-    - python: "pypy2.7-6.0"
-      env: DJANGO="django>=1.11.17,<2.0"
-    - python: "pypy2.7-6.0"
-      env: DJANGO="django>=2.0,<2.1"
-    - python: "pypy2.7-6.0"
-      env: DJANGO="django>=2.1,<2.2"
-    - python: "pypy2.7-6.0"
-      env: DJANGO="django>=2.2,<3.0"
     - python: "3.4"
       env: DJANGO="django>=1.11.17,<2.0"
     - python: "3.4"
       env: DJANGO="django>=2.1,<2.2"
     - python: "3.4"
       env: DJANGO="django>=2.2,<3.0"
+    - python: "3.4"
+      env: DJANGO="django>=3.0,<3.1"
     - python: "3.5"
       env: DJANGO="django>=1.11.17,<2.0"
+    - python: "3.5"
+      env: DJANGO="django>=3.0,<3.1"
     - python: "3.6"
       env: DJANGO="django>=1.11.17,<2.0"
     - python: "pypy3.5-6.0"

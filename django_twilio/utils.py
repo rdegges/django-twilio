@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, absolute_import
 
 from twilio.twiml.messaging_response import Message
 
@@ -81,8 +80,9 @@ def get_blacklisted_response(request):
                 r = VoiceResponse()
                 r.reject()
             else:
-                # SMS does not allow to selectively reject SMS. So, we respond with nothing, and twilio
-                # does not forward the message back to the sender.
+                # SMS does not allow to selectively reject SMS.
+                # So, we respond with nothing, and twilio does not forward
+                # the message back to the sender.
                 r = Message()
             return HttpResponse(str(r), content_type='application/xml')
     except Exception:
