@@ -1,6 +1,6 @@
 language: python
 
-dist: zenial
+dist: xenial
 
 python:
     - '2.7'
