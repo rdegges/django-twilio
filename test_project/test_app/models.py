@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, absolute_import
 
 from types import MethodType
 
@@ -19,7 +18,7 @@ class CallerTestCase(TestCase):
     def setUp(self):
         self.caller = G(
             Caller,
-            phone_number='12223334444',
+            phone_number='+15005550000',
             blacklisted=False,
         )
 

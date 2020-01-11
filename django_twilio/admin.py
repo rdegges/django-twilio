@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, absolute_import
 
 """
 This module provides useful django admin hooks that allow you to manage

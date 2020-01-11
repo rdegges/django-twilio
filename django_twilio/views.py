@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, absolute_import
 
 from twilio.twiml.voice_response import VoiceResponse, Dial
 from twilio.twiml.messaging_response import MessagingResponse
@@ -148,16 +147,16 @@ def dial(request, number, action=None, method='POST', timeout=None,
          hangup_on_star=None, time_limit=None, caller_id=None):
     """
     See: http://www.twilio.com/docs/api/twiml/dial.
-
-    Usage::
-
-        # urls.py
-        urlpatterns = patterns('',
-            # ...
-            url(r'^dial/(?P<number>\w+)/$', 'django_twilio.views.dial'),
-            # ...
-        )
     """
+    # Usage::
+    #
+    #     # urls.py
+    #     urlpatterns = patterns('',
+    #         # ...
+    #         url(r'^dial/(?P<number>\w+)/$', 'django_twilio.views.dial'),
+    #         # ...
+    #     )
+
     r = VoiceResponse()
     r.dial(number=number, action=action, method=method, timeout=timeout,
            hangupOnStar=hangup_on_star, timeLimit=time_limit,
@@ -170,18 +169,20 @@ def conference(request, name, muted=None, beep=None,
                start_conference_on_enter=None, end_conference_on_exit=None,
                wait_url=None, wait_method='POST', max_participants=None):
     """
-See: http://www.twilio.com/docs/api/twiml/conference.
-
-Usage::
-
-    # urls.py
-    urlpatterns = patterns('',
-        # ...
-        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference',
-                {'max_participants': 10}),
-        # ...
-    )
+    See: http://www.twilio.com/docs/api/twiml/conference.
     """
+    # Usage::
+    #
+    #     # urls.py
+    #     urlpatterns = patterns('',
+    #         # ...
+    #         url(r'^conference/(?P<name>\w+)/$',
+    #             'django_twilio.views.conference',
+    #              {'max_participants': 10}
+    #         ),
+    #         # ...
+    #     )
+    #
     r = VoiceResponse()
     dial = Dial()
     dial.conference(name=name, muted=muted, beep=beep,
