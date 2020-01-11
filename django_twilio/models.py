@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, absolute_import
 
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.conf import settings
 
@@ -11,7 +9,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
-@python_2_unicode_compatible
 class Caller(models.Model):
     """
     A caller is defined uniquely by their phone number.
@@ -35,7 +32,6 @@ class Caller(models.Model):
         app_label = 'django_twilio'
 
 
-@python_2_unicode_compatible
 class Credential(models.Model):
     """
     A Credential model is a set of SID / AUTH tokens for the Twilio.com API
