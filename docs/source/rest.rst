@@ -34,7 +34,7 @@ provisioned to your Twilio account by running the following code::
     AUTH_TOKEN = 'xxx'
 
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    for number in client.phone_numbers.iter():
+    for number in client.incoming_phone_numbers.iter():
         print(number.friendly_name)
 
 While this is really convenient, it breaks the `Don't Repeat Yourself
@@ -61,7 +61,7 @@ following code::
     from django_twilio.client import twilio_client
 
 
-    for number in twilio_client.phone_numbers.iter():
+    for number in twilio_client.incoming_phone_numbers.iter():
         print(number.friendly_name)
 
 See how you didn't have to worry about credentials or anything? Niiiiice.
