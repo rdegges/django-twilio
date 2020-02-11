@@ -7,6 +7,10 @@ import sys
 
 
 INSTALL_PYTHON_REQUIRES = []
+# We are being super flexible (lazy?) regarding the backwards
+# compatibility of this library against django.
+# For the official support, please visit:
+# https://docs.djangoproject.com/en/3.0/faq/install/#what-python-version-can-i-use-with-django and you may change the version in the URL to suit your needs, and we will try to update that here too as we upgrade with django.
 if sys.version_info[0] == 2:
     # less than py3.4 can run 1.11-<2
     django_python_version_install = 'Django>=1.11,<2',
@@ -16,18 +20,28 @@ elif sys.version_info[0] == 3:
         # py3.4 can run 1.11-<2.1
         django_python_version_install = 'Django>=1.11,<2.1',
         INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
-    elif 5 <= sys.version_info[1] < 7:
-        # py3.5+ can run 1.11.17 < 2.2
+    elif sys.version_info[1] == 5:
+        # py3.5 can run 1.11 < 2.2
         django_python_version_install = 'Django>=1.11,<3.0',
         INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
-    elif sys.version_info[1] >= 7:
-        django_python_version_install = 'Django>=1.11.17,<3.0'
+    elif sys.version_info[1] == 6:
+        # py3.6 can run 1.11 < 3.1 (likely will be <4.0)
+        django_python_version_install = 'Django>=1.11,<3.1',
         INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+    elif sys.version_info[1] == 7:
+        # py3.7 is 1.11.17 < 3.1 (likely will be <4.0)
+        django_python_version_install = 'Django>=1.11.17,<3.1'
+        INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+    elif sys.version_info[1] == 8:
+        # py3.8 is 2.2.8 < 3.1 (likely will be <4.0)
+        django_python_version_install = 'Django>=2.2.8,<3.1'
+        INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+
 setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.12.0rc1',
+    version='0.12.1',
     packages=find_packages(),
 
     # Packaging options:
