@@ -160,12 +160,7 @@ INSTALLED_APPS = (
 )
 
 # Nose test settings.
-if sys.version_info[0] == 3:
-    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-else:
-    # Apparently the fix for unicode TEST_RUNNER strings was not back-ported
-    # See: https://code.djangoproject.com/ticket/19833
-    TEST_RUNNER = b'django_nose.NoseTestSuiteRunner'
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = ['--with-coverage', '--cover-package=django_twilio']
 

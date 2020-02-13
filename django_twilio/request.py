@@ -4,8 +4,6 @@ from django.core.handlers.wsgi import WSGIRequest
 
 from .exceptions import NotDjangoRequestException
 
-import six
-
 
 class TwilioRequest(object):
     '''
@@ -22,7 +20,7 @@ class TwilioRequest(object):
         Build out the Twilio key/values from the parameters into attributes
         on this class.
         '''
-        for key, value in six.iteritems(parameters):
+        for key, value in parameters.items():
             if key == 'From':
                 setattr(self, 'from_', value)
             else:
