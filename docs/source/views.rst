@@ -21,14 +21,13 @@ Hello, World!
 Let's take a look at a *classic* example::
 
     # urls.py
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         # ...
-        url(r'^hello_world/$', 'django_twilio.views.say', {
+        path('hello_world/', 'django_twilio.views.say', {
             'text': 'Hello, world!'
         }),
         # ...
-    )
+    ]
 
 Hook a Twilio number up to that URL, and you'll hear a man say "Hello, world!"
 when called. Nice!
@@ -41,16 +40,15 @@ But it's easy to change that. In the example below, we'll say "goodbye" in
 Spanish, with a female voice::
 
     # urls.py
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         # ...
-        url(r'^goodbye/$', 'django_twilio.views.say', {
+        path('goodbye/', 'django_twilio.views.say', {
             'text': 'Adios!',
             'voice': 'woman',
             'language': 'es',
         }),
         # ...
-    )
+    ]
 
 Simple, right?
 
@@ -61,15 +59,14 @@ On occasion, you'll also want to repeat some text, without copy/paste. In this
 situation, you can simply specify an optional ``loop`` parameter::
 
     # urls.py
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         # ...
-        url(r'^lol/$', 'django_twilio.views.say', {
+        path('lol/', 'django_twilio.views.say', {
             'text': 'lol',
             'loop': 0,  # 0 = Repeat forever, until hangup :)
         }),
         # ...
-    )
+    ]
 
 In this example, we'll just keep repeating "lol" to the caller until they hang
 up.
@@ -91,14 +88,13 @@ In this example, we'll play a simple WAV file to a caller. For simplicity's
 sake, just assume that this WAV file actually exists::
 
     # urls.py
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         # ...
-        url(r'^play/$', 'django_twilio.views.play', {
+        path('play/', 'django_twilio.views.play', {
             'url': 'http://mysite.com/greeting.wav',
         })
         # ...
-    )
+    ]
 
 Assuming the url http://mysite.com/greeting.wav exists, and is a legitimate
 WAV file, when you call your Twilio application, you should hear the audio
@@ -116,15 +112,14 @@ In this example, we'll play the same greeting audio clip as we did above, but
 this time we'll loop it 3 times::
 
     # urls.py
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         # ...
-        url(r'^play/$', 'django_twilio.views.play', {
+        path('play/', 'django_twilio.views.play', {
             'url': 'http://mysite.com/greeting.wav',
             'loop': 3,
         })
         # ...
-    )
+    ]
 
 Not too bad (for no code)!
 
@@ -145,12 +140,11 @@ is to collect caller touchtone input until the caller stops hitting keys. To do
 this, we can write our URL configuration as follows::
 
     # urls.py
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         # ...
-        url(r'^gather/$', 'django_twilio.views.gather'),
+        path('gather/', 'django_twilio.views.gather'),
         # ...
-    )
+    ]
 
 By default, once the caller finishes entering their input, Twilio will send an
 HTTP POST request to the same URL. So in our example above, if a caller enters
@@ -165,16 +159,16 @@ to instead POST the data to another URL (or view). No problem! In fact, we'll
 even tell Twilio to send the data in GET format instead of POST::
 
     # urls.py
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^gather/$', 'django_twilio.views.gather', {
+        path('gather/', 'django_twilio.views.gather', {
             'action': '/process_input/',
             'method': 'GET',
         }),
-        url(r'^process_input/$', 'mysite.myapp.views.process'),
+        path('process_input/', 'mysite.myapp.views.process'),
         # ...
-    )
+    ]
 
     # mysite.myapp.views.py
     from django.http import HttpResponse
@@ -209,10 +203,10 @@ Our example below:
 ::
 
     # urls.py
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^gather/$', 'django_twilio.views.gather', {
+        path(r'gather/', 'django_twilio.views.gather', {
             'action': '/process_input/',
             'method': 'GET',
             'timeout': 5,
@@ -220,7 +214,7 @@ Our example below:
             'num_digits': 10,
         }),
         # ...
-    )
+    ]
 
 Recording Calls
 ---------------
@@ -238,15 +232,15 @@ record our call, then hit another URL in our application to provide TwiML
 instructions for Twilio::
 
     # urls.py
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^record/$', 'django_twilio.views.record', {
+        path('record/', 'django_twilio.views.record', {
             'action': '/call_john/',
             'play_beep': True,
         })
         # ...
-    )
+    ]
 
 If we call our application, Twilio will start recording our call (after playing
 a beep), then send a POST request to our ``/call_john/`` URL and continue
@@ -261,17 +255,17 @@ them. It's pointless to record silence. That's why Twilio provides a ``timeout``
 parameter that we can use with the ``django_twilio.views.record`` view::
 
     # urls.py
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^record/$', 'django_twilio.views.record', {
+        path('record/', 'django_twilio.views.record', {
             'action': '/call_john/',
             'play_beep': True,
             'timeout': 5,   # Stop recording after 5 seconds of silence
                             # (default).
         })
         # ...
-    )
+    ]
 
 By default, Twilio will stop the recording after 5 seconds of silence has been
 detected, but you can easily adjust this number as you see fit. If you're
@@ -304,17 +298,17 @@ we'll email it to ourselves, or something).
 ::
 
     # urls.py
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^record/$', 'django_twilio.views.record', {
+        path('record/', 'django_twilio.views.record', {
             'action': '/call_john/',
             'play_beep': True,
             'transcribe': True,
             'transcribe_callback': '/email_call_transcription/',
         })
         # ...
-    )
+    ]
 
 Sending SMS Messages
 --------------------
@@ -330,14 +324,14 @@ Reply With an SMS
 This example demonstrates a simple SMS reply. Whenever Twilio sends us an
 incoming request, we'll simply send back an SMS message to the sender::
 
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^message/$', 'django_twilio.views.message', {
+        path('message/', 'django_twilio.views.message', {
             'message': 'Thanks for the SMS. Talk to you soon!',
         }),
         # ...
-    )
+    ]
 
 Sending SMS Messages (with Additional Options)
 **********************************************
@@ -345,16 +339,16 @@ Sending SMS Messages (with Additional Options)
 Like most of our other views, the ``django_twilio.views.message`` view also
 allows us to specify some other parameters to change our view's behavior::
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         # ...
-        url(r'^message/$', 'django_twilio.views.message', {
+        path('message/', 'django_twilio.views.message', {
             'message': 'Yo!',
             'to': '+12223334444',
             'sender': '+18882223333',
             'status_callback': '/message/completed/',
         }),
         # ...
-    )
+    ]
 
 Here, we instruct ``django-twilio`` to send an SMS message to the caller
 '+1-222-333-4444' from the sender '+1-888-222-3333'. As you can see,
@@ -373,15 +367,15 @@ allows you to create rich and engaging experiences without the need of a smart p
 
 MMS uses the same view as SMS, but we must include a ``media`` parameter::
 
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^message/$', 'django_twilio.views.message', {
+        path('message/', 'django_twilio.views.message', {
             'message': 'Oh my glob, amazing!',
             'media': 'http://i.imgur.com/UMlp0iK.jpg',
         }),
         # ...
-    )
+    ]
 
 Teleconferencing
 ----------------
@@ -405,12 +399,12 @@ this simple conference room:
 
 1. Edit your project's ``urls.py`` and add the following::
 
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference'),
+        path('conference/<str:name>/', 'django_twilio.views.conference'),
         # ...
-    )
+    ]
 
 2. Now, log into your `Twilio dashboard
    <https://www.twilio.com/user/account/apps>`_ and create a new app. Point the
@@ -434,15 +428,15 @@ Luckily, that's a quick fix!
 
 Open up your ``urls.py`` once more, and add the following::
 
-    urlpatterns = patterns(
+    urlpatterns = [
         '',
         # ...
-        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference', {
+        path('conference/<str:name>/', 'django_twilio.views.conference', {
             'wait_url': 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.rock',
             'wait_method': 'GET',
         })
         # ...
-    )
+    ]
 
 ``django_twilio.views.conference`` allows you to specify optional parameters
 easily in your URL configuration. Here, we're using the ``wait_url`` parameter
@@ -463,15 +457,14 @@ This example shows off how flexible our views can be, and how much we can do
 with just the built-in ``django_twilio.views.conference`` view::
 
     # urls.py
-    urlpatterns = patterns(
-        '',
+    urlpatterns = [
         # ...
-        url(r'^say_hi/$', 'mysite.views.say_hi'),
-        url(r'^conference/(?P<name>\w+)/$', 'django_twilio.views.conference', {
+        path('say_hi/', 'mysite.views.say_hi'),
+        path('conference/<str:name>/', 'django_twilio.views.conference', {
             'wait_url': 'http://yoursite.com/say_hi/',
         })
         # ...
-    )
+    ]
 
     # views.py
     from twilio.twiml.voice_response import VoiceResponse

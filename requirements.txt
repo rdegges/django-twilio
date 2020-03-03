@@ -1,5 +1,4 @@
-Django>=1.11,<3.1
-South>=1.0
+Django>=2.2,<3.1
 Sphinx>=1.2.0
 phonenumbers>=7.0.2
 django-phonenumber-field==2.4.0
