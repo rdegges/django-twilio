@@ -91,5 +91,22 @@ def get_blacklisted_response(request):
     return None
 
 
+def create_sub_account(user, twilio_client, friendly_name=None):
+    new_account = twilio_client.api.accounts.create(friendly_name=friendly_name or user)
+    new_credential = Credential.objects.create(user=user, account_sid=new_account.sid, auth_token=new_account.auth_token, name=new_account.friendly_name)
+    return new_credential, new_account
+
+
+def close_sub_account(account_sid, twilio_client):
+    return twilio_client.accounts(account_sid).update(status="closed")
+
+
+def close_sub_accounts_for_user(user, twilio_client):
+    accounts = []
+    for credential_obj in Credential.objects.filter(user=user):
+        accounts.append(twilio_client.accounts(credential_obj.account_sid).update(status="closed"))
+    return accounts
+
+
 # Backwards compatibility for a poorly named function
 discover_twilio_creds = discover_twilio_credentials
