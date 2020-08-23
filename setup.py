@@ -49,6 +49,8 @@ setup(
     # Metadata for PyPI:
     author='Randall Degges',
     author_email='rdegges@gmail.com',
+    maintainer="Jason Held",
+    maintainer_email="jasonsheld@gmail.com",
     license='UNLICENSE',
     url='https://github.com/rdegges/django-twilio',
     keywords='twilio telephony call phone voip sms django django-twilio',
@@ -56,6 +58,11 @@ setup(
     long_description=open(
         normpath(join(dirname(abspath(__file__)), 'README.rst'))
     ).read(),
+    project_urls={
+        "Documentation": "https://django-twilio.readthedocs.io/en/latest/",
+        "Code": "https://github.com/rdegges/django-twilio",
+        "Tracker": "https://github.com/rdegges/django-twilio/issues",
+    },
     classifiers=[
         'Framework :: Django',
         'Framework :: Django :: 2.2',
