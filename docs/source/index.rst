@@ -58,6 +58,7 @@ Django web applications.
     requests
     views
     rest
+    utils
     gotchas
     howto
     contribute

@@ -250,6 +250,7 @@ man_pages = [
         [
             'Randall, Degges',
             'Paul Hallett',
+            'Jason Held'
         ],
 
         # Manual section
