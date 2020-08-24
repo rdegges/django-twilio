@@ -16,15 +16,15 @@ if sys.version_info[1] == 5:
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 elif sys.version_info[1] == 6:
     # py3.6 can run 1.11 < 3.1 (likely will be <4.0)
-    django_python_version_install = 'Django>=2.2,<3.1',
+    django_python_version_install = 'Django>=2.2,<3.2',
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 elif sys.version_info[1] == 7:
     # py3.7 is 1.11.17 < 3.1 (likely will be <4.0)
-    django_python_version_install = 'Django>=2.2,<3.1'
+    django_python_version_install = 'Django>=2.2,<3.2'
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 elif sys.version_info[1] == 8:
     # py3.8 is 2.2.8 < 3.1 (likely will be <4.0)
-    django_python_version_install = 'Django>=2.2.8,<3.1'
+    django_python_version_install = 'Django>=2.2.8,<3.2'
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 
 setup(
