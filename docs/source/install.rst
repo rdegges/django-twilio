@@ -8,7 +8,7 @@ Firstly, download and install the ``django-twilio`` package.
 The easiest way is with `pip
 <http://www.pip-installer.org/en/latest/>`_ ::
 
-    $ pip install django-twilio
+    $ python -m pip install django-twilio
 
 
 Requirements
@@ -18,17 +18,6 @@ Requirements
 <https://github.com/twilio/twilio-python>`_. The ``twilio-python`` library helps you
 rapidly build Twilio applications, and it is heavily suggested that you check
 out that project before using ``django-twilio``.
-
-If you are using ``django-twilio`` with Django version 1.6.* or less, you **will**
-need to install `South 1.0 <south.readthedocs.org/en/latest/releasenotes/1.0.html>`_.
-Older versions of South will not work. This is due to to recent database migration
-changes that have happened with Django 1.7, you can read more about `the changes here
-<https://docs.djangoproject.com/en/dev/releases/1.7/#what-s-new-in-django-1-7>`_.
-You will also need to install South 1.0 or higher if you are using Python 3.
-
-If you already have South installed, upgrading is easy::
-
-    $ pip install --upgrade South
 
 
 Django Integration
@@ -52,49 +41,12 @@ your ``settings.py`` file::
 .. note::
     Please note the underscore!
 
-Databases for Django 1.6 or lower
----------------------------------
-
-To use ``django-twilio`` with Django 1.6.* or less, you will need to install
-`South 1.0 <http://south.aeracode.org/docs/>`_ with the following terminal
-command::
-
-    $ pip install South==1.0
-
-Or upgrade South to version 1.0::
-
-    $ pip install --upgrade South
-
-Add south to your installed apps::
-
-    INSTALLED_APPS = (
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-
-        'django_twilio',
-        'South'
-        ...
-    )
-
-and run the default ```syncdb``` command::
-
-    $ python manage.py syncdb
-
-To sync the ``django-twilio`` models to the database run::
-
-    $ python manage.py migrate django_twilio
-
-
-Databases for Django 1.7
+Databases
 ------------------------
 
-Django 1.7 has built in migrations, so there is no need to install any
+Django has built in migrations, so there is no need to install any
 third-party schema management tool. To sync the ``django-twilio`` models
-with your Django 1.7 project, just run::
+with your Django project, just run::
 
     $ python manage.py migrate
 
@@ -103,7 +55,7 @@ Upgrading
 
 Upgrading ``django-twilio`` gracefully is easy using pip::
 
-    $ pip install --upgrade django-twilio
+    $ python -m pip install --upgrade django-twilio
 
 Then you just need to update the models::
 

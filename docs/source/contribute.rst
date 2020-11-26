@@ -78,8 +78,6 @@ You'll see output that looks something like::
     django_twilio.migrations                          0      0   100%
     django_twilio.models                             20      0   100%
     django_twilio.settings                            3      0   100%
-    django_twilio.south_migrations                    0      0   100%
-    django_twilio.south_migrations.0001_initial      14      2    86%   30-33
     django_twilio.utils                              30      2    93%   44, 49
     django_twilio.views                              38      0   100%
     ---------------------------------------------------------------------------
