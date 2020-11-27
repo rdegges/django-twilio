@@ -10,10 +10,9 @@ The Twilio REST Client
 ----------------------
 
 The official `Twilio python library
-<http://readthedocs.org/docs/twilio-python/en/latest/>`_ provides a really
+<https://twilio.github.io/twilio-python>`_ provides a really
 awesome wrapper around Twilio's REST API. Before continuing on, you may want to
-read the `official documentation
-<http://readthedocs.org/docs/twilio-python/en/latest/usage/basics.html>`_ for
+read the intro/getting started portion of their docs for
 this feature, as understanding this will make the documentation below
 significantly easier to follow.
 
@@ -22,7 +21,7 @@ How it Works
 ------------
 
 If you are using the `Twilio python library
-<http://readthedocs.org/docs/twilio-python/en/latest/>`_ by itself (without
+<https://twilio.github.io/twilio-python>`_ by itself (without
 ``django-twilio``), you could see a list of all the phone numbers you have
 provisioned to your Twilio account by running the following code::
 
@@ -51,7 +50,7 @@ The ``twilio_client`` Wrapper
 
 As mentioned in the previous section, ``django-twilio`` ships with an
 instantiated ``TwilioRestClient``, so that you can use the `Twilio REST API
-<http://readthedocs.org/docs/twilio-python/en/latest/usage/basics.html>`_ with
+<https://twilio.github.io/twilio-python>`_ with
 as little effort as possible. :)
 
 Using ``django_twilio.client.twilio_client``, you can print a list of all
@@ -91,4 +90,4 @@ can:
 To learn more about what you can do, I suggest reading the `Twilio REST
 documentation <https://www.twilio.com/docs/api/rest>`_ and the `twilio-python
 REST documentation
-<https://twilio-python.readthedocs.org/en/latest/usage/basics.html>`_.
+<https://twilio.github.io/twilio-python>`_.
