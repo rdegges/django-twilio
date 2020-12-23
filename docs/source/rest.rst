@@ -25,14 +25,14 @@ If you are using the `Twilio python library
 ``django-twilio``), you could see a list of all the phone numbers you have
 provisioned to your Twilio account by running the following code::
 
-    from twilio.rest import TwilioRestClient
+    from twilio.rest import Client
 
 
     # Your private Twilio API credentials.
     ACCOUNT_SID = 'xxx'
     AUTH_TOKEN = 'xxx'
 
-    client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
     for number in client.incoming_phone_numbers.stream():
         print(number.friendly_name)
 
@@ -42,14 +42,14 @@ engineering by making you manually specify your account credentials.
 
 Since ``django-twilio`` already requires you to enter your Twilio credentials in
 your ``settings.py`` file, ``django-twilio`` provides a simple wrapper around
-``TwilioRestClient``: ``django_twilio.client.twilio_client``.
+``Client``: ``django_twilio.client.twilio_client``.
 
 
 The ``twilio_client`` Wrapper
 -----------------------------
 
 As mentioned in the previous section, ``django-twilio`` ships with an
-instantiated ``TwilioRestClient``, so that you can use the `Twilio REST API
+instantiated ``twilio.rest.Client``, so that you can use the `Twilio REST API
 <https://twilio.github.io/twilio-python>`_ with
 as little effort as possible. :)
 
