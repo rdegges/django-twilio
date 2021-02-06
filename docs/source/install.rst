@@ -111,9 +111,9 @@ You can create a Credential object to store your variables if you want to use
 multiple Twilio accounts or provide your users with Twilio compatibility.
 
 When you want to use the credentials in a Credential object you need to manually
-build a TwilioRestClient like so::
+build a ``twilio.rest.Client`` like so::
 
-    from twilio.rest import TwilioRestClient
+    from twilio.rest import Client
     from django_twilio.utils import discover_twilio_credentials
 
     from django.contrib.auth.models import User
@@ -123,4 +123,4 @@ build a TwilioRestClient like so::
     account_sid, auth_token = discover_twilio_credentials(my_user)
 
     # Here we'll build a new Twilio_client with different credentials
-    twilio_client = TwilioRestClient(account_sid, auth_token)
+    twilio_client = Client(account_sid, auth_token)

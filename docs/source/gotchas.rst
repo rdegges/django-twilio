@@ -39,7 +39,7 @@ Missing Settings
 ``TWILIO_ACCOUNT_SID`` and ``TWILIO_AUTH_TOKEN``, either as environment
 variables, or in your site's ``settings`` module. These are used to verify the
 legitimacy of HTTP requests to your Twilio views, and to instantiate the
-TwilioRestClient.
+``twilio.rest.Client``.
 
 If these variables are missing, ``django-twilio`` will raise HTTP 403
 (forbidden) errors, because it is unable to determine whether or not the HTTP
