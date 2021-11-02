@@ -9,29 +9,32 @@ import sys
 INSTALL_PYTHON_REQUIRES = []
 # We are intending to keep up to date with the supported Django versions.
 # For the official support, please visit:
-# https://docs.djangoproject.com/en/3.0/faq/install/#what-python-version-can-i-use-with-django and you may change the version in the URL to suit your needs, and we will try to update that here too as we upgrade with django.
+# https://docs.djangoproject.com/en/3.2/faq/install/#what-python-version-can-i-use-with-django and you may change the version in the URL to suit your needs, and we will try to update that here too as we upgrade with django.
 if sys.version_info[1] == 5:
-    # py3.5 can run 1.11 < 2.2
     django_python_version_install = 'Django>=2.2,<3.0',
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 elif sys.version_info[1] == 6:
-    # py3.6 can run 1.11 < 3.1 (likely will be <4.0)
-    django_python_version_install = 'Django>=2.2,<3.2',
+    django_python_version_install = 'Django>=2.2,<3.3',
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 elif sys.version_info[1] == 7:
-    # py3.7 is 1.11.17 < 3.1 (likely will be <4.0)
-    django_python_version_install = 'Django>=2.2,<3.2'
+    django_python_version_install = 'Django>=2.2,<3.3'
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 elif sys.version_info[1] == 8:
-    # py3.8 is 2.2.8 < 3.1 (likely will be <4.0)
-    django_python_version_install = 'Django>=2.2.8,<3.2'
+    django_python_version_install = 'Django>=2.2.8,<3.3'
+    INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+elif sys.version_info[1] == 9:
+    # slightly too broad (3.0.11 for v3.0, and 3.1.3 for v3.1) -- may need to fix
+    django_python_version_install = 'Django>=2.2.17,<3.3'
+    INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
+elif sys.version_info[1] == 10:
+    django_python_version_install = 'Django>=3.2.9,<3.3'
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 
 setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.13.1.post0',
+    version='0.13.2',
     packages=find_packages(),
 
     # Packaging options:
@@ -77,6 +80,8 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Internet :: WWW/HTTP',
