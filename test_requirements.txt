@@ -1,6 +1,6 @@
 coverage==4.5.4
 django-dynamic-fixture==3.1.1
-django-nose==1.4.6
-flake8==3.7.9
-ipdb==0.12.2
-ipython==7.16.3
+django-nose==1.4.7
+flake8==4.0.1
+ipdb==0.13.9
+ipython==8.1.1
