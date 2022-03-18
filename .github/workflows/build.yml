@@ -27,4 +27,4 @@ jobs:
         python -m pip install -e .
     - name: Run Tests
       run: |
-        python -m manage test
+        pytest

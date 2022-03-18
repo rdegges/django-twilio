@@ -8,9 +8,9 @@ import sys
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from distutils.version import StrictVersion
 
 import django
+import packaging.version
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -98,7 +98,7 @@ SECRET_KEY = 'j1wd@qqodn-r9h&o@0jj!uw^#pm5wcdu2^cdsax=hm+-mk705p'
 # We will forge a plan to remove at least the unsupported versions soon.
 # Django 2.0 is the future, but 1.11 is still supported.
 # This test_project though is simple enough that the restrictions are small.
-if StrictVersion(django.__version__) < StrictVersion('2.0'):
+if packaging.version.Version(django.__version__) < packaging.version.Version('2.0'):
     MIDDLEWARE_CLASSES = (
         'django.middleware.common.CommonMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -147,18 +147,9 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
 
-    # Use django-nose for running our tests:
-    'django_nose',
-
     # django-twilio, of course!
     'django_twilio',
 )
-
-# Nose test settings.
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = ['--with-coverage', '--cover-package=django_twilio']
-
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
