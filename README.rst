@@ -38,7 +38,7 @@ This project aims to keep compatibility with the supported Django releases.
 As such our versions of python and django are designed to match that cadence as much as possible.
 
 
-We are currently compatible with Django 2.2 and 3.2. Python versions 3.5 to 3.10.
+We are currently compatible with Django 4. Python versions 3.8 to 3.10.
 
 Documentation
 -------------
