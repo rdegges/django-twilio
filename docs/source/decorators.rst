@@ -68,7 +68,7 @@ Here's the same thing as above, using a class-based view::
 
         @method_decorator(twilio_view)
         def dispatch(self, request, *args, **kwargs):
-            return super(ResponseView, self).dispatch(request, *args, **kwargs)
+            return super(ThanksView, self).dispatch(request, *args, **kwargs)
 
         def post(self, request):
             r = MessagingResponse()
