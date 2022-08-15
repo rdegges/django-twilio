@@ -18,7 +18,7 @@ setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.14.0.a1',
+    version='0.14.0',
     packages=find_packages(),
 
     # Packaging options:
