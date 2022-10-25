@@ -10,15 +10,15 @@ INSTALL_PYTHON_REQUIRES = []
 # We are intending to keep up to date with the supported Django versions.
 # For the official support, please visit:
 # https://docs.djangoproject.com/en/4.0/faq/install/#what-python-version-can-i-use-with-django
-if sys.version_info[1] in [8, 9, 10]:
-    django_python_version_install = "Django>=4.0,<4.1"
+if sys.version_info[1] in [8, 9, 10, 11]:
+    django_python_version_install = "Django>=4.0,<4.2"
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 
 setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.14.2',
+    version='0.14.3',
     packages=find_packages(),
 
     # Packaging options:
@@ -63,6 +63,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Internet :: WWW/HTTP',
