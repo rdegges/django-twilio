@@ -18,7 +18,7 @@ setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.14.1',
+    version='0.14.2',
     packages=find_packages(),
 
     # Packaging options:
@@ -53,6 +53,7 @@ setup(
     classifiers=[
         'Framework :: Django',
         'Framework :: Django :: 4.0',
+        'Framework :: Django :: 4.1',
         'Intended Audience :: Developers',
         'License :: Public Domain',
         'Operating System :: OS Independent',
