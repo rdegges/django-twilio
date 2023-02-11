@@ -4,4 +4,4 @@ django-nose==1.4.7
 pytest-django==4.5.2
 flake8==4.0.1
 ipdb==0.13.9
-ipython==8.1.1
+ipython==8.10.0
