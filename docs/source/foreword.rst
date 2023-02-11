@@ -50,7 +50,7 @@ Prerequisite Knowledge
 ======================
 
 Before getting started with ``django-twilio``, it will serve you best to read
-the `How it Works <http://www.twilio.com/api/>`_ page on Twilio's website. That
+the `How it Works <https://www.twilio.com/docs/api>`_ page on Twilio's website. That
 describes the architecture and API flow that all of your applications will be
 using, and that ``django-twilio`` will help to abstract.
 
