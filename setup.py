@@ -28,7 +28,7 @@ setup(
     # Package dependencies:
     install_requires=[
         'setuptools>=36.2',
-        'twilio>=7,<8',
+        'twilio>=7',
         'django-phonenumber-field>=0.6',
         'phonenumbers>=8.10.22',
     ] + INSTALL_PYTHON_REQUIRES,
