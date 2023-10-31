@@ -2,6 +2,6 @@ Django>=2.2,<4.3
 Sphinx>=1.2.0
 phonenumbers>=7.0.2
 django-phonenumber-field==6.1.0
-twilio>=6.3.0
+twilio>=7
 wheel>=0.22.0
 setuptools>=36.2
