@@ -83,7 +83,7 @@ def twilio_view(f):
             try:
                 validator = RequestValidator(TWILIO_AUTH_TOKEN)
                 url = request.build_absolute_uri()
-                signature = request.META['HTTP_X_TWILIO_SIGNATURE']
+                signature = request.headers['x-twilio-signature']
             except (AttributeError, KeyError):
                 return HttpResponseForbidden()
 
