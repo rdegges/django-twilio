@@ -10,6 +10,7 @@ from django.contrib import admin
 from .models import Caller, Credential
 
 
+@admin.register(Caller)
 class CallerAdmin(admin.ModelAdmin):
     """This class provides admin panel integration for our
     :class:`django_twilio.models.Caller` model.
@@ -17,5 +18,4 @@ class CallerAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'blacklisted')
 
 
-admin.site.register(Caller, CallerAdmin)
 admin.site.register(Credential)
