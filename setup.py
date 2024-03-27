@@ -9,9 +9,11 @@ import sys
 INSTALL_PYTHON_REQUIRES = []
 # We are intending to keep up to date with the supported Django versions.
 # For the official support, please visit:
-# https://docs.djangoproject.com/en/4.0/faq/install/#what-python-version-can-i-use-with-django
-if sys.version_info[1] in [8, 9, 10, 11]:
-    django_python_version_install = "Django>=4.0,<=5.0"
+# https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
+if py_minor_version := sys.version_info[1] in [8, 9, 10, 11]:
+    django_python_version_install = (
+        f"Django>=4.0,<{'6' if py_minor_version >= 10 else '5'}"
+    )
     INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 
 setup(
