@@ -4,4 +4,4 @@ phonenumbers>=7.0.2
 django-phonenumber-field==6.1.0
 twilio>=7
 wheel>=0.22.0
-setuptools>=36.2
+setuptools>=70.0.0
