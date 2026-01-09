@@ -20,7 +20,7 @@ setup(
 
     # Basic package information:
     name='django-twilio',
-    version='0.14.3.4-a1',
+    version='0.14.3.4',
     packages=find_packages(),
 
     # Packaging options:
@@ -56,6 +56,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 4.0',
         'Framework :: Django :: 4.1',
+        'Framework :: Django :: 5.0',
         'Intended Audience :: Developers',
         'License :: Public Domain',
         'Operating System :: OS Independent',
