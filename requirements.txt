@@ -5,3 +5,5 @@ django-phonenumber-field==6.1.0
 twilio>=7
 wheel>=0.22.0
 setuptools>=36.2
+sqlparse>=0.5.4 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.6.0 # not directly required, pinned by Snyk to avoid a vulnerability
