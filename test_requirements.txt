@@ -6,3 +6,4 @@ flake8==4.0.1
 ipdb==0.13.9
 ipython==8.10.0
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
