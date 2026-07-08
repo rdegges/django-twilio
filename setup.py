@@ -3,18 +3,6 @@ from __future__ import unicode_literals, absolute_import
 from os.path import abspath, dirname, join, normpath
 
 from setuptools import find_packages, setup
-import sys
-
-
-INSTALL_PYTHON_REQUIRES = []
-# We are intending to keep up to date with the supported Django versions.
-# For the official support, please visit:
-# https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
-if (py_minor_version := sys.version_info.minor) in [8, 9, 10, 11]:
-    django_python_version_install = (
-        f"Django>=4.0,<{'6' if py_minor_version >= 10 else '5'}"
-    )
-    INSTALL_PYTHON_REQUIRES.append(django_python_version_install)
 
 setup(
 
@@ -27,13 +15,15 @@ setup(
     zip_safe=False,
     include_package_data=True,
 
+    python_requires='>=3.10',
     # Package dependencies:
     install_requires=[
         'setuptools>=36.2',
         'twilio>=7',
-        'django-phonenumber-field>=0.6',
+        'Django>=4.2,<7',
+        'django-phonenumber-field[phonenumbers]>=8.4.0',
         'phonenumbers>=8.10.22',
-    ] + INSTALL_PYTHON_REQUIRES,
+    ],
 
     # Metadata for PyPI:
     author='Randall Degges',
@@ -54,18 +44,21 @@ setup(
     },
     classifiers=[
         'Framework :: Django',
-        'Framework :: Django :: 4.0',
-        'Framework :: Django :: 4.1',
+        'Framework :: Django :: 4.2',
+        'Framework :: Django :: 5.1',
+        'Framework :: Django :: 5.2',
+        'Framework :: Django :: 6.0',
         'Intended Audience :: Developers',
         'License :: Public Domain',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Internet :: WWW/HTTP',
